@@ -1,13 +1,33 @@
 public class Main extends Page {
     
     public Main() {
-    	menuDescription = new String[] {"로그인", "회원가입", "종료"};
-        menu = new Menu[menuDescription.length-1];
-        menu[0] = () -> {
-            System.out.println("로그인");
-        };
-        menu[1] = () -> {
-            System.out.println("회원가입");
-        };
+    	Menu[] menu = new Menu[3];
+    	
+    	menu[0] = new Menu("로그인") {
+    		public boolean execute() {
+    			System.out.print("ID: ");
+    			
+    			
+    			
+    			
+    			return true;
+    		};
+    	};
+    	
+    	menu[1] = new Menu("회원가입") {
+    		public boolean execute() {
+    			System.out.println("회원가입 기능 실행");
+    			return true;
+    		};
+    	};
+    	
+    	menu[2] = new Menu("종료") {
+    		public boolean execute() {
+    			System.out.println("게임 종료");
+    			return false;
+    		};
+    	};
+    	
+    	this.setMenu(menu);
     }
 }
