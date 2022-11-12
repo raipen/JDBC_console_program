@@ -1,26 +1,26 @@
 
 public class Login extends Page {
-	public Login() {
-		Menu[] menu = new Menu[3];
-		menu[0] = new Menu("로그인") {
+	UserDTO user;
+	public Login(UserDTO user) {
+		this.user = user;
+		System.out.println(user.getId() + "님 환영합니다.");
+		addMenu(new Menu("캐릭터 선택하기") {
 			public boolean execute() {
 				System.out.println("로그인 기능 실행");
 				return true;
 			};
-		};
-		menu[1] = new Menu("회원가입") {
+		});
+		addMenu(new Menu("회원가입") {
 			public boolean execute() {
 				System.out.println("회원가입 기능 실행");
 				return true;
 			};
-		};
-		menu[2] = new Menu("종료") {
+		});
+		addMenu(new Menu("로그아웃") {
 			public boolean execute() {
-				System.out.println("게임 종료");
+				System.out.println("로그아웃");
 				return false;
 			};
-		};
-
-		this.setMenu(menu);
+		});
 	}
 }
