@@ -41,9 +41,10 @@ public class Main extends Page {
 
 	private void signUp() {
 		Scanner scanner = Stdin.getScanner();
-		String id = scanner.nextLine();
+		String id;
 		do {
 			System.out.print("ID(Enter QUIT to return to the main menu): ");
+			id = scanner.nextLine();
 			if (id.equals("QUIT")) {
 				return;
 			}
