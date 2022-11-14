@@ -1,27 +1,29 @@
 public class UserDTO {
-    private String id;
-    private String pw;
+    private String userID;
+    private String password;
     
     public UserDTO() {}
     
-    public UserDTO(String id, String pw) {
-        this.id = id;
-        this.pw = pw;
+    public UserDTO(String userID, String password) {
+        this.userID = userID;
+        this.password = password;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getPw() {
-        return pw;
-    }
-
-	public void setId(String id) {
-		this.id = id;
+	public String getUserID() {
+		return userID;
 	}
 
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+    
 }

@@ -44,13 +44,19 @@ public class Main extends Page {
 	private void signUp() {
 		Scanner scanner = Stdin.getScanner();
 		String id;
-		do {
-			System.out.print("ID(Enter QUIT to return to the main menu): ");
+		System.out.print("ID(메인 메뉴로 나가시려면 \"QUIT\"를 입력해주세요): ");
+		id = scanner.nextLine();
+		if (id.equals("QUIT")) {
+			return;
+		}
+		while (userDAO.isExist(id)){
+            System.out.println("이미 존재하는 ID입니다.");
+			System.out.print("ID(메인 메뉴로 나가시려면 \"QUIT\"를 입력해주세요): ");
 			id = scanner.nextLine();
 			if (id.equals("QUIT")) {
 				return;
 			}
-		} while (userDAO.isExist(id));
+		}
 		System.out.print("PW: ");
 		String pw = scanner.nextLine();
 		boolean signUpSuccess = userDAO.signUp(id, pw);
