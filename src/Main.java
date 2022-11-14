@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Main extends Page {
+	
+	UserDAO userDAO = UserDAO.getInstance();
 
 	public Main() {
 		addMenu(new Menu("로그인") {
@@ -31,7 +33,7 @@ public class Main extends Page {
 		}
 		System.out.print("PW: ");
 		String pw = scanner.nextLine();
-		UserDTO user = UserDAO.login(id, pw);
+		UserDTO user = userDAO.login(id, pw);
 		if (user != null) {
 			new Login(user).start();
 		} else {
@@ -48,14 +50,13 @@ public class Main extends Page {
 			if (id.equals("QUIT")) {
 				return;
 			}
-		} while (UserDAO.isExist(id));
+		} while (userDAO.isExist(id));
 		System.out.print("PW: ");
 		String pw = scanner.nextLine();
-		UserDTO user = UserDAO.signUp(id, pw);
-		if (user != null) {
-			new Login(user).start();
-		} else {
-			System.out.println("회원가입 실패");
-		}
+		boolean signUpSuccess = userDAO.signUp(id, pw);
+		if (signUpSuccess)
+			System.out.println("회원가입 성공");
+		else
+			System.out.println("회원가입 실패");	
 	}
 }
