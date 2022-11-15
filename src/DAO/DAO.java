@@ -1,4 +1,7 @@
+package DAO;
+
 import java.sql.*;
+
 public class DAO {
     private final String URL = "jdbc:oracle:thin:@localhost:1600:xe";
 	private final String USER_UNIVERSITY ="hoban";

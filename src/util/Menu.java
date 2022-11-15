@@ -1,3 +1,4 @@
+package util;
 
 public abstract class Menu {
 	
@@ -16,6 +17,10 @@ public abstract class Menu {
 	}
 	
 	public abstract void execute();
+	
+	public void setIsExit(boolean t) {
+		this.isExit = t;
+	}
 	
 	public boolean isExit() {
 		return isExit;

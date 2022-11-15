@@ -1,6 +1,9 @@
+package page;
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import util.*;
 
 public class Page {
 	private List<Menu> menu = new ArrayList<Menu>();

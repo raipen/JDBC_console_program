@@ -1,3 +1,5 @@
+package DTO;
+
 public class UserDTO {
     private String userID;
     private String password;

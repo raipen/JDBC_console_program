@@ -1,4 +1,10 @@
+package page;
+
 import java.util.Scanner;
+
+import DAO.UserDAO;
+import DTO.UserDTO;
+import util.*;
 
 public class Main extends Page {
 	
@@ -34,10 +40,12 @@ public class Main extends Page {
 		System.out.print("PW: ");
 		String pw = scanner.nextLine();
 		UserDTO user = userDAO.login(id, pw);
-		if (user != null) {
-			new Login(user).start();
-		} else {
+		if (user == null) {
 			System.out.println("로그인 실패");
+		} else if (user.getUserID().startsWith("gamemanager")) {
+			new GameManager().start();
+		} else {
+			new Login(user).start();
 		}
 	}
 
