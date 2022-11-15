@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import DAO.UserDAO;
 import DTO.UserDTO;
+import GameManager.GameManagerMain;
 import util.*;
 
 public class Main extends Page
@@ -56,7 +57,7 @@ public class Main extends Page
 		}
 		else if (user.getUserID().startsWith("gamemanager"))
 		{
-			new GameManager().start();
+			new GameManagerMain().start();
 		}
 		else
 		{

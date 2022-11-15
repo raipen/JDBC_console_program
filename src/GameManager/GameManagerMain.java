@@ -1,11 +1,12 @@
-package page;
+package GameManager;
 
 import DTO.UserDTO;
+import page.*;
 import util.*;
 
-public class GameManager extends Page
+public class GameManagerMain extends Page
 {
-	public GameManager()
+	public GameManagerMain()
 	{
 		System.out.println("관리자님 환영합니다.");
 

@@ -1,5 +1,6 @@
-package page;
+package GameManager;
 
+import page.*;
 import util.*;
 
 public class UserControl extends Page
