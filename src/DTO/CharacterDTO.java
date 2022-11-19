@@ -16,6 +16,12 @@ public class CharacterDTO {
         this.exp = exp;
         this.skillID = skillID;
     }
+    public CharacterDTO(String characterID, String characterName, int lv, int exp) {
+        this.characterID = characterID;
+        this.characterName = characterName;
+        this.lv = lv;
+        this.exp = exp;
+    }
 
     public String getCharacterID() {
         return characterID;
@@ -58,5 +64,8 @@ public class CharacterDTO {
     }
     public String toString(){
         return ": "+characterName  ;
+    }
+    public void printinfo(){
+       System.out.printf("\n닉네임:%10s lv:%3d exp:%4d\n",characterName,lv,exp);
     }
 }
