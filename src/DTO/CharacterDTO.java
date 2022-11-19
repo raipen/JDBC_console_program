@@ -56,4 +56,7 @@ public class CharacterDTO {
     public void setSkillID(String skillID) {
         this.skillID = skillID;
     }
+    public String toString(){
+        return ": "+characterName  ;
+    }
 }

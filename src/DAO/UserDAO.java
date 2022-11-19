@@ -124,7 +124,7 @@ public class UserDAO extends DAO{
         List<CharacterDTO> characterList = new LinkedList<CharacterDTO>();
         try{
             conn = getConnection();
-            String sql = "SELECT * FROM CHARACTERS WHERE userID = ?";
+            String sql = "SELECT * FROM CHARACTERS c, uses u WHERE c.characterid=u.characterid and userID = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();

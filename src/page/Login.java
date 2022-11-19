@@ -8,14 +8,22 @@ import java.util.List;
 public class Login extends Page {
 	UserDTO user;
 	UserDAO userDAO = UserDAO.getInstance();
+	RecordDTO record;
+	RecordDAO recordDAO=RecordDAO.getInstance();
 	public Login(UserDTO user) {
 		this.user = user;
 		System.out.println(user.getUserID() + "님 환영합니다.");
 		
 		addMenu(new Menu("캐릭터 선택하기") {
 			public void execute() {
-				
+				List<CharacterDTO> CharacterList = userDAO.getCharacterList(user.getUserID());
+				int num=1;
+				for (CharacterDTO character : CharacterList) {
+					System.out.printf("%d",num++);
+					System.out.println(character);
+				}
 			};
+			
 		});
 		addMenu(new Menu("보유 아이템 조회") {
 			public void execute() {
@@ -25,9 +33,13 @@ public class Login extends Page {
 				}
 			};
 		});
-		addMenu(new Menu("랭킹 보기") {
+		addMenu(new Menu("기록 보기") {
 			public void execute() {
-				
+				System.out.printf("  닉네임:      mapNo:     기록(ms)\n");
+				List<RecordDTO> RecordList = recordDAO.getRecordList(user.getUserID());
+				for (RecordDTO record : RecordList) {
+					record.printrecord();
+				}	
 			};
 		});
 		addMenu(new Menu("비밀번호 변경") {
