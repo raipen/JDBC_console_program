@@ -16,12 +16,13 @@ public class Login extends Page {
 		
 		addMenu(new Menu("캐릭터 선택하기") {
 			public void execute() {
-				List<CharacterDTO> CharacterList = userDAO.getCharacterList(user.getUserID());
+				/*List<CharacterDTO> CharacterList = userDAO.getCharacterList(user.getUserID());
 				int num=1;
 				for (CharacterDTO character : CharacterList) {
 					System.out.printf("%d",num++);
 					System.out.println(character);
-				}
+				}*/
+				new Choise(user).start();
 			};
 			
 		});
