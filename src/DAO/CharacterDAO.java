@@ -54,8 +54,16 @@ public class CharacterDAO extends DAO{
             pstmt.setInt(5, 0); //exp
             pstmt.setString(6, skillid);
             
-       
+            
             int result = pstmt.executeUpdate();
+            
+            sql = "INSERT INTO Abilities VALUES(?, ?, ?, ?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, characterid);
+            pstmt.setInt(2, 5); //speed
+            pstmt.setInt(3, 3); //life
+            pstmt.setInt(4, 0); //cooldown
+            result = pstmt.executeUpdate();
             if(result == 1){
             	MakeSuccess = true;
             }

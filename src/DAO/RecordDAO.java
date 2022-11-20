@@ -42,6 +42,59 @@ public class RecordDAO extends DAO{
         }
         return RecordList;
     }
+    
+    public List<RecordDTO> getCountRecordList(String id) {
+        List<RecordDTO> RecordList = new LinkedList<RecordDTO>();
+        try{
+            conn = getConnection();
+            String sql = "SELECT"
+            		+ "    M.mapname, count(*) AS clearCount"
+            		+ " FROM"
+            		+ "    records R, characters C, maps M\r\n"
+            		+ " WHERE"
+            		+ "    R.characterID = C.characterID"
+            		+ "    AND R.mapno = M.mapno and c.userid=?"
+            		+ " GROUP BY M.mapname";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                System.out.printf("%-10s %-3d\n",rs.getString("mapname"),rs.getInt("clearcount"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            closeConnection(conn, pstmt, rs);
+        }
+        return RecordList;
+    }
+    public List<RecordDTO> getSkillRecordList(String id) {
+        List<RecordDTO> RecordList = new LinkedList<RecordDTO>();
+        try{
+            conn = getConnection();
+            String sql = "SELECT"
+            		+ "    S.skillname, count(*) AS ClearCount"
+            		+ " FROM"
+            		+ "    records R, characters C, skills S"
+            		+ " WHERE"
+            		+ "    R.characterID = C.characterID"
+            		+ "    AND C.skillID = S.skillID"
+            		+ "    and c.userid=?"
+            		+ "group by"
+            		+ "    S.skillName";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                System.out.printf("%-10s %-5d\n",rs.getString("skillname"),rs.getInt("clearcount"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            closeConnection(conn, pstmt, rs);
+        }
+        return RecordList;
+    }
 
    
 }
