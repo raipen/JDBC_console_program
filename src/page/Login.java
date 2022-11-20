@@ -14,7 +14,7 @@ public class Login extends Page {
 		this.user = user;
 		System.out.println(user.getUserID() + "님 환영합니다.");
 		
-		addMenu(new Menu("캐릭터 선택하기") {
+		addMenu(new Menu("캐릭터 창") {
 			public void execute() {
 				
 				new Choise(user).start();
