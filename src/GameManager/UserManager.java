@@ -8,11 +8,11 @@ import DAO.*;
 import DTO.*;
 import util.*;
 
-public class UserControl extends Page
+public class UserManager extends Page
 {
 	UserDAO_GM userDAO = UserDAO_GM.getInstance();
 
-	public UserControl(UserDTO user)
+	public UserManager(UserDTO user)
 	{
 		addMenu(new Menu("보유 캐릭터 조회")
 		{
@@ -32,7 +32,7 @@ public class UserControl extends Page
 		{
 			public void execute()
 			{
-				System.out.print("1. ID 변경\t2. PW 변경\telse. 취소\n메뉴를 선택하세요 : ");
+				System.out.print("1. ID 변경\n2. PW 변경\nelse. 취소\n메뉴를 선택하세요 : ");
 				int selected = Stdin.getScanner().nextInt();
 				Stdin.getScanner().nextLine();
 				if (selected == 1)

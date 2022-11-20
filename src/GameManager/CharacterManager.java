@@ -5,18 +5,28 @@ import DTO.*;
 import page.*;
 import util.*;
 
-public class CharacterControl extends Page
+public class CharacterManager extends Page
 {
 	CharacterDAO characterDAO = CharacterDAO.getInstance();
 
-	public CharacterControl(CharacterDTO_GM charcater)
+	public CharacterManager(CharacterDTO_GM charcater)
 	{
+		addMenu(new Menu("능력 조회")
+		{
+			public void execute()
+			{
+				AbilityDAO abilityDAO = AbilityDAO.getInstance();
+				AbilityDTO ability = abilityDAO.getAbility(charcater);
+				System.out.println("SPEED: " + ability.getSpeed() + "\tLIFE: "
+						+ ability.getLife() + "\tCOOLDOWN: " + ability.getCoolDown());
+			};
+		});
+
 		addMenu(new Menu("수정")
 		{
 			public void execute()
 			{
-				System.out
-						.print("1. 캐릭터명 변경\t2. LV 변경\t3. EXP 변경\telse. 취소\n메뉴를 선택하세요 : ");
+				System.out.print("1. 캐릭터명 변경\n2. LV 변경\n3. EXP 변경\n4. 취소\n메뉴를 선택하세요 : ");
 				int selected = Stdin.getScanner().nextInt();
 				Stdin.getScanner().nextLine();
 //				if (selected == 1)
@@ -52,7 +62,7 @@ public class CharacterControl extends Page
 				}
 			};
 		});
-		
+
 		addMenu(new Menu("삭제")
 		{
 			public void execute()
@@ -72,7 +82,7 @@ public class CharacterControl extends Page
 				}
 			};
 		});
-		
+
 		addMenu(new Menu("뒤로가기", true)
 		{
 			public void execute()

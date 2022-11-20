@@ -2,8 +2,7 @@ package GameManager;
 
 import java.util.*;
 
-import DAO.CharacterDAO;
-import DAO.UserDAO_GM;
+import DAO.*;
 import DTO.*;
 import page.*;
 import util.*;
@@ -43,7 +42,7 @@ public class GameManagerMain extends Page
 				for (UserDTO U : userList)
 					System.out.println(U.getUserID() + "\t" + U.getPassword());
 
-				if (userList.size() == 1) new UserControl(userList.get(0)).start();
+				if (userList.size() == 1) new UserManager(userList.get(0)).start();
 			};
 		});
 
@@ -78,7 +77,7 @@ public class GameManagerMain extends Page
 									+ "\t" + U.getSkillID() + "\t\t" + U.getUserID());
 				
 				if (characterList.size() == 1)
-					new CharacterControl(characterList.get(0)).start();
+					new CharacterManager(characterList.get(0)).start();
 			};
 		});
 

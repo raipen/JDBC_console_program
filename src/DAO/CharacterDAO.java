@@ -1,15 +1,12 @@
 package DAO;
 
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-import DTO.CharacterDTO_GM;
-import DTO.UserDTO;
+import DTO.*;
 
 public class CharacterDAO extends DAO
 {
-
 	private static CharacterDAO instance;
     private Connection conn = null;
     private PreparedStatement pstmt = null;
