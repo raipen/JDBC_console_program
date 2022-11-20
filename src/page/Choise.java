@@ -109,8 +109,35 @@ public class Choise extends Page {
 		});
 		addMenu(new Menu("캐릭터 삭제하기") {
 			public void execute() {
+				List<CharacterDTO> CharacterList = userDAO.getCharacterList(user.getUserID());
+				System.out.println("정말 삭제하시겠습니까? (y/n)");
+				String answer = Stdin.getScanner().nextLine();
 				
-				};
+				if (answer.equals("y")) {
+					int num=1;
+					for (CharacterDTO character : CharacterList) {
+						System.out.printf("%d",num++);
+						System.out.println(character);
+					}
+					Scanner sc = Stdin.getScanner();
+					int selected;
+					while (true) {
+						System.out.print("캐릭터를 선택하세요 : ");
+						selected = sc.nextInt();
+						sc.nextLine(); //버퍼비우기
+						if (selected >= 1 && selected <= CharacterList.size())
+							break;
+						System.out.println("잘못된 번호입니다.");
+					}					
+					
+					boolean result=characterDAO.deleteCharacter(CharacterList.get(selected-1).getCharacterID());
+					if(result) System.out.println("삭제되었습니다.");
+					else System.out.println("캐릭터 삭제실패");
+				}
+				else {
+					System.out.println("삭제가 취소되었습니다.");
+				}
+			};
 		});
 		addMenu(new Menu("뒤로가기",true) {
 			public void execute() {

@@ -130,13 +130,13 @@ public class CharacterDAO extends DAO{
         return result;
     }
 
-    public boolean deleteAccount(String id) {
+    public boolean deleteCharacter(String characterID) {
         boolean result = false;
         try{
             conn = getConnection();
-            String sql = "DELETE FROM USERS WHERE userID = ?";
+            String sql = "DELETE FROM Characters WHERE characterid = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
+            pstmt.setString(1, characterID);
             int deleteResult = pstmt.executeUpdate();
             if(deleteResult == 1){
                 result = true;
@@ -186,4 +186,5 @@ public class CharacterDAO extends DAO{
         }
         return itemList;
     }
+
 }
