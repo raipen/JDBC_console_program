@@ -31,7 +31,7 @@ public class Login extends Page {
 		});
 		addMenu(new Menu("기록 보기") {
 			public void execute() {
-				System.out.printf("  닉네임:      mapNo:     기록(ms)\n");
+				System.out.printf("     닉네임:     mapName:     기록(ms)\n");
 				List<RecordDTO> RecordList = recordDAO.getRecordList(user.getUserID());
 				for (RecordDTO record : RecordList) {
 					record.printrecord();

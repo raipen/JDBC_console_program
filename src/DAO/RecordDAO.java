@@ -26,14 +26,14 @@ public class RecordDAO extends DAO{
         try{
             conn = getConnection();
             String sql = "select * "
-            		+ "from records r,users u,characters c "
-            		+ "where r.characterid=c.characterid and u.userid=c.userid and u.userid = ?"
+            		+ "from records r,users u,characters c,maps m "
+            		+ "where m.mapno=r.mapno and r.characterid=c.characterid and u.userid=c.userid and u.userid = ?"
             		+ "order by c.charactername asc";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();
             while(rs.next()){
-                RecordList.add(new RecordDTO(rs.getString("characterID"),rs.getString("mapno"),rs.getInt("recordNo"),rs.getInt("clearTime"),rs.getString("charactername")));
+                RecordList.add(new RecordDTO(rs.getString("characterID"),rs.getString("mapno"),rs.getInt("recordNo"),rs.getInt("clearTime"),rs.getString("charactername"),rs.getString("mapname")));
             }
         }catch(Exception e){
             e.printStackTrace();

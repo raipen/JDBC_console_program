@@ -54,6 +54,7 @@ public class CharacterDAO extends DAO{
             pstmt.setInt(5, 0); //exp
             pstmt.setString(6, skillid);
             
+       
             int result = pstmt.executeUpdate();
             if(result == 1){
             	MakeSuccess = true;
@@ -161,7 +162,30 @@ public class CharacterDAO extends DAO{
         }
         return characterList;
     }
-
+    
+    public void printAbilityList(String id) {
+        try{
+            conn = getConnection();
+            String sql = "SELECT"
+            		+ " *"
+            		+ " FROM"
+            		+ "    characters C, skills S,Abilities A"
+            		+ " WHERE"
+            		+ "    C.skillID = S.skillID"
+            		+ "    AND C.characterID = A.characterID and userid=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+            	System.out.printf("%6s:%15s:%3d:%4d:%8d\n",rs.getString("charactername"),rs.getString("skillname"),rs.getInt("speed"),rs.getInt("life"),rs.getInt("cooldown"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            closeConnection(conn, pstmt, rs);
+        }
+    }
+    
     public List<ItemDTO> getList(String id) {
         List<ItemDTO> itemList = new LinkedList<ItemDTO>();
         try{

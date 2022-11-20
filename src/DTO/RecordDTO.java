@@ -7,15 +7,18 @@ public class RecordDTO {
     private int recordno;
     private int cleartime;
     private String charactername;
+    private String mapname;
     
-    public RecordDTO() {}
+   
+	public RecordDTO() {}
     
-    public RecordDTO(String Characterid, String mapno,int recordno,int cleartime,String charactername) {
+    public RecordDTO(String Characterid, String mapno,int recordno,int cleartime,String charactername,String mapname) {
         this.characterid=Characterid;
         this.mapno=mapno;
         this.recordno=recordno;
         this.cleartime=cleartime;
         this.charactername=charactername;
+        this.mapname=mapname;
     }
 
 	
@@ -58,8 +61,16 @@ public class RecordDTO {
     	this.charactername = charactername;
     }
 
+    public String getMapname() {
+		return mapname;
+	}
+
+	public void setMapname(String mapname) {
+		this.mapname = mapname;
+	}
+
     public void printrecord(){
-    	System.out.printf("%5s: %10s: %10d\n",charactername,mapno,cleartime);
+    	System.out.printf("%10s:%10s: %10d\n",charactername,mapname,cleartime);
     }
     
 }

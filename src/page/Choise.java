@@ -45,6 +45,13 @@ public class Choise extends Page {
 			};
 			
 		});
+		addMenu(new Menu("모든 캐릭터 조회하기") {
+			public void execute() {
+				System.out.println("모든캐릭터 조회");
+				System.out.printf(" 캐릭터이름:         스킬이름:스피드:life:cooldown\n");
+				characterDAO.printAbilityList(user.getUserID());
+			};
+		});
 		addMenu(new Menu("캐릭터 생성하기") {
 			public void execute() {	
 				Random random = new Random(); //랜덤 객체 생성(디폴트 시드값 : 현재시간)
@@ -139,11 +146,13 @@ public class Choise extends Page {
 				}
 			};
 		});
+		
 		addMenu(new Menu("뒤로가기",true) {
 			public void execute() {
 				System.out.println("메인메뉴");
 			};
 		});
+		
 		
 	}
 }
