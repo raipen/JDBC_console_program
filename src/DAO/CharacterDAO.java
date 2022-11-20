@@ -41,33 +41,63 @@ public class CharacterDAO extends DAO{
         return character;
     }
 
-    public boolean signUp(String id, String pw) {
-        boolean signUpSuccess = false;
+    public boolean MakeCharacter(String userid, String characterid, String charactername, String skillid) {
+        boolean MakeSuccess = false;
         try{
             conn = getConnection();
-            String sql = "INSERT INTO USERS VALUES(?, ?)";
+            String sql = "INSERT INTO CHARACTERS VALUES(?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
-            pstmt.setString(2, pw);
+            pstmt.setString(1, userid);
+            pstmt.setString(2, characterid);
+            pstmt.setString(3, charactername);
+            pstmt.setInt(4, 1); //lv
+            pstmt.setInt(5, 0); //exp
+
+            pstmt.executeUpdate();
+            
+            sql = "INSERT INTO USES VALUES(?, ?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, characterid);
+            pstmt.setString(2, skillid);
+            
             int result = pstmt.executeUpdate();
             if(result == 1){
-                signUpSuccess = true;
+            	MakeSuccess = true;
             }
         }catch(Exception e){
             e.printStackTrace();
         }finally{
             closeConnection(conn, pstmt, rs);
         }
-        return signUpSuccess;
+        return MakeSuccess;
     }
 
-    public boolean isExist(String id) {
+    public boolean isExist(String charactername) {
         boolean result = false;
         try{
             conn = getConnection();
-            String sql = "SELECT * FROM USERS WHERE userID = ?";
+            String sql = "SELECT * FROM CHARACTERS WHERE charactername = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
+            pstmt.setString(1, charactername);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                result = true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            closeConnection(conn, pstmt, rs);
+        }
+        return result;
+    }
+    
+    public boolean isExist_id(String characterid) {
+        boolean result = false;
+        try{
+            conn = getConnection();
+            String sql = "SELECT * FROM CHARACTERS WHERE characterid = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, characterid);
             rs = pstmt.executeQuery();
             if(rs.next()){
                 result = true;
@@ -138,7 +168,7 @@ public class CharacterDAO extends DAO{
         return characterList;
     }
 
-    public List<ItemDTO> getItemList(String id) {
+    public List<ItemDTO> getList(String id) {
         List<ItemDTO> itemList = new LinkedList<ItemDTO>();
         try{
             conn = getConnection();
