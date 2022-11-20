@@ -31,7 +31,7 @@ public class CharacterDAO extends DAO{
             pstmt.setString(1, charactername);
             rs = pstmt.executeQuery();
             if(rs.next()){
-                character = new CharacterDTO(rs.getString("characterID"), rs.getString("characterName"), rs.getInt("lv"), rs.getInt("exp"));
+                character = new CharacterDTO(rs.getString("characterID"), rs.getString("characterName"), rs.getInt("lv"), rs.getInt("exp"),rs.getString("skillID"));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -45,20 +45,14 @@ public class CharacterDAO extends DAO{
         boolean MakeSuccess = false;
         try{
             conn = getConnection();
-            String sql = "INSERT INTO CHARACTERS VALUES(?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO CHARACTERS VALUES(?, ?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userid);
             pstmt.setString(2, characterid);
             pstmt.setString(3, charactername);
             pstmt.setInt(4, 1); //lv
             pstmt.setInt(5, 0); //exp
-
-            pstmt.executeUpdate();
-            
-            sql = "INSERT INTO USES VALUES(?, ?)";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, characterid);
-            pstmt.setString(2, skillid);
+            pstmt.setString(6, skillid);
             
             int result = pstmt.executeUpdate();
             if(result == 1){

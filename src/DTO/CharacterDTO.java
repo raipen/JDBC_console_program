@@ -16,12 +16,7 @@ public class CharacterDTO {
         this.exp = exp;
         this.skillID = skillID;
     }
-    public CharacterDTO(String characterID, String characterName, int lv, int exp) {
-        this.characterID = characterID;
-        this.characterName = characterName;
-        this.lv = lv;
-        this.exp = exp;
-    }
+    
 
     public String getCharacterID() {
         return characterID;
