@@ -11,6 +11,7 @@ public class GameManagerMain extends Page
 {
 	UserDAO_GM userDAO = UserDAO_GM.getInstance();
 	CharacterDAO characterDAO = CharacterDAO.getInstance();
+	RecordDAO recordDAO = RecordDAO.getInstance();
 
 	public GameManagerMain()
 	{
@@ -28,7 +29,7 @@ public class GameManagerMain extends Page
 			};
 		});
 
-		addMenu(new Menu("계정 검색")
+		addMenu(new Menu("계정 이름 검색")
 		{
 			public void execute()
 			{
@@ -60,7 +61,7 @@ public class GameManagerMain extends Page
 			};
 		});
 
-		addMenu(new Menu("캐릭터 검색")
+		addMenu(new Menu("캐릭터 이름 검색")
 		{
 			public void execute()
 			{
@@ -75,17 +76,33 @@ public class GameManagerMain extends Page
 					System.out.println(
 							U.getcharacterName() + "\t\t" + U.getLv() + "\t" + U.getExp()
 									+ "\t" + U.getSkillID() + "\t\t" + U.getUserID());
-				
+
 				if (characterList.size() == 1)
 					new CharacterManager(characterList.get(0)).start();
 			};
 		});
 
-		addMenu(new Menu("아이템 검색")
+		addMenu(new Menu("캐릭터 관련 조회")
 		{
 			public void execute()
 			{
+				new CharacterManager().start();
+			}
+		});
 
+		addMenu(new Menu("기록 관련 조회")
+		{
+			public void execute()
+			{
+				new RecordManager().start();
+			};
+		});
+
+		addMenu(new Menu("맵 관련 조회")
+		{
+			public void execute()
+			{
+				new MapManager().start();
 			};
 		});
 

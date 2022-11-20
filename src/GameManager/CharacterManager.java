@@ -4,6 +4,7 @@ import DAO.*;
 import DTO.*;
 import page.*;
 import util.*;
+import java.util.*;
 
 public class CharacterManager extends Page
 {
@@ -19,6 +20,17 @@ public class CharacterManager extends Page
 				AbilityDTO ability = abilityDAO.getAbility(charcater);
 				System.out.println("SPEED: " + ability.getSpeed() + "\tLIFE: "
 						+ ability.getLife() + "\tCOOLDOWN: " + ability.getCoolDown());
+			};
+		});
+
+		addMenu(new Menu("맵별 최고기록 등수")
+		{
+			public void execute()
+			{
+				RecordDAO recordDAO = RecordDAO.getInstance();
+				List<String> rankList = recordDAO.getCharacterRankList(charcater);
+				for (String r : rankList)
+					System.out.println(r);
 			};
 		});
 
@@ -80,6 +92,41 @@ public class CharacterManager extends Page
 				{
 					System.out.println("탈퇴가 취소되었습니다.");
 				}
+			};
+		});
+
+		addMenu(new Menu("뒤로가기", true)
+		{
+			public void execute()
+			{
+				System.out.println("뒤로가기");
+			};
+		});
+	}
+
+	public CharacterManager()
+	{
+		addMenu(new Menu("즉발형 스킬을 가진 캐릭터")
+		{
+			public void execute()
+			{
+				List<String> characterList = characterDAO.directSkillCharacterList();
+				for (String c : characterList)
+					System.out.println(c);
+			};
+		});
+		
+		addMenu(new Menu("SPEED가 일정 수준 이상인 캐릭터")
+		{
+			public void execute()
+			{
+				System.out.print("최소 SPEED를 입력해주세요: ");
+				int answer = Stdin.getScanner().nextInt();
+				Stdin.getScanner().nextLine();
+				
+				List<String> characterList = characterDAO.getcharacterOverSpeedList(answer);
+				for (String c : characterList)
+					System.out.println(c);
 			};
 		});
 
