@@ -29,7 +29,7 @@ public class AbilityDAO extends DAO
 			conn = getConnection();
 			String sql = "SELECT SPEED, LIFE, COOLDOWN FROM ABILITIES, CHARACTERS WHERE ABILITIES.CHARACTERID = CHARACTERS.CHARACTERID AND CHARACTERS.CHARACTERNAME = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, character.getcharacterName());
+			pstmt.setString(1, character.getCharacterName());
 			rs = pstmt.executeQuery();
 			while (rs.next())
 				result = new AbilityDTO(rs.getInt("SPEED"), rs.getInt("LIFE"),

@@ -26,11 +26,11 @@ public class CharacterDTO {
         this.characterID = characterID;
     }
 
-    public String getcharacterName() {
+    public String getCharacterName() {
         return characterName;
     }
 
-    public void setcharacterName(String characterName) {
+    public void setCharacterName(String characterName) {
         this.characterName = characterName;
     }
 

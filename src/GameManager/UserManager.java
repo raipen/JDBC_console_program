@@ -23,7 +23,7 @@ public class UserManager extends Page
 				System.out.println("보유 캐릭터 조회 결과 : 총 " + characterList.size() + " 개");
 				System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬");
 				for (CharacterDTO_GM U : characterList)
-					System.out.println(U.getcharacterName() + "\t\t" + U.getLv() + "\t"
+					System.out.println(U.getCharacterName() + "\t\t" + U.getLv() + "\t"
 							+ U.getExp() + "\t" + U.getSkillID());
 			};
 		});

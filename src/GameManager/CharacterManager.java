@@ -56,7 +56,7 @@ public class CharacterManager extends Page
 					CharacterDTO_GM result = characterDAO.changeLV(charcater, answer);
 					System.out.println("변경되었습니다.");
 					System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬\t\t보유 계정");
-					System.out.println(result.getcharacterName() + "\t\t" + result.getLv()
+					System.out.println(result.getCharacterName() + "\t\t" + result.getLv()
 							+ "\t" + result.getExp() + "\t" + result.getSkillID() + "\t\t"
 							+ result.getUserID());
 				}
@@ -68,7 +68,7 @@ public class CharacterManager extends Page
 					CharacterDTO_GM result = characterDAO.changeEXP(charcater, answer);
 					System.out.println("변경되었습니다.");
 					System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬\t\t보유 계정");
-					System.out.println(result.getcharacterName() + "\t\t" + result.getLv()
+					System.out.println(result.getCharacterName() + "\t\t" + result.getLv()
 							+ "\t" + result.getExp() + "\t" + result.getSkillID() + "\t\t"
 							+ result.getUserID());
 				}

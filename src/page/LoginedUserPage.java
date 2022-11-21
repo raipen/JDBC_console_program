@@ -5,19 +5,18 @@ import util.*;
 import DAO.*;
 import java.util.List;
 
-public class Login extends Page {
+public class LoginedUserPage extends Page {
 	UserDTO user;
 	UserDAO userDAO = UserDAO.getInstance();
-	RecordDTO record;
-	RecordDAO recordDAO=RecordDAO.getInstance();
-	public Login(UserDTO user) {
+	
+	public LoginedUserPage(UserDTO user) {
 		this.user = user;
 		System.out.println(user.getUserID() + "님 환영합니다.");
 		
 		addMenu(new Menu("캐릭터 창") {
 			public void execute() {
 				
-				new Choise(user).start();
+				new SelectCharacterPage(user).start();
 			};
 			
 		});

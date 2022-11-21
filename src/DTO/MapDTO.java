@@ -11,7 +11,16 @@ public class MapDTO {
 	int difficulty;
 	
 	public MapDTO() {}
-    
+    public MapDTO(String mapno, String mapname, String backgroundimg, int mapsizex, int mapsizey, int goalx, int goaly, int difficulty) {
+		this.mapno = mapno;
+		this.mapname = mapname;
+		this.backgroundimg = backgroundimg;
+		this.mapsizex = mapsizex;
+		this.mapsizey = mapsizey;
+		this.goalx = goalx;
+		this.goaly = goaly;
+		this.difficulty = difficulty;
+	}
 	
 	public String getMapno() {
 		return mapno;

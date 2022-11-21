@@ -18,7 +18,7 @@ public class CharacterDTO_GM extends CharacterDTO
 
 	public CharacterDTO_GM(CharacterDTO_GM c)
 	{
-		this(c.getUserID(), c.getCharacterID(), c.getcharacterName(), c.getLv(), c.getExp(), c.getSkillID());
+		this(c.getUserID(), c.getCharacterID(), c.getCharacterName(), c.getLv(), c.getExp(), c.getSkillID());
 	}
 
 	public String getUserID()

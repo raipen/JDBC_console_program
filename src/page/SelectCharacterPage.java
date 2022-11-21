@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 
-public class Choise extends Page {
+public class SelectCharacterPage extends Page {
 	UserDTO user;
 	UserDAO userDAO = UserDAO.getInstance();
 	CharacterDTO character;
@@ -15,7 +15,7 @@ public class Choise extends Page {
 	SkillDTO skill;
 	SkillDAO skillDAO = SkillDAO.getInstance();
 	
-	public Choise(UserDTO user) {
+	public SelectCharacterPage(UserDTO user) {
 		this.user = user;
 		System.out.println(user.getUserID() + "님의 캐릭터창.");
 		
@@ -39,9 +39,8 @@ public class Choise extends Page {
 						break;
 					System.out.println("잘못된 번호입니다.");
 				}
-				character=characterDAO.choise(CharacterList.get(selected-1).getcharacterName());
-				System.out.printf("선택한 캐릭터의 정보: ");
-				character.printinfo();
+				character=CharacterList.get(selected-1);
+				new PlayCharacterPage(character).start();
 			};
 			
 		});
@@ -117,26 +116,33 @@ public class Choise extends Page {
 		addMenu(new Menu("캐릭터 삭제하기") {
 			public void execute() {
 				List<CharacterDTO> CharacterList = userDAO.getCharacterList(user.getUserID());
+
+				int num=1;
+				for (CharacterDTO character : CharacterList) {
+					System.out.printf("%d",num++);
+					System.out.println(character);
+				}
+				System.out.printf("%d: 취소\n",num);
+				Scanner sc = Stdin.getScanner();
+				int selected;
+				while (true) {
+					System.out.print("캐릭터를 선택하세요 : ");
+					selected = sc.nextInt();
+					sc.nextLine(); //버퍼비우기
+					if (selected >= 1 && selected <= CharacterList.size()+1)
+						break;
+					System.out.println("잘못된 번호입니다.");
+				}
+
+				if(selected==CharacterList.size()+1)
+				{
+					return;
+				}
+
 				System.out.println("정말 삭제하시겠습니까? (y/n)");
 				String answer = Stdin.getScanner().nextLine();
 				
 				if (answer.equals("y")) {
-					int num=1;
-					for (CharacterDTO character : CharacterList) {
-						System.out.printf("%d",num++);
-						System.out.println(character);
-					}
-					Scanner sc = Stdin.getScanner();
-					int selected;
-					while (true) {
-						System.out.print("캐릭터를 선택하세요 : ");
-						selected = sc.nextInt();
-						sc.nextLine(); //버퍼비우기
-						if (selected >= 1 && selected <= CharacterList.size())
-							break;
-						System.out.println("잘못된 번호입니다.");
-					}					
-					
 					boolean result=characterDAO.deleteCharacter(CharacterList.get(selected-1).getCharacterID());
 					if(result) System.out.println("삭제되었습니다.");
 					else System.out.println("캐릭터 삭제실패");

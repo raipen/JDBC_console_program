@@ -56,7 +56,7 @@ public class GameManagerMain extends Page
 				System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬\t\t보유 계정");
 				for (CharacterDTO_GM U : characterList)
 					System.out.println(
-							U.getcharacterName() + "\t\t" + U.getLv() + "\t" + U.getExp()
+							U.getCharacterName() + "\t\t" + U.getLv() + "\t" + U.getExp()
 									+ "\t" + U.getSkillID() + "\t\t" + U.getUserID());
 			};
 		});
@@ -74,7 +74,7 @@ public class GameManagerMain extends Page
 				System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬\t\t보유 계정");
 				for (CharacterDTO_GM U : characterList)
 					System.out.println(
-							U.getcharacterName() + "\t\t" + U.getLv() + "\t" + U.getExp()
+							U.getCharacterName() + "\t\t" + U.getLv() + "\t" + U.getExp()
 									+ "\t" + U.getSkillID() + "\t\t" + U.getUserID());
 
 				if (characterList.size() == 1)

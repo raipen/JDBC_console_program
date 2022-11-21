@@ -61,7 +61,7 @@ public class Main extends Page
 		}
 		else
 		{
-			new Login(user).start();
+			new LoginedUserPage(user).start();
 		}
 	}
 

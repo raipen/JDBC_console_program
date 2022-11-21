@@ -4,8 +4,6 @@ import DTO.*;
 import util.*;
 import DAO.*;
 import java.util.List;
-import java.util.Scanner;
-import java.util.Random;
 
 public class Record extends Page {
 	UserDTO user;

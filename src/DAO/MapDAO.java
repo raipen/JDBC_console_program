@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
+import DTO.*;
 
 public class MapDAO extends DAO
 {
@@ -22,6 +23,34 @@ public class MapDAO extends DAO
 		if (instance == null) instance = new MapDAO();
 
 		return instance;
+	}
+
+	public List<MapDTO> getMapList()
+	{
+		List<MapDTO> mapList = new LinkedList<MapDTO>();
+		try
+		{
+			conn = getConnection();
+			pstmt = conn.prepareStatement("SELECT * FROM maps");
+			rs = pstmt.executeQuery();
+			while (rs.next())
+			{
+				mapList.add(new MapDTO(rs.getString("mapno"),
+				 rs.getString("mapname"), rs.getString("backgroundimg"),
+				 rs.getInt("mapsizex"), rs.getInt("mapsizey"),
+				 rs.getInt("goalx"), rs.getInt("goaly"),
+				 rs.getInt("difficulty")));
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			closeConnection(conn, pstmt, rs);
+		}
+		return mapList;
 	}
 
 	public List<String> getBaseOfMap(int mapno)
