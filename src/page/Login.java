@@ -8,14 +8,18 @@ import java.util.List;
 public class Login extends Page {
 	UserDTO user;
 	UserDAO userDAO = UserDAO.getInstance();
+	RecordDTO record;
+	RecordDAO recordDAO=RecordDAO.getInstance();
 	public Login(UserDTO user) {
 		this.user = user;
 		System.out.println(user.getUserID() + "님 환영합니다.");
 		
-		addMenu(new Menu("캐릭터 선택하기") {
+		addMenu(new Menu("캐릭터 창") {
 			public void execute() {
 				
+				new Choise(user).start();
 			};
+			
 		});
 		addMenu(new Menu("보유 아이템 조회") {
 			public void execute() {
@@ -25,9 +29,9 @@ public class Login extends Page {
 				}
 			};
 		});
-		addMenu(new Menu("랭킹 보기") {
+		addMenu(new Menu("기록 보기") {
 			public void execute() {
-				
+				new Record(user).start();
 			};
 		});
 		addMenu(new Menu("비밀번호 변경") {

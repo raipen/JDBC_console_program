@@ -51,7 +51,7 @@ public class GameManagerMain extends Page
 		{
 			public void execute()
 			{
-				List<CharacterDTO_GM> characterList = characterDAO.getCharacterList(null);
+				List<CharacterDTO_GM> characterList = characterDAO.getCharacterList_GM(null);
 				System.out.println("전체 캐릭터 조회 결과 : 총 " + characterList.size() + " 개");
 				System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬\t\t보유 계정");
 				for (CharacterDTO_GM U : characterList)
@@ -69,7 +69,7 @@ public class GameManagerMain extends Page
 				Scanner scanner = Stdin.getScanner();
 				String id = scanner.nextLine();
 
-				List<CharacterDTO_GM> characterList = characterDAO.getCharacterList(id);
+				List<CharacterDTO_GM> characterList = characterDAO.getCharacterList_GM(id);
 				System.out.println("캐릭터 검색 결과 : 총 " + characterList.size() + " 개");
 				System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬\t\t보유 계정");
 				for (CharacterDTO_GM U : characterList)
