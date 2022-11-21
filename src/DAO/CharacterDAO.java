@@ -20,9 +20,24 @@ public class CharacterDAO extends DAO{
         return instance;
     }
 
-	public CharacterDTO_GM changeLV(CharacterDTO_GM character, int lv)
+    public void updateCharacter(CharacterDTO character) {
+    	try {
+    		conn = getConnection();
+    		pstmt = conn.prepareStatement("UPDATE characters SET lv = ?, exp = ? WHERE characterid=?");
+    		pstmt.setInt(1, character.getLv());
+    		pstmt.setInt(2, character.getExp());
+    		pstmt.setString(3, character.getCharacterID());
+    		pstmt.executeUpdate();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		closeConnection(conn, pstmt, rs);
+    	}
+    }
+
+	public CharacterDTO changeLV(CharacterDTO character, int lv)
 	{
-		CharacterDTO_GM result = new CharacterDTO_GM(character);
+		CharacterDTO result = character.copy();
 		try
 		{
 			conn = getConnection();
@@ -47,9 +62,9 @@ public class CharacterDAO extends DAO{
 		return result;
 	}
 
-	public CharacterDTO_GM changeEXP(CharacterDTO_GM character, int exp)
+	public CharacterDTO changeEXP(CharacterDTO character, int exp)
 	{
-		CharacterDTO_GM result = new CharacterDTO_GM(character);
+		CharacterDTO result = character.copy();
 		try
 		{
 			conn = getConnection();

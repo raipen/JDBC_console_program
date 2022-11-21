@@ -35,7 +35,7 @@ public class MapDAO extends DAO
 			rs = pstmt.executeQuery();
 			while (rs.next())
 			{
-				mapList.add(new MapDTO(rs.getString("mapno"),
+				mapList.add(new MapDTO(rs.getInt("mapno"),
 				 rs.getString("mapname"), rs.getString("backgroundimg"),
 				 rs.getInt("mapsizex"), rs.getInt("mapsizey"),
 				 rs.getInt("goalx"), rs.getInt("goaly"),
@@ -56,25 +56,48 @@ public class MapDAO extends DAO
 	public List<String> getBaseOfMap(int mapno)
 	{
 		List<String> clearCountList = new LinkedList<String>();
-		String mapname = null;
-		if (mapno == 1) mapname = "북문";
-		if (mapno == 2) mapname = "일청담";
-		if (mapno == 3) mapname = "센트럴 파크";
-		if (mapno == 4) mapname = "IT융복합공학관";
 
 		try
 		{
 			conn = getConnection();
 			String sql = "select baseid\r\n" + "from bases\r\n"
-					+ "where mapno in (select mapno\r\n" + "                from maps\r\n"
-					+ "                where mapname=?)";
+					+ "where mapno =?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, (mapname == null ? "%" : mapname));
+			pstmt.setInt(1, mapno);
 			rs = pstmt.executeQuery();
 
 			while (rs.next())
 			{
 				clearCountList.add("ID: " + rs.getString("baseid"));
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			closeConnection(conn, pstmt, rs);
+		}
+		return clearCountList;
+	}
+
+	public List<String> getHurdleOfMap(int mapno)
+	{
+		List<String> clearCountList = new LinkedList<String>();
+
+		try
+		{
+			conn = getConnection();
+			String sql = "select hurdleid\r\n" + "from hurdles\r\n"
+					+ "where mapno =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mapno);
+			rs = pstmt.executeQuery();
+
+			while (rs.next())
+			{
+				clearCountList.add("ID: " + rs.getString("hurdleid"));
 			}
 		}
 		catch (Exception e)

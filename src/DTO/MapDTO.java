@@ -1,7 +1,7 @@
 package DTO;
 
 public class MapDTO {
-	String mapno;
+	int mapno;
 	String mapname;
 	String backgroundimg;
 	int mapsizex;
@@ -11,7 +11,7 @@ public class MapDTO {
 	int difficulty;
 	
 	public MapDTO() {}
-    public MapDTO(String mapno, String mapname, String backgroundimg, int mapsizex, int mapsizey, int goalx, int goaly, int difficulty) {
+    public MapDTO(int mapno, String mapname, String backgroundimg, int mapsizex, int mapsizey, int goalx, int goaly, int difficulty) {
 		this.mapno = mapno;
 		this.mapname = mapname;
 		this.backgroundimg = backgroundimg;
@@ -22,10 +22,10 @@ public class MapDTO {
 		this.difficulty = difficulty;
 	}
 	
-	public String getMapno() {
+	public int getMapno() {
 		return mapno;
 	}
-	public void setMapno(String mapno) {
+	public void setMapno(int mapno) {
 		this.mapno = mapno;
 	}
 	public String getMapname() {

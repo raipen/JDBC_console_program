@@ -3,6 +3,7 @@ package GameManager;
 import java.util.List;
 
 import DAO.MapDAO;
+import DTO.MapDTO;
 import page.Page;
 import util.Menu;
 import util.Stdin;
@@ -17,12 +18,17 @@ public class MapManager extends Page
 		{
 			public void execute()
 			{
-				System.out.println("1. 북문\n2. 일청담\n3. 센트럴 파크\n4. IT융복합공학관");
+				List<MapDTO> mapList = mapDAO.getMapList();
+				int num = 1;
+				for (MapDTO map : mapList)
+				{
+					System.out.println(num + ". "+map.getMapname());
+					num++;
+				}
 				System.out.print("선택하세요 : ");
-				int answer = Stdin.getScanner().nextInt();
-				Stdin.getScanner().nextLine();
+				int answer = Stdin.selectInt(1, num);
 
-				List<String> baseList = mapDAO.getBaseOfMap(answer);
+				List<String> baseList = mapDAO.getBaseOfMap(mapList.get(answer-1).getMapno());
 				System.out.println("총 " + baseList.size() + " 개");
 				for (String r : baseList)
 					System.out.println(r);

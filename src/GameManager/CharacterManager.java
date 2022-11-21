@@ -10,7 +10,7 @@ public class CharacterManager extends Page
 {
 	CharacterDAO characterDAO = CharacterDAO.getInstance();
 
-	public CharacterManager(CharacterDTO_GM charcater)
+	public CharacterManager(CharacterDTO charcater)
 	{
 		addMenu(new Menu("능력 조회")
 		{
@@ -38,39 +38,30 @@ public class CharacterManager extends Page
 		{
 			public void execute()
 			{
-				System.out.print("1. 캐릭터명 변경\n2. LV 변경\n3. EXP 변경\n4. 취소\n메뉴를 선택하세요 : ");
+				System.out.print("1. LV 변경\n2. EXP 변경\n3. 취소\n메뉴를 선택하세요 : ");
 				int selected = Stdin.getScanner().nextInt();
 				Stdin.getScanner().nextLine();
-//				if (selected == 1)
-//				{
-//					System.out.print("변경할 캐릭터명을 입력해주세요: ");
-//					String answer = Stdin.getScanner().nextLine();
-//					// userDAO.changeID(user.getUserID(), answer);
-//					System.out.println("변경되었습니다.아직 미구현"); // 아직 미구현
-//				}
-				if (selected == 2)
+				if (selected == 1)
 				{
 					System.out.print("변경할 LV를 입력해주세요: ");
 					int answer = Stdin.getScanner().nextInt();
 					Stdin.getScanner().nextLine();
-					CharacterDTO_GM result = characterDAO.changeLV(charcater, answer);
+					CharacterDTO result = characterDAO.changeLV(charcater, answer);
 					System.out.println("변경되었습니다.");
-					System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬\t\t보유 계정");
+					System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬");
 					System.out.println(result.getCharacterName() + "\t\t" + result.getLv()
-							+ "\t" + result.getExp() + "\t" + result.getSkillID() + "\t\t"
-							+ result.getUserID());
+							+ "\t" + result.getExp() + "\t" + result.getSkillID());
 				}
-				if (selected == 3)
+				if (selected == 2)
 				{
 					System.out.print("변경할 EXP를 입력해주세요: ");
 					int answer = Stdin.getScanner().nextInt();
 					Stdin.getScanner().nextLine();
-					CharacterDTO_GM result = characterDAO.changeEXP(charcater, answer);
+					CharacterDTO result = characterDAO.changeEXP(charcater, answer);
 					System.out.println("변경되었습니다.");
-					System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬\t\t보유 계정");
+					System.out.println("캐릭터 이름" + "\t\tLV	EXP	스킬");
 					System.out.println(result.getCharacterName() + "\t\t" + result.getLv()
-							+ "\t" + result.getExp() + "\t" + result.getSkillID() + "\t\t"
-							+ result.getUserID());
+							+ "\t" + result.getExp() + "\t" + result.getSkillID());
 				}
 			};
 		});

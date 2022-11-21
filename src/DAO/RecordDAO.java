@@ -155,7 +155,7 @@ public class RecordDAO extends DAO{
 		return clearCountList;
 	}
 
-	public List<String> getCharacterRankList(CharacterDTO_GM character)
+	public List<String> getCharacterRankList(CharacterDTO character)
 	{
 		List<String> clearCountList = new LinkedList<String>();
 		try

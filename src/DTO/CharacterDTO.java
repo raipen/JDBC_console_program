@@ -17,6 +17,9 @@ public class CharacterDTO {
         this.skillID = skillID;
     }
     
+    public CharacterDTO copy() {
+        return new CharacterDTO(characterID, characterName, lv, exp, skillID);
+    }
 
     public String getCharacterID() {
         return characterID;

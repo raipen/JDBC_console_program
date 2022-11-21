@@ -54,5 +54,7 @@ public class AbilityDTO {
 		this.coolDown = cooldown;
 	}
 
-	
+	public String toString(){
+		return "CharacterID: "+characterID+" Speed: "+speed+" Life: "+life+" Cooldown: "+coolDown;
+	}
 }

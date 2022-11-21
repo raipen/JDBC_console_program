@@ -28,27 +28,21 @@ public class UserManager extends Page
 			};
 		});
 
-		addMenu(new Menu("수정")
+		addMenu(new Menu("비밀번호 변경")
 		{
 			public void execute()
 			{
-				System.out.print("1. ID 변경\n2. PW 변경\nelse. 취소\n메뉴를 선택하세요 : ");
-				int selected = Stdin.getScanner().nextInt();
-				Stdin.getScanner().nextLine();
-				if (selected == 1)
+				System.out.println("현재 비밀번호를 입력하세요.");
+				String oldPassword = Stdin.getScanner().nextLine();
+				if (oldPassword.equals(user.getPassword()))
 				{
-//					System.out.print("변경할 ID를 입력해주세요: ");
-//					String answer = Stdin.getScanner().nextLine();
-//					userDAO.changeID(user.getUserID(), answer);
-//					System.out.println("변경되었습니다.아직 미구현"); // 아직 미구현
+					System.out.println("새 비밀번호를 입력하세요.");
+					String newPassword = Stdin.getScanner().nextLine();
+					userDAO.changePassword(user.getUserID(), newPassword);
+					System.out.println("비밀번호가 변경되었습니다.");
 				}
-				if (selected == 2)
-				{
-					System.out.print("변경할 PW를 입력해주세요: ");
-					String answer = Stdin.getScanner().nextLine();
-					userDAO.changePassword(user.getUserID(), answer);
-					System.out.println("변경되었습니다.");
-				}
+				else
+					System.out.println("비밀번호가 일치하지 않습니다.");
 			};
 		});
 
