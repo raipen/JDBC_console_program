@@ -234,7 +234,7 @@ public class CharacterDAO extends DAO{
             sql = "INSERT INTO Abilities VALUES(?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, characterid);
-            pstmt.setInt(2, 5); //speed
+            pstmt.setInt(2, 0); //speed
             pstmt.setInt(3, 3); //life
             pstmt.setInt(4, 0); //cooldown
             result = pstmt.executeUpdate();
