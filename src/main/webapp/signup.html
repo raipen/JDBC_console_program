@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>호반우 런</title>
+</head>
+<body>
+    호반후 런
+    <!-- signup.jsp에 로그인 요청, 성공시 chracter.html로, 실패시 사유 출력 -->
+    <form>
+        <label for="id">아이디</label>
+        <input type="text" name="id" id="id"/><br/>
+        <label for="pw">비밀번호</label>
+        <input type="password" name="pw" id="pw"/><br/>
+        <input type="submit" value="회원가입" />
+    </form>
+    <script>
+        document.querySelector("form").addEventListener("submit",function(e){
+            e.preventDefault();
+            var id = document.querySelector("input[name=id]").value;
+            var pw = document.querySelector("input[name=pw]").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST","apis/signup.jsp");
+            xhr.setRequestHeader("Content-Type","application/json");
+            xhr.send(JSON.stringify({id:id,pw:pw}));
+            xhr.addEventListener("load",function(){
+                var result = JSON.parse(xhr.responseText);
+                if(result.result){
+                    location.href="LoginedUserPage.html";
+                }else{
+                    alert(result.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
