@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>호반우 런</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+    <header>
+        상단메뉴
+    </header>
+    <canvas id="game">
+    </canvas>
+    <footer>
+        하단메뉴
+    </footer>
+    <script type='module'>
+        import {main} from './js/index.js';
+        const mapNo = location.search.split("=")[1];
+        main(mapNo);
+    </script>
+</body>
+
+</html>
