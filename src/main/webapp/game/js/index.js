@@ -11,17 +11,18 @@ export const main = async (mapNo,characterId)=>{
     const player = await getPlayer(characterId);
     const character = player.getCharacter();
     const map = await getMap(mapNo);
+    character.setMap(map);
 
     stdPixel = canvas.height/map.mapInfo.height;
     const bases = map.bases.map(b=>drawPixel('black')(b));
     const hurdles = map.hurdles.map(h=>drawPixel('red')(h));
 
     let drawLoop = setInterval(draw(bases)(hurdles)(character), 1000/60);
-    let moveLoop = setInterval(character.move(), 1000/60, map.bases, map.hurdles);
+    let moveLoop = setInterval(character.move(), 1000/60);
 
     const keydownSetting = [{key:'ArrowLeft',action:()=>character.moveLeft()},
                         {key:'ArrowRight',action:()=>character.moveRight()},
-                        {key:' ',action:()=>{}}];
+                        {key:' ',action:()=>character.jump()}];
     const keyupSetting = [{key:'ArrowLeft',action:()=>character.stopLeft()},
                         {key:'ArrowRight',action:()=>character.stopRight()}];
 
@@ -35,9 +36,12 @@ export const main = async (mapNo,characterId)=>{
 
 const draw = bases=>hurdles=>character=>()=>{
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    bases.forEach(b=>b(0));
-    hurdles.forEach(h=>h(0));
-    drawPixel('green')(character)(0);
+    let startPositon = 0;
+    if(character.x*stdPixel>canvas.width*0.3)
+        startPositon = character.x*stdPixel-canvas.width*0.3;
+    bases.forEach(b=>b(startPositon));
+    hurdles.forEach(h=>h(startPositon));
+    drawPixel('green')(character)(startPositon);
 }
 
 const setCanvasSize = (canvas)=>{

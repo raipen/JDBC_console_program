@@ -1,4 +1,4 @@
-import { isCollision } from "./utils.js";
+import { isCollision, noInterruptMove } from "./utils.js";
 
 export default class Character{
     constructor({speed,life,cooldown}){
@@ -6,12 +6,15 @@ export default class Character{
         this.height = 2;
         this.x = 0;
         this.y = 31;
-        this.gravity = 1;
+        this.gravity = 10;
         this.speed = 0;
         this.life = life;
         this.cooldown = cooldown;
         this.friction = 0.6;
         this.maxSpeed = 3+speed;
+        this.bases = [];
+        this.hurdles = [];
+        this.safeMove;
 
         this.left = false;
         this.right = false;
@@ -33,8 +36,24 @@ export default class Character{
         this.right = false;
     }
 
+    setMap({bases,hurdles}){
+        this.bases = bases;
+        this.hurdles = hurdles;
+        this.safeMove = noInterruptMove(this.bases,this.hurdles);
+    }
+
+    jump(){
+        let jumpInterval = setInterval(()=>{
+            this.y -= this.gravity/30;
+        },1000/60);
+        setTimeout(()=>{
+            console.log("jump end");
+            clearInterval(jumpInterval);
+        },500);
+    }
+
     move(){
-        return (bases,hurdles)=>{
+        return ()=>{
             if((this.left&&this.right)||(!this.left&&!this.right))
                 this.speed *= this.friction;
             else if(this.left)
@@ -49,24 +68,15 @@ export default class Character{
 
             let gravity = this.gravity;
             //check collision with bases
-            for(let base of bases){
-                let horizontalCollision = isCollision({x:this.x+this.speed/60,y:this.y,width:this.width,height:this.height},base);
-                let verticalCollision = isCollision({x:this.x,y:this.y+gravity/60,width:this.width,height:this.height},base);
-                if(horizontalCollision){
-                    this.x -= this.speed/60;
-                    this.speed = 0;
-                }
-                if(verticalCollision){
-                    this.y -= gravity/60;
-                    gravity = 0;
-                }
-            }
+            let rect = {x:this.x,y:this.y,width:this.width,height:this.height};
+            let result = this.safeMove(rect)(this.speed,gravity);
 
-            this.x += this.speed/60;
-            this.y += gravity/60;
-            console.log(this.y);
+            this.x = result.x;
+            this.y = result.y;
+            //console.log(this.y);
         }
     }
+
 
 
 
