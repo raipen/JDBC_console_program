@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 import Character from './Charater.js';
 import {ajax} from './utils.js';
 

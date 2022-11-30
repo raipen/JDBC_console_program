@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 export const get_cookie = name => {
     var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return value ? value[2] : null;
@@ -34,7 +36,7 @@ export const isOnBase = bases => rect => {
     return false;
 }
 
-export const noInterruptMove = (bases, hurdles) => ({ x, y, width, height }) => (xSpeed, ySpeed) => {
+export const noInterruptMove = (bases) => ({ x, y, width, height }) => (xSpeed, ySpeed) => {
     let rect = { x, y, width, height };
     let horizontalRect = { ...rect, x: x + xSpeed / 60 };
     let verticalRect = { ...rect, y: y + ySpeed / 60 };
@@ -55,22 +57,16 @@ export const noInterruptMove = (bases, hurdles) => ({ x, y, width, height }) => 
             ySpeed = 0;
         }
     }
+    return { x: rect.x + xSpeed / 60, y: rect.y + ySpeed / 60 };
+}
+
+export const damageOfHurdle = (hurdles) => ({ x, y, width, height }) =>{
+    let rect = { x, y, width, height };
     for (let hurdle of hurdles) {
-        let isCollisionWithHurdle = isCollision(hurdle);
-        if (xSpeed!==0&&isCollisionWithHurdle(horizontalRect)) {
-            horizontalRect.x = Math.ceil(horizontalRect.x);
-            while (isCollisionWithHurdle(horizontalRect))
-                horizontalRect.x -= Math.sign(xSpeed);
-            rect.x = horizontalRect.x;
-            xSpeed = 0;
-        }
-        if (ySpeed!==0&&isCollisionWithHurdle(verticalRect)) {
-            verticalRect.y = Math.ceil(verticalRect.y);
-            while (isCollisionWithHurdle(verticalRect))
-                verticalRect.y -= Math.sign(ySpeed);
-            rect.y = verticalRect.y;
-            ySpeed = 0;
+        if(isCollision(hurdle)(rect)){
+            console.log("touch");
+            return hurdle.damage;
         }
     }
-    return { x: rect.x + xSpeed / 60, y: rect.y + ySpeed / 60 };
+    return 0;
 }
