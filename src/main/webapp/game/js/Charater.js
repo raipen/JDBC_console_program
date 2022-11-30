@@ -1,4 +1,4 @@
-import { isCollision, noInterruptMove } from "./utils.js";
+import { isOnBase, noInterruptMove } from "./utils.js";
 
 export default class Character{
     constructor({speed,life,cooldown}){
@@ -19,6 +19,8 @@ export default class Character{
         this.left = false;
         this.right = false;
     }
+
+    getRect = () => { return { x: this.x, y: this.y, width: this.width, height: this.height }; }
 
     moveLeft(){
         this.left = true;
@@ -43,8 +45,15 @@ export default class Character{
     }
 
     jump(){
+        if(!isOnBase(this.bases)(this.getRect()))
+            return;
         let jumpInterval = setInterval(()=>{
-            this.y -= this.gravity/30;
+            let result = this.safeMove(this.getRect())(0,-this.gravity*2);
+            if(result.y>this.y-this.gravity/30){
+                console.log("머리 쿵");
+                clearInterval(jumpInterval);
+            }
+            this.y = result.y;
         },1000/60);
         setTimeout(()=>{
             console.log("jump end");
@@ -67,17 +76,11 @@ export default class Character{
                 this.speed = -this.maxSpeed;
 
             let gravity = this.gravity;
-            //check collision with bases
-            let rect = {x:this.x,y:this.y,width:this.width,height:this.height};
-            let result = this.safeMove(rect)(this.speed,gravity);
+            let result = this.safeMove(this.getRect())(this.speed,gravity);
 
             this.x = result.x;
             this.y = result.y;
-            //console.log(this.y);
         }
     }
-
-
-
 
 }

@@ -24,6 +24,16 @@ export const isCollision = rect1 => rect2 => {
         rect1.y + rect1.height > rect2.y;
 }
 
+export const isOnBase = bases => rect => {
+    rect.y+=1/60;
+    for (let base of bases) {
+        if (isCollision(rect)(base)){
+            return true;
+        }
+    }
+    return false;
+}
+
 export const noInterruptMove = (bases, hurdles) => ({ x, y, width, height }) => (xSpeed, ySpeed) => {
     let rect = { x, y, width, height };
     let horizontalRect = { ...rect, x: x + xSpeed / 60 };
