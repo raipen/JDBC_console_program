@@ -1,59 +1,44 @@
-/* /hobanu_run_web_game/api/apis/getBases.jps
-    /hobanu_run_web_game/api/apis/getMapInfo.jps
-    /hobanu_run_web_game/api/apis/getHurdles.jps 를 비동기로 호출하여
-    mapName에 해당하는 정보를 가져온다.
-*/
+import {ajax} from './utils.js';
+
 export default class Map{
     constructor(mapNo){
         this.mapNo = mapNo;
         this.mapInfo = {};
         this.bases = [];
         this.hurdles = [];
-        this.init();
     }
 
-    init(){
-        this.getMapInfo();
-        this.getBases();
-        this.getHurdles();
+    async init(){
+        this.mapInfo={mapName:"테스트맵",backgroundIMG:"",width:150,height:35,goalx:149,goaly:32,difficulty:1};
+        this.bases=[{x:0,y:34,width:150,height:1},{x:30,y:30,width:5,height:1},{x:32,y:31,width:1,height:4}];
+        this.hurdles=[{x:10,y:33,width:1,height:1}];
+
+        // await this.setMapInfo();
+        // await this.setBases();
+        // await this.setHurdles();
     }
 
-    getMapInfo(){
-        const url = '/hobanu_run_web_game/api/apis/getMapInfo.jps';
+    async setMapInfo(){
+        const url = '../apis/getMapInfo.jps';
         const data = {mapNo:this.mapNo};
-        const callback = (result)=>{
-            this.mapInfo = result;
-        }
-        this.ajax(url,data,callback);
+        this.mapInfo = await ajax(url,data);
     }
 
-    getBases(){
-        const url = '/hobanu_run_web_game/api/apis/getBases.jps';
+    async setBases(){
+        const url = '../apis/getBases.jps';
         const data = {mapNo:this.mapNo};
-        const callback = (result)=>{
-            this.bases = result;
-        }
-        this.ajax(url,data,callback);
+        this.bases = await ajax(url,data);
     }
 
-    getHurdles(){
-        const url = '/hobanu_run_web_game/api/apis/getHurdles.jps';
+    async setHurdles(){
+        const url = '../apis/getHurdles.jps';
         const data = {mapNo:this.mapNo};
-        const callback = (result)=>{
-            this.hurdles = result;
-        }
-        this.ajax(url,data,callback);
+        this.hurdles = await ajax(url,data);
     }
+}
 
-    ajax(url,data,callback){
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST',url);
-        xhr.setRequestHeader('Content-Type','application/json');
-        xhr.send(JSON.stringify(data));
-        xhr.onload = ()=>{
-            const result = JSON.parse(xhr.responseText);
-            callback(result);
-        }
-    }
-
+export const getMap = async (mapNo)=>{
+    const map = new Map(mapNo);
+    await map.init();
+    return map;
 }

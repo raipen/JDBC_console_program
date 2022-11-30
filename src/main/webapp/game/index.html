@@ -17,8 +17,11 @@
     </footer>
     <script type='module'>
         import {main} from './js/index.js';
+        import {get_cookie} from './js/utils.js';
+        //check login
+        //check character
         const mapNo = location.search.split("=")[1];
-        main(mapNo);
+        main(mapNo, get_cookie("characterNo"));
     </script>
 </body>
 
