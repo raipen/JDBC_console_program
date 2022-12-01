@@ -77,7 +77,6 @@ export default class Character{
         let bounceInterval = setInterval(()=>{
             let result = this.safeMove(this.getRect())(speed,0);
             if((result.x>this.x+speed/60)||(speed<1&&speed>-1)){
-                console.log("speed:"+speed);
                 this.isBouncing = false;
                 clearInterval(bounceInterval);
             }

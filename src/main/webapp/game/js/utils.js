@@ -1,5 +1,7 @@
 /*jshint esversion: 6 */
 
+export const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 export const get_cookie = name => {
     var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return value ? value[2] : null;
@@ -64,7 +66,6 @@ export const damageOfHurdle = (hurdles) => ({ x, y, width, height }) =>{
     let rect = { x, y, width, height };
     for (let hurdle of hurdles) {
         if(isCollision(hurdle)(rect)){
-            console.log("touch");
             return hurdle.damage;
         }
     }

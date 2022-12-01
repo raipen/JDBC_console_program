@@ -2,6 +2,7 @@
 
 import {getMap} from './Map.js';
 import {getPlayer} from './Player.js';
+import {sleep,isCollision} from './utils.js';
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
@@ -18,10 +19,26 @@ export const main = async (mapNo,characterId)=>{
     stdPixel = canvas.height/map.mapInfo.height;
     const bases = map.bases.map(b=>drawPixel('black')(b));
     const hurdles = map.hurdles.map(h=>drawPixel('red')(h));
-    const goal = drawPixel('blue')({x:map.mapInfo.goalx,y:map.mapInfo.goaly,width:1,height:2});
-
-    let drawLoop = setInterval(draw({bases,hurdles,character,goal,map}), 1000/60);
+    const goal = {x:map.mapInfo.goalx,y:map.mapInfo.goaly,width:1,height:2};
+    const drawGame = draw({bases,hurdles,character,goal,map});
+    await countDown(drawGame,3);
+    
     let moveLoop = setInterval(character.move(), 1000/60);
+    let playtime = 0;
+    let drawLoop = setInterval(()=>{
+        playtime++;
+        drawGame(playtime);
+        if(character.life===0){
+            console.log("a");
+            clearInterval(drawLoop);
+            clearInterval(moveLoop);
+        }
+        if(isCollision(character)(goal)){
+            clearInterval(drawLoop);
+            clearInterval(moveLoop);
+            console.log("goal");
+        }
+    }, 1000/60);
 
     const keydownSetting = [{key:'ArrowLeft',action:()=>character.moveLeft()},
                         {key:'ArrowRight',action:()=>character.moveRight()},
@@ -39,7 +56,22 @@ export const main = async (mapNo,characterId)=>{
     });
 }
 
-const draw = ({bases,hurdles,character,goal,map})=>()=>{
+const countDown = async (drawGame,num)=>{
+    for(let i=num;i>0;i--){
+        drawGame(0);
+        ctx.fillStyle = 'black';
+        ctx.globalAlpha = 0.5;
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.font = '100px Noto Sans KR';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.globalAlpha = 1;
+        ctx.fillText(i,canvas.width/2,canvas.height/2);
+        await sleep(1000);
+    }
+}
+
+const draw = ({bases,hurdles,character,goal,map})=>(playtime)=>{
     ctx.clearRect(0,0,canvas.width,canvas.height);
     let startPositon = 0;
     if(character.x*stdPixel>canvas.width*0.3)
@@ -51,7 +83,11 @@ const draw = ({bases,hurdles,character,goal,map})=>()=>{
     drawPixel('green')(character)(startPositon);
     for(let i=0;i<character.life;i++)
         drawPixel('red')({x:1+i*4,y:1,width:3,height:3})(0);
-    goal(startPositon);
+    drawPixel('blue')(goal)(startPositon);
+    ctx.font = '20px Noto Sans KR';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(`Playtime : ${playtime}`,10,10);
 }
 
 const setCanvasSize = (canvas)=>{
