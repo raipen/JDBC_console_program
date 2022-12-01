@@ -30,14 +30,14 @@
         response.setStatus(200);
         String characterID = "";
         while(true){
-            characterID = String.valueOf((int)Math.random() * 9) +
-                String.valueOf((int)Math.random() * 9) +
-                String.valueOf((int)Math.random() * 9) +
-                String.valueOf((int)Math.random() * 9) +
-                String.valueOf((int)Math.random() * 9) +
-                String.valueOf((int)Math.random() * 9) +
-                String.valueOf((int)Math.random() * 9) +
-                String.valueOf((int)Math.random() * 9);
+            characterID = String.valueOf((int) (Math.random() * 9)) +
+                String.valueOf((int) (Math.random() * 9)) +
+                String.valueOf((int) (Math.random() * 9)) +
+                String.valueOf((int) (Math.random() * 9)) +
+                String.valueOf((int) (Math.random() * 9)) +
+                String.valueOf((int) (Math.random() * 9)) +
+                String.valueOf((int) (Math.random() * 9)) +
+                String.valueOf((int) (Math.random() * 9));
             boolean b = false;
             for(CharacterDTO C:characterDTOList){
                 if (C.getCharacterID().equals(characterID))
@@ -46,7 +46,10 @@
                     break;
                 }
             }
-            if(!b) break;
+            if(!b) {
+                obj.put("randID",characterID);
+                break;
+            }
         }
         if(characterDAO.MakeCharacter(id, characterID, characterName,skillID)){
             obj.put("characterID", characterID);
