@@ -45,6 +45,7 @@ public class AbilityDAO extends DAO
 		}
 		return result;
 	}
+	
 
 	public int getTotalAbility(CharacterDTO character)
 	{
@@ -58,6 +59,30 @@ public class AbilityDAO extends DAO
 			rs = pstmt.executeQuery();
 			while (rs.next())
 				result = rs.getInt("TOTAL");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			closeConnection(conn, pstmt, rs);
+		}
+		return result;
+	}
+	public AbilityDTO getAbilityInfo(String characterId)
+	{
+		AbilityDTO result = null;
+		try
+		{
+			conn = getConnection();
+			String sql = "SELECT SPEED, LIFE, COOLDOWN FROM ABILITIES Where characterid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, characterId);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				result =  new AbilityDTO(characterId,rs.getInt("SPEED"), rs.getInt("LIFE"),
+						rs.getInt("COOLDOWN"));
 		}
 		catch (Exception e)
 		{

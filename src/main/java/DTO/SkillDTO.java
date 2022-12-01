@@ -4,7 +4,7 @@ public class SkillDTO {
 	String skillID;
 	String skillName;
 	String skillImg;
-	int duartion;
+	int duration;
 	int cooltime;
 	
     public SkillDTO() {}
@@ -13,7 +13,7 @@ public class SkillDTO {
         this.skillID=skillid;
         this.skillName=skillname;
         this.skillImg=skillimg;
-        this.duartion=duration;
+        this.duration=duration;
         this.cooltime=cooltime;
     }
     
@@ -35,11 +35,11 @@ public class SkillDTO {
 	public void setSkillImg(String skillImg) {
 		this.skillImg = skillImg;
 	}
-	public int getDuartion() {
-		return duartion;
+	public int getDuration() {
+		return duration;
 	}
-	public void setDuartion(int duartion) {
-		this.duartion = duartion;
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 	public int getCooltime() {
 		return cooltime;

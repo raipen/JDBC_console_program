@@ -38,6 +38,25 @@ public class SkillDAO extends DAO{
         }
         return SkillList;
     }
+    public SkillDTO getSkillInfo(String skillId) {
+        SkillDTO skill = null;
+
+        try{
+            conn = getConnection();
+            String sql = "SELECT * FROM skills WHERE skillId = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, skillId);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                skill = new SkillDTO(rs.getString("skillID"),rs.getString("skillname"),rs.getString("skillimg"),rs.getInt("duration"),rs.getInt("cooltime"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            closeConnection(conn, pstmt, rs);
+        }
+        return skill;
+    }
 
    
 }
