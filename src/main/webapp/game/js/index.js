@@ -47,11 +47,13 @@ export const main = async (mapNo,characterId)=>{
                         {key:'p',action:()=>character.print()},
                         {key:'b',action:()=>character.bounce(0)},
                         {key:'Shift',action:()=>{
-                            if(character.skillCooltime>0)
+                            console.log(character.cooltime);
+                            if(character.cooltime>0)
                                 return;
-                            character.skillCooltime = player.skill.cooltime*60;
-                            
-                            Skills[player.skill.skillName](character)
+                            character.cooltime = player.skill.cooltime*60;
+                            if(player.skill.duration===0)
+                                Skills[player.skill.skillName](character);
+
                         }}];
     const keyupSetting = [{key:'ArrowLeft',action:()=>character.stopLeft()},
                         {key:'ArrowRight',action:()=>character.stopRight()}];
