@@ -6,6 +6,7 @@ public class CharacterDTO {
     private int lv;
     private int exp;
     private String skillID;
+    private String userID;
     
     public CharacterDTO() {}
     
@@ -17,8 +18,13 @@ public class CharacterDTO {
         this.skillID = skillID;
     }
     
+    public CharacterDTO(String userID, String characterID, String characterName, int lv, int exp, String skillID){
+		this(characterID, characterName, lv, exp, skillID);
+		this.userID = userID;
+	}
+
     public CharacterDTO copy() {
-        return new CharacterDTO(characterID, characterName, lv, exp, skillID);
+        return new CharacterDTO(userID, characterID, characterName, lv, exp, skillID);
     }
 
     public String getCharacterID() {
@@ -60,6 +66,15 @@ public class CharacterDTO {
     public void setSkillID(String skillID) {
         this.skillID = skillID;
     }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public String toString(){
         return ": "+characterName  ;
     }

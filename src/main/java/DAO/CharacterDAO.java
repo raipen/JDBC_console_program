@@ -89,35 +89,23 @@ public class CharacterDAO extends DAO{
 		return result;
 	}
 
-	public List<CharacterDTO_GM> getCharacterList(String id)
-	{
-		List<CharacterDTO_GM> characterList = new LinkedList<CharacterDTO_GM>();
-		try
-		{
-			conn = getConnection();
-			String sql = "SELECT USERID, CHARACTERID, CHARACTERNAME, LV, EXP, SKILLID FROM CHARACTERS, SKILLS WHERE CHARACTERNAME LIKE ? AND CHARACTERS.SKILLID = SKILLS.SKILLID"; // LIKE// //
-																																														// �궗�슜
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, (id == null ? "%" : id));
-			rs = pstmt.executeQuery();
-
-			while (rs.next())
-			{
-				characterList.add(new CharacterDTO_GM(rs.getString("USERID"),
-						rs.getString("CHARACTERID"), rs.getString("CHARACTERNAME"),
-						rs.getInt("LV"), rs.getInt("EXP"), rs.getString("SKILLID")));
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			closeConnection(conn, pstmt, rs);
-		}
-		return characterList;
-	}
+	public List<CharacterDTO> getCharacterList() {
+      List<CharacterDTO> characterList = new LinkedList<CharacterDTO>();
+      try{
+         conn = getConnection();
+         String sql = "SELECT * FROM CHARACTERS";
+         pstmt = conn.prepareStatement(sql);
+         rs = pstmt.executeQuery();
+         while(rs.next()){
+            characterList.add(new CharacterDTO(rs.getString("characterID"), rs.getString("characterName"), rs.getInt("lv"), rs.getInt("exp"), rs.getString("skillID")));
+         }
+      }catch(Exception e){
+         e.printStackTrace();
+      }finally{
+         closeConnection(conn, pstmt, rs);
+      }
+      return characterList;
+   }
 
 	public List<String> directSkillCharacterList()
 	{
@@ -376,7 +364,7 @@ public class CharacterDAO extends DAO{
             pstmt.setString(1, characterId);
             rs = pstmt.executeQuery();
             if(rs.next()){
-                character = new CharacterDTO(rs.getString("characterID"), rs.getString("characterName"), rs.getInt("lv"), rs.getInt("exp"),rs.getString("skillID"));
+                character = new CharacterDTO(rs.getString("UserId"),rs.getString("characterID"), rs.getString("characterName"), rs.getInt("lv"), rs.getInt("exp"),rs.getString("skillID"));
             }
         }catch(Exception e){
             e.printStackTrace();

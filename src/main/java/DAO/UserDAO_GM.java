@@ -131,9 +131,9 @@ public class UserDAO_GM extends DAO
 		return userList;
 	}
 
-	public List<CharacterDTO_GM> getCharacterList(String id)
+	public List<CharacterDTO> getCharacterList(String id)
 	{
-		List<CharacterDTO_GM> characterList = new LinkedList<CharacterDTO_GM>();
+		List<CharacterDTO> characterList = new LinkedList<CharacterDTO>();
 		try
 		{
 			conn = getConnection();
@@ -145,7 +145,7 @@ public class UserDAO_GM extends DAO
 
 			while (rs.next())
 			{
-				characterList.add(new CharacterDTO_GM(rs.getString("USERID"),
+				characterList.add(new CharacterDTO(rs.getString("USERID"),
 						rs.getString("CHARACTERID"), rs.getString("CHARACTERNAME"),
 						rs.getInt("LV"), rs.getInt("EXP"), rs.getString("SKILLNAME")));
 			}

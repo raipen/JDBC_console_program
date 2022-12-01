@@ -26,6 +26,7 @@
 		obj.put("level",character.getLv());
 		obj.put("exp",character.getExp());
 		obj.put("skillId",character.getSkillID());	
+		obj.put("userId",character.getUserID());
 	}
 	
 	
