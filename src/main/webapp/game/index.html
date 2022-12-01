@@ -15,8 +15,28 @@
     <footer>
         하단메뉴
     </footer>
+    <div id="modal" class="modal">
+        <div id="modal-content">
+            <div id="modal-header">
+                <span id="modal-title">게임오버</span>
+                <span id="modal-close">X</span>
+            </div>
+            <div id="modal-body">
+                <div id="modal-text">
+                    <span>걸린 시간</span>
+                    <span id="time">0</span>
+                    <span>경험치</span>
+                    <span id="exp">0</span>
+                </div>
+                <div id="modal-button">
+                    <button id="restart">재수강하기</button>
+                    <button id="exit">나가기</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type='module'>
-        import {main} from './js';
+        import {main} from './js/index.js';
         import {get_cookie} from './js/utils.js';
         //check login
         //check character
