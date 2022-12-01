@@ -4,16 +4,18 @@ import { isOnBase, noInterruptMove, damageOfHurdle } from "./utils.js";
 
 export default class Character{
     constructor({speed,life,cooldown}){
-        this.width = 1;
-        this.height = 2;
+        this.width = 0.9;
+        this.height = 1.8;
         this.x = 0;
         this.y = 31;
-        this.gravity = 30;
-        this.speed = 0;
+        this.gravity = 3;
+        this.jumpPower = 45;
+        this.xSpeed = 0;
+        this.ySpeed = 0;
         this.life = life;
         this.cooldown = cooldown;
         this.friction = 0.6;
-        this.maxSpeed = 3+speed;
+        this.maxSpeed = 2+speed;
         this.bases = [];
         this.hurdles = [];
         this.safeMove;
@@ -55,15 +57,9 @@ export default class Character{
     jump(){
         if(!isOnBase(this.bases)(this.getRect()))
             return;
-        let ySpeed = -100;
-        let jumpInterval = setInterval(()=>{
-            let result = this.safeMove(this.getRect())(0,ySpeed);
-            if((result.y>this.y+ySpeed/60)||(ySpeed>-this.gravity)){
-                clearInterval(jumpInterval);
-            }
-            this.y = result.y;
-            ySpeed *= 0.9;
-        },1000/60);
+        this.ySpeed = -this.jumpPower;
+        let result = this.safeMove(this.getRect())(0,this.ySpeed);
+        this.y = result.y;
     }
 
     bounce(damage){
@@ -71,36 +67,39 @@ export default class Character{
             return;
         this.isBouncing = true;
         this.life -= damage;
-        let speed = -60;
+        if(this.life<=0)
+            return;
         if(this.left)
-            speed = 60;
-        let bounceInterval = setInterval(()=>{
-            let result = this.safeMove(this.getRect())(speed,0);
-            if((result.x>this.x+speed/60)||(speed<1&&speed>-1)){
-                this.isBouncing = false;
-                clearInterval(bounceInterval);
-            }
-            this.x = result.x;
-            speed *= 0.6;
-        },1000/60);
+            this.xSpeed += this.maxSpeed*2;
+        else
+            this.xSpeed -= this.maxSpeed*2;
+        let result = this.safeMove(this.getRect())(this.xSpeed,0);
+        this.x = result.x;
+        this.isBouncing = false;
     }
 
     move(){
         return ()=>{
             if((this.left&&this.right)||(!this.left&&!this.right))
-                this.speed *= this.friction;
+                this.xSpeed *= this.friction;
             else if(this.left)
-                this.speed--;
+                this.xSpeed--;
             else if(this.right)
-                this.speed++;
+                this.xSpeed++;
 
-            if(this.speed > this.maxSpeed)
-                this.speed = this.maxSpeed;
-            else if(this.speed < -this.maxSpeed)
-                this.speed = -this.maxSpeed;
+            if(this.xSpeed > this.maxSpeed)
+                this.xSpeed = this.maxSpeed;
+            else if(this.xSpeed < -this.maxSpeed)
+                this.xSpeed = -this.maxSpeed;
 
-            let gravity = this.gravity;
-            let result = this.safeMove(this.getRect())(this.speed,gravity);
+            if(isOnBase(this.bases)(this.getRect()))
+                this.ySpeed = 0;
+            else
+                this.ySpeed += this.gravity;
+
+            let result = this.safeMove(this.getRect())(this.xSpeed,this.ySpeed);
+            if(result.y>this.y+this.ySpeed/60)
+                this.ySpeed = 0;
             this.x = result.x;
             this.y = result.y;
             if(this.invincible)
@@ -110,7 +109,7 @@ export default class Character{
                 this.invincible = true;
                 setTimeout(() => {
                     this.invincible = false;
-                }, 250);
+                }, 500);
                 this.bounce(damage);
             }
         }

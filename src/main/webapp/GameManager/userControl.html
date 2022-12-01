@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>호반우 런</title>
-    <link rel="stylesheet" href="css/loginedUserPage.css">
+    <link rel="stylesheet" href="userControl.css">
 </head>
 <body>
     <div id="left">
@@ -26,13 +26,15 @@
             const buttons = document.querySelectorAll('.button');
             for(let i=0; i<buttons.length; i++)
                 buttons[i].addEventListener('click', async (e) => {
+					console.log("asdf");
                     const userId = e.target.innerHTML;
                     const right = document.querySelector('#right');
                     const result = await ajax('../apis/getCharacterList.jsp', {id:userId});
-                    console.log(result);
                     let html = '';
                     for(let i=0; i<result.length; i++)
-                            html += `<div class="button">${result[i].characterID}</div>`;
+                        html += `<div class="button">${result[i].characterName}</div>`;
+                    console.log(result);
+                    console.log(right);
                     right.innerHTML = html;
                 });
         }

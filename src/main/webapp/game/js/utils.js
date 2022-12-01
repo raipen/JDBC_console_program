@@ -45,16 +45,16 @@ export const noInterruptMove = (bases) => ({ x, y, width, height }) => (xSpeed, 
     for (let base of bases) {
         let isCollisionWithBase = isCollision(base);
         if (xSpeed!==0&&isCollisionWithBase(horizontalRect)) {
-            horizontalRect.x = Math.ceil(horizontalRect.x);
+            //horizontalRect.x = Math.ceil(horizontalRect.x);
             while (isCollisionWithBase(horizontalRect))
-                horizontalRect.x -= Math.sign(xSpeed);
+                horizontalRect.x -= Math.sign(xSpeed)/60;
             rect.x = horizontalRect.x;
             xSpeed = 0;
         }
         if (ySpeed!==0&&isCollisionWithBase(verticalRect)) {
-            verticalRect.y = Math.ceil(verticalRect.y);
+            //verticalRect.y = Math.ceil(verticalRect.y);
             while (isCollisionWithBase(verticalRect))
-                verticalRect.y -= Math.sign(ySpeed);
+                verticalRect.y -= Math.sign(ySpeed)/60;
             rect.y = verticalRect.y;
             ySpeed = 0;
         }
