@@ -20,10 +20,10 @@
 	
 	JSONArray objArray = new JSONArray();
 	
-	List<CharacterDTO> characterList = characterDAO.getCharacterList(id);
+	List<CharacterDTO_GM> characterList = characterDAO.getCharacterList(id);
 	
 	if(characterList.size()==0){
-		response.setStatus(401);
+		response.setStatus(403);
 		HashMap<String, Object> obj = new HashMap<String, Object>();
 		obj.put("message", "fail");
 	}else{

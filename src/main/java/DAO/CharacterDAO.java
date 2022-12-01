@@ -89,14 +89,13 @@ public class CharacterDAO extends DAO{
 		return result;
 	}
 
-	public List<CharacterDTO_GM> getCharacterList_GM(String id)
+	public List<CharacterDTO_GM> getCharacterList(String id)
 	{
 		List<CharacterDTO_GM> characterList = new LinkedList<CharacterDTO_GM>();
 		try
 		{
 			conn = getConnection();
-			String sql = "SELECT USERID, CHARACTERID, CHARACTERNAME, LV, EXP, SKILLNAME FROM CHARACTERS, SKILLS WHERE CHARACTERNAME LIKE ? AND CHARACTERS.SKILLID = SKILLS.SKILLID"; // LIKE
-																																														// //
+			String sql = "SELECT USERID, CHARACTERID, CHARACTERNAME, LV, EXP, SKILLID FROM CHARACTERS, SKILLS WHERE CHARACTERNAME LIKE ? AND CHARACTERS.SKILLID = SKILLS.SKILLID"; // LIKE// //
 																																														// 사용
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, (id == null ? "%" : id));
@@ -106,7 +105,7 @@ public class CharacterDAO extends DAO{
 			{
 				characterList.add(new CharacterDTO_GM(rs.getString("USERID"),
 						rs.getString("CHARACTERID"), rs.getString("CHARACTERNAME"),
-						rs.getInt("LV"), rs.getInt("EXP"), rs.getString("SKILLNAME")));
+						rs.getInt("LV"), rs.getInt("EXP"), rs.getString("SKILLID")));
 			}
 		}
 		catch (Exception e)
@@ -324,25 +323,6 @@ public class CharacterDAO extends DAO{
             closeConnection(conn, pstmt, rs);
         }
         return result;
-    }
-
-    public List<CharacterDTO> getCharacterList(String id) {
-        List<CharacterDTO> characterList = new LinkedList<CharacterDTO>();
-        try{
-            conn = getConnection();
-            String sql = "SELECT * FROM CHARACTERS c, uses u WHERE c.characterid=u.characterid and userID = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
-            rs = pstmt.executeQuery();
-            while(rs.next()){
-                characterList.add(new CharacterDTO(rs.getString("characterID"), rs.getString("characterName"), rs.getInt("lv"), rs.getInt("exp"), rs.getString("skillID")));
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            closeConnection(conn, pstmt, rs);
-        }
-        return characterList;
     }
     
     public void printAbilityList(String id) {
