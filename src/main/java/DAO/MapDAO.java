@@ -35,7 +35,7 @@ public class MapDAO extends DAO
 			rs = pstmt.executeQuery();
 			while (rs.next())
 			{
-				mapList.add(new MapDTO(rs.getInt("mapno"),
+				 mapList.add(new MapDTO(rs.getString("mapno"),
 				 rs.getString("mapname"), rs.getString("backgroundimg"),
 				 rs.getInt("mapsizex"), rs.getInt("mapsizey"),
 				 rs.getInt("goalx"), rs.getInt("goaly"),
@@ -126,7 +126,7 @@ public class MapDAO extends DAO
 
 			while (rs.next())
 			{
-				clearCountList.add("맵이름: " + rs.getString("mapname"));
+				clearCountList.add("留듭씠由�: " + rs.getString("mapname"));
 			}
 		}
 		catch (Exception e)
@@ -170,5 +170,33 @@ public class MapDAO extends DAO
 			closeConnection(conn, pstmt, rs);
 		}
 		return clearCountList;
+	}
+	
+	public MapDTO getMapInfo(String mapNo)
+	{
+		MapDTO map = null;
+		try
+		{
+			conn = getConnection();
+			String sql = "SELECT * FROM MAPS WHERE MAPNO = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mapNo);
+			rs = pstmt.executeQuery();
+			while (rs.next())
+				 map=new MapDTO(rs.getString("mapno"),
+						 rs.getString("mapname"), rs.getString("backgroundimg"),
+						 rs.getInt("mapsizex"), rs.getInt("mapsizey"),
+						 rs.getInt("goalx"), rs.getInt("goaly"),
+						 rs.getInt("difficulty"));
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			closeConnection(conn, pstmt, rs);
+		}
+		return map;
 	}
 }

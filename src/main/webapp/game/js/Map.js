@@ -22,19 +22,19 @@ export default class Map{
     }
 
     async setMapInfo(){
-        const url = '../apis/getMapInfo.jps';
+        const url = '../apis/getMapInfo.jsp';
         const data = {mapNo:this.mapNo};
         this.mapInfo = await ajax(url,data);
     }
 
     async setBases(){
-        const url = '../apis/getBases.jps';
+        const url = '../apis/getBases.jsp';
         const data = {mapNo:this.mapNo};
         this.bases = await ajax(url,data);
     }
 
     async setHurdles(){
-        const url = '../apis/getHurdles.jps';
+        const url = '../apis/getHurdles.jsp';
         const data = {mapNo:this.mapNo};
         this.hurdles = await ajax(url,data);
     }
