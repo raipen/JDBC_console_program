@@ -29,6 +29,7 @@
 		pwCookie.setPath("/");
 		response.addCookie(idCookie);
 		response.addCookie(pwCookie);
+
 	}
 	response.getWriter().write(new JSONObject(obj).toString());
 %>
