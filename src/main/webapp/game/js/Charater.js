@@ -21,6 +21,7 @@ export default class Character{
         this.safeMove;
         this.isBouncing = false;
         this.invincible = false;
+        this.cooltime=0;
 
         this.left = false;
         this.right = false;
@@ -80,6 +81,8 @@ export default class Character{
 
     move(){
         return ()=>{
+            if(this.cooltime>0)
+                this.cooltime--;
             if((this.left&&this.right)||(!this.left&&!this.right))
                 this.xSpeed *= this.friction;
             else if(this.left)

@@ -1,8 +1,8 @@
 /*jshint esversion: 6 */
-
 import {getMap} from './Map.js';
 import {getPlayer} from './Player.js';
 import {sleep,isCollision} from './utils.js';
+import Skills from './Skills.js';
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
@@ -45,7 +45,14 @@ export const main = async (mapNo,characterId)=>{
                         {key:'ArrowRight',action:()=>character.moveRight()},
                         {key:' ',action:()=>character.jump()},
                         {key:'p',action:()=>character.print()},
-                        {key:'b',action:()=>character.bounce(0)}];
+                        {key:'b',action:()=>character.bounce(0)},
+                        {key:'Shift',action:()=>{
+                            if(character.skillCooltime>0)
+                                return;
+                            character.skillCooltime = player.skill.cooltime*60;
+                            
+                            Skills[player.skill.skillName](character)
+                        }}];
     const keyupSetting = [{key:'ArrowLeft',action:()=>character.stopLeft()},
                         {key:'ArrowRight',action:()=>character.stopRight()}];
 
