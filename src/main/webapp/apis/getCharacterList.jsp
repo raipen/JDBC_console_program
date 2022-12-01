@@ -43,7 +43,7 @@
             abilityObj.put("life",abilityDTO.getLife());
             abilityObj.put("speed",abilityDTO.getSpeed());
             abilityObj.put("coolDown",abilityDTO.getCoolDown());
-            obj.put("ablilty", abilityObj);
+            obj.put("ability", abilityObj);
 
             List<SkillDTO> skillList = skillDAO.getSkillList();
             for(SkillDTO S:skillList)
