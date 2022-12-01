@@ -11,7 +11,7 @@
 <%@ page import="org.json.simple.parser.JSONParser" %>
 
 <%
-	CharacterDAO characterDAO = CharacterDAO.getInstance();
+	UserDAO userDAO = UserDAO.getInstance();
     AbilityDAO abilityDAO = AbilityDAO.getInstance();
     SkillDAO skillDAO = SkillDAO.getInstance();
 
@@ -20,12 +20,13 @@
 	
 	JSONArray objArray = new JSONArray();
 	
-	List<CharacterDTO_GM> characterList = characterDAO.getCharacterList(id);
+	List<CharacterDTO> characterList = userDAO.getCharacterList(id);
 	
 	if(characterList.size()==0){
-		response.setStatus(403);
+		response.setStatus(401);
 		HashMap<String, Object> obj = new HashMap<String, Object>();
 		obj.put("message", "fail");
+        objArray.add(obj);
 	}else{
 		response.setStatus(200);
 		for(CharacterDTO C : characterList)
