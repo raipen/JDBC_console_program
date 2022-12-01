@@ -6,7 +6,6 @@ import {sleep,isCollision} from './utils.js';
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
-const modal = document.getElementById('modal');
 let stdPixel = 1;
 
 export const main = async (mapNo,characterId)=>{
@@ -79,13 +78,6 @@ const convertTime = (frame)=>{
     return `${min<10?'0'+min:min}:${sec<10?'0'+sec:sec}:${msec<10?'0'+msec:msec}`;
 }
 
-const frameToExp = ({result,frame})=>{
-    if(result==='success')
-        return Math.floor(990/(frame/60)+10);
-    else
-        return 5;
-}
-
 const draw = ({bases,hurdles,character,goal,map})=>(playtime)=>{
     ctx.clearRect(0,0,canvas.width,canvas.height);
     let startPositon = 0;
@@ -106,30 +98,16 @@ const draw = ({bases,hurdles,character,goal,map})=>(playtime)=>{
 }
 
 const drawResult = (result,playtime)=>{
-    const resultString = {fail:'3/4이상 출석 실패',success:'출석 완료'};
-    modal.style.display = 'flex';
-    modal.innerHTML = `<div class="modal-content">
-                        <div class="modal-header">
-                            <div class="modal-title">${resultString[result]}</div>
-                        </div>
-                        <div class="modal-body">
-                            <p>플레이 시간 : ${convertTime(playtime)}</p>
-                            <p>exp : ${frameToExp({result,frame:playtime})}</p>
-                        </div>
-                        <div id="modal-footer">
-                            <button id="restart">재수강하기</button>
-                            <button id="exit">나가기</button>
-                        </div>
-                    </div>`;
-    const restart = document.getElementById('restart');
-    const exit = document.getElementById('exit');
-    restart.addEventListener('click',()=>{
-        location.reload();
-    });
-    exit.addEventListener('click',()=>{
-        modal.style.display = 'none';
-        window.location.href = '../';
-    });
+    ctx.fillStyle = 'black';
+    ctx.globalAlpha = 0.5;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.font = '100px Noto Sans KR';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.globalAlpha = 1;
+    ctx.fillText(result,canvas.width/2,canvas.height/2);
+    ctx.font = '50px Noto Sans KR';
+    ctx.fillText(`Playtime : ${convertTime(playtime)}`,canvas.width/2,canvas.height/2+100);
 }
 
 const setCanvasSize = (canvas)=>{
