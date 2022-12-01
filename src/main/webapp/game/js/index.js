@@ -29,14 +29,14 @@ export const main = async (mapNo,characterId)=>{
         playtime++;
         drawGame(playtime);
         if(character.life===0){
-            console.log("a");
             clearInterval(drawLoop);
             clearInterval(moveLoop);
+            drawResult("fail",playtime);
         }
         if(isCollision(character)(goal)){
             clearInterval(drawLoop);
             clearInterval(moveLoop);
-            console.log("goal");
+            drawResult("success",playtime);
         }
     }, 1000/60);
 
@@ -71,6 +71,13 @@ const countDown = async (drawGame,num)=>{
     }
 }
 
+const convertTime = (frame)=>{
+    let min = Math.floor(frame/3600);
+    let sec = Math.floor((frame%3600)/60);
+    let msec = Math.floor((frame%3600)%60);
+    return `${min<10?'0'+min:min}:${sec<10?'0'+sec:sec}:${msec<10?'0'+msec:msec}`;
+}
+
 const draw = ({bases,hurdles,character,goal,map})=>(playtime)=>{
     ctx.clearRect(0,0,canvas.width,canvas.height);
     let startPositon = 0;
@@ -87,7 +94,20 @@ const draw = ({bases,hurdles,character,goal,map})=>(playtime)=>{
     ctx.font = '20px Noto Sans KR';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    ctx.fillText(`Playtime : ${playtime}`,10,10);
+    ctx.fillText(`Playtime : ${convertTime(playtime)}`,10,10);
+}
+
+const drawResult = (result,playtime)=>{
+    ctx.fillStyle = 'black';
+    ctx.globalAlpha = 0.5;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.font = '100px Noto Sans KR';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.globalAlpha = 1;
+    ctx.fillText(result,canvas.width/2,canvas.height/2);
+    ctx.font = '50px Noto Sans KR';
+    ctx.fillText(`Playtime : ${convertTime(playtime)}`,canvas.width/2,canvas.height/2+100);
 }
 
 const setCanvasSize = (canvas)=>{
