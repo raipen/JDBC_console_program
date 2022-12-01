@@ -30,26 +30,26 @@ export default class Player{
     }
 
     async setCharacter(){
-        const url = '../apis/getCharacter.jsp';
+        const url = '../apis/getCharacter.jps';
         const data = {characterId:this.characterId};
         this.character = await ajax(url,data);
         this.userId = this.character.userId;
     }
 
     async setSkill(){
-        const url = '../apis/getSkill.jsp';
+        const url = '../apis/getSkill.jps';
         const data = {characterId:this.characterId};
         this.skill = await ajax(url,data);
     }
 
     async setAbility(){
-        const url = '../apis/getAbility.jsp';
+        const url = '../apis/getAbility.jps';
         const data = {characterId:this.characterId};
         this.ability = await ajax(url,data);
     }
 
     async setItem(){
-        const url = '../apis/getItem.jsp';
+        const url = '../apis/getItem.jps';
         const data = {characterId:this.characterId};
         this.item = await ajax(url,data);
     }

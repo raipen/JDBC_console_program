@@ -126,7 +126,7 @@ public class MapDAO extends DAO
 
 			while (rs.next())
 			{
-				clearCountList.add("맵이름: " + rs.getString("mapname"));
+				clearCountList.add("留듭씠由�: " + rs.getString("mapname"));
 			}
 		}
 		catch (Exception e)
