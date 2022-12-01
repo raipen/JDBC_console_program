@@ -53,7 +53,8 @@ export const main = async (mapNo,characterId)=>{
                             character.cooltime = player.skill.cooltime*60;
                             if(player.skill.duration===0)
                                 Skills[player.skill.skillName](character);
-
+                            else
+                                Skills[player.skill.skillName](character,player.skill.duration*60);
                         }}];
     const keyupSetting = [{key:'ArrowLeft',action:()=>character.stopLeft()},
                         {key:'ArrowRight',action:()=>character.stopRight()}];

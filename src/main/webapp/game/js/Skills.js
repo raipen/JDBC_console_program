@@ -1,5 +1,10 @@
-export default {smaller(character){
-
+export default {smaller(character,duration){
+    character.width = character.width/2;
+    character.height = character.height/2;
+    setTimeout(()=>{
+        character.width = character.width*2;
+        character.height = character.height*2;
+    },duration*1000);
 },
  timestop(character){
 
@@ -16,7 +21,10 @@ export default {smaller(character){
     },100);
 },
  doublejump(character){
-
+    console.log("doublejump");
+    character.ySpeed = -character.jumpPower;
+    let result = character.safeMove(character.getRect())(0,character.ySpeed);
+    character.y = result.y;
 },
  teleport(character){
 
