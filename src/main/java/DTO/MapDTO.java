@@ -1,7 +1,10 @@
 package DTO;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class MapDTO {
-	int mapno;
+	String mapno;
 	String mapname;
 	String backgroundimg;
 	int mapsizex;
@@ -11,7 +14,7 @@ public class MapDTO {
 	int difficulty;
 	
 	public MapDTO() {}
-    public MapDTO(int mapno, String mapname, String backgroundimg, int mapsizex, int mapsizey, int goalx, int goaly, int difficulty) {
+    public MapDTO(String mapno, String mapname, String backgroundimg, int mapsizex, int mapsizey, int goalx, int goaly, int difficulty) {
 		this.mapno = mapno;
 		this.mapname = mapname;
 		this.backgroundimg = backgroundimg;
@@ -22,10 +25,10 @@ public class MapDTO {
 		this.difficulty = difficulty;
 	}
 	
-	public int getMapno() {
+	public String getMapno() {
 		return mapno;
 	}
-	public void setMapno(int mapno) {
+	public void setMapno(String mapno) {
 		this.mapno = mapno;
 	}
 	public String getMapname() {
