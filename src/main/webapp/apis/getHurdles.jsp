@@ -11,21 +11,21 @@
 <%@ page import="org.json.simple.parser.JSONParser" %>
 
 <%
-	BaseDAO baseDAO = BaseDAO.getInstance();
+	HurdleDAO hurdleDAO = HurdleDAO.getInstance();
 	JSONObject requestData = Utils.getJsonFromRequest(request);
 	String mapNo = (String)requestData.get("mapNo");
 	
 	JSONArray objArray = new JSONArray();
 	
-	List<BaseDTO> baseList = baseDAO.getBaseList(mapNo);
+	List<HurdleDTO> hurdleList = hurdleDAO.getHurdleList(mapNo);
 	
-	if(baseList.size()==0){
+	if(hurdleList.size()==0){
 		response.setStatus(401);
 		HashMap<String, Object> obj = new HashMap<String, Object>();
 		obj.put("message", "fail");
 	}else{
 		response.setStatus(200);
-		for(BaseDTO i : baseList)
+		for(HurdleDTO i : hurdleList)
 		{
 			HashMap<String, Object> obj = new HashMap<String, Object>();
 			//x:0,y:34,width:150,height:1

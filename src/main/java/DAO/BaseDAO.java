@@ -24,7 +24,7 @@ public class BaseDAO extends DAO
 		return instance;
 	}
 
-	public List<BaseDTO> getBase(String mapNo)
+	public List<BaseDTO> getBaseList(String mapNo)
 	{
 		List<BaseDTO> baseList = new LinkedList<BaseDTO>();
 		try

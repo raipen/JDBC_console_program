@@ -24,7 +24,7 @@ public class HurdleDAO extends DAO
 		return instance;
 	}
 
-	public List<HurdleDTO> getBase(String mapNo)
+	public List<HurdleDTO> getHurdleList(String mapNo)
 	{
 		List<HurdleDTO> hurdleList = new LinkedList<HurdleDTO>();
 		try
