@@ -22,6 +22,7 @@ export default class Character{
         this.isBouncing = false;
         this.invincible = false;
         this.cooltime=0;
+        this.color = "green";
 
         this.left = false;
         this.right = false;

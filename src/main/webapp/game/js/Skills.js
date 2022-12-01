@@ -2,12 +2,13 @@ export default {smaller(character,duration){
     character.width = character.width/2;
     character.height = character.height/2;
     setTimeout(()=>{
-        character.width = character.width*2;
         character.height = character.height*2;
+        let result = character.safeMove(character.getRect())(0,1);
+        character.y = result.y;
+        character.width = character.width*2;
+        result = character.safeMove(character.getRect())(1,0);
+        character.x = result.x;
     },duration*1000);
-},
- timestop(character){
-
 },
  dash(character){
     console.log("dash");
@@ -29,8 +30,14 @@ export default {smaller(character,duration){
  teleport(character){
 
 },
- darksight(character){
-
+ darksight(character,duration){
+    console.log("darksight");
+    character.color = "RGBA(0,255,0,0.5)";
+    character.invincible = true;
+    setTimeout(()=>{
+        character.color = "green";
+        character.invincible = false;
+    },duration*1000);
 },
  heal(character){
 

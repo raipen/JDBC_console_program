@@ -54,7 +54,7 @@ export const main = async (mapNo,characterId)=>{
                             if(player.skill.duration===0)
                                 Skills[player.skill.skillName](character);
                             else
-                                Skills[player.skill.skillName](character,player.skill.duration*60);
+                                Skills[player.skill.skillName](character,player.skill.duration);
                         }}];
     const keyupSetting = [{key:'ArrowLeft',action:()=>character.stopLeft()},
                         {key:'ArrowRight',action:()=>character.stopRight()}];
@@ -105,7 +105,7 @@ const draw = ({bases,hurdles,character,goal,map})=>(playtime)=>{
         startPositon = map.mapInfo.width*stdPixel-canvas.width;
     bases.forEach(b=>b(startPositon));
     hurdles.forEach(h=>h(startPositon));
-    drawPixel('green')(character)(startPositon);
+    drawPixel(character.color)(character)(startPositon);
     for(let i=0;i<character.life;i++)
         drawPixel('red')({x:1+i*4,y:1,width:3,height:3})(0);
     drawPixel('blue')(goal)(startPositon);
