@@ -2,7 +2,7 @@
 //id,pw 쿠키가 존재하지만 로그인 실패할 경우 login.html로 이동
 //id,pw 쿠키가 존재할 경우 로그인 확인 후 gamemanager 확인
 //gamemanager는 gmMain.html로 이동
-//일반 유저는 LoginedUserPage.html로 이동
+//일반 유저는 loginedUserPage.html로 이동
 
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ page language="java" import="java.text.*,java.sql.*" %>
@@ -33,7 +33,7 @@
         }else if(user.getUserID().startsWith("gamemanager")){
             response.sendRedirect("gmMain.html");
         }else{
-            response.sendRedirect("LoginedUserPage.html");
+            response.sendRedirect("loginedUserPage.html");
         }
     }else{
         response.sendRedirect("login.html");

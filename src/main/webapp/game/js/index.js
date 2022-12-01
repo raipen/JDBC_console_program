@@ -29,7 +29,7 @@ export const main = async (mapNo,characterId)=>{
     let drawLoop = setInterval(()=>{
         playtime++;
         drawGame(playtime);
-        if(character.life===0){
+        if(character.life<=0){
             clearInterval(drawLoop);
             clearInterval(moveLoop);
             drawResult("fail",playtime);
