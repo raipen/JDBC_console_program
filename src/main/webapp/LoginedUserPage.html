@@ -25,9 +25,10 @@
     <script type='module'>
         import {get_cookie,ajax} from './game/js/utils.js';
         const getCharacterList = async () => {
-            //const result = await ajax('apis/getCharacterList.jsp', {id:get_cookie('id')});
+            const result = await ajax('apis/getCharacterList.jsp', {id:get_cookie('id')});
             console.log(result);
         }
+        getCharacterList();
     </script>
 </body>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>호반우 런</title>
+    <link rel="stylesheet" href="css/loginedUserPage.css">
+</head>
+<body>
+    <div id="left">
+        
+    </div>
+    <div id="right">
+
+    </div>
+    <script type='module'>
+        import {get_cookie,ajax} from '../game/js/utils.js';
+        const getCharacterList = async () => {
+            const result = await ajax('../apis/getUserList.jsp', {});
+            console.log(result);
+            const left = document.querySelector('#left');
+            let html = '';
+            for(let i=0; i<result.length; i++)
+                html += `<div class="button">${result[i].id}</div>`;
+            left.innerHTML = html;
+
+            const buttons = document.querySelectorAll('.button');
+            for(let i=0; i<buttons.length; i++)
+                buttons[i].addEventListener('click', async (e) => {
+                    const userId = e.target.innerHTML;
+                    const right = document.querySelector('#right');
+                    const result = await ajax('../apis/getCharacterList.jsp', {id:userId});
+                    console.log(result);
+                    let html = '';
+                    for(let i=0; i<result.length; i++)
+                            html += `<div class="button">${result[i].characterID}</div>`;
+                    right.innerHTML = html;
+                });
+        }
+        getCharacterList();
+    </script>
+</body>
+</html>
