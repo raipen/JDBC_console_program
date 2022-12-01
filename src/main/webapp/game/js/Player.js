@@ -21,9 +21,13 @@ export default class Player{
         //this.item = [{itemName:"테스트아이템",itemId:1,img:"",count:5}];
 
         await this.setCharacter();
+        console.log(this.character);
         await this.setSkill();
+        console.log(this.skill);
         await this.setAbility();
+        console.log(this.ability);
         await this.setItem();
+        console.log(this.item);
     }
 
     getCharacter(){
