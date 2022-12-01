@@ -27,7 +27,7 @@
 		obj.put("width",map.getMapsizex());
 		obj.put("height",map.getMapsizey());
 		obj.put("goalx",map.getGoalx());
-		obj.put("goaly",map.getMapsizey());
+		obj.put("goaly",map.getGoaly());
 		obj.put("difficulty",map.getDifficulty());
 	}
 	
