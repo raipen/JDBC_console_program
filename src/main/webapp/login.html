@@ -26,7 +26,7 @@
 			xhr.send(JSON.stringify({id:id,pw:pw}));
 			xhr.addEventListener("load",function(){
 				if(xhr.status == 200){
-						location.href="LoginedUserPage.html";
+						location.href="./index.jsp";
 				}
 				if(xhr.status == 401){
 					let result = JSON.parse(xhr.responseText);
