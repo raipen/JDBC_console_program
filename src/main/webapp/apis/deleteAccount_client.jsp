@@ -22,10 +22,11 @@
 		obj.put("message", "fail");
 	}else{
 		response.setStatus(200);
-
         if(userDAO.deleteAccount(id)){
             Cookie idCookie = new Cookie("id",null);
             Cookie pwCookie = new Cookie("pw",null);
+            idCookie.setPath("/");
+            pwCookie.setPath("/");
             idCookie.setMaxAge(0);
             pwCookie.setMaxAge(0);
             response.addCookie(idCookie);
