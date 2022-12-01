@@ -1,4 +1,4 @@
-</html><%@ page language="java" contentType="application/json; charset=utf-8"%>
+<%@ page language="java" contentType="application/json; charset=utf-8"%>
 <%@ page language="java" import="java.text.*,java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.io.*" %>

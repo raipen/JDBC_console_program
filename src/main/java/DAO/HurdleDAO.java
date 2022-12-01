@@ -35,7 +35,7 @@ public class HurdleDAO extends DAO
 			pstmt.setString(1, mapNo);
 			rs = pstmt.executeQuery();
 			while (rs.next())
-				hurdleList.add(new HurdleDTO(rs.getString("mapNo"),rs.getString("hurdleId"),rs.getInt("positionX"),rs.getInt("positionY"),rs.getInt("objSizeX"),rs.getInt("objSizeY")));
+				hurdleList.add(new HurdleDTO(rs.getString("mapNo"),rs.getString("hurdleId"),rs.getInt("positionX"),rs.getInt("positionY"),rs.getInt("objSizeX"),rs.getInt("objSizeY"),rs.getInt("damage")));
 		}
 		catch (Exception e)
 		{
