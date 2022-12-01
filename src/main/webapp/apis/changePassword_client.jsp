@@ -15,9 +15,11 @@
     UserDAO userDAO = UserDAO.getInstance();
     JSONObject jsonObj = Utils.getJsonFromRequest(request);
     String id = (String)jsonObj.get("id");
+    String pw = (String)jsonObj.get("pw");
     String pwNew = (String)jsonObj.get("pwNew");
 
-    if(id==null || pwNew==null){
+    UserDTO user = userDAO.login(id,pw);
+	if(user==null){
         response.setStatus(401);
         obj.put("message", "fail");
     }else{
@@ -26,9 +28,10 @@
             Cookie[] cookies = request.getCookies();
             if(cookies!=null){
             for (Cookie c : cookies) {
-                String name = c.getName();
-                if (name.equals("pw")) {
-                    c.setValue(pwNew);
+                if (c.getName().compareTo("pw") == 0) {
+                    Cookie newCookie = new Cookie("pw", pwNew);
+                    newCookie.setPath("/");
+                    response.addCookie(newCookie);
                     }
                 }
             }
