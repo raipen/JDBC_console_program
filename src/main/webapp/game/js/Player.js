@@ -14,15 +14,16 @@ export default class Player{
     }
 
     async init(){
-        this.character = {characterName:"테스트캐릭터",level:1,exp:0,skillId:"03000015"};
-        this.skill = {skillName:"darksight",img:"",duration:2,cooltime:10};
-        this.ability = {speed:10,life:3,cooldown:0};
-        this.item = [{itemName:"테스트아이템",itemId:1,img:"",count:5}];
 
-        // await this.setCharacter();
-        // await this.setSkill();
-        // await this.setAbility();
-        // await this.setItem();
+        //this.character = {characterName:"테스트캐릭터",level:1,exp:0,skillId:"03000015"};
+        //this.skill = {skillName:"dash",img:"",duration:0,cooltime:5};
+        //this.ability = {speed:10,life:3,cooldown:0};
+        //this.item = [{itemName:"테스트아이템",itemId:1,img:"",count:5}];
+
+        await this.setCharacter();
+        await this.setSkill();
+        await this.setAbility();
+        await this.setItem();
     }
 
     getCharacter(){
@@ -50,7 +51,7 @@ export default class Player{
 
     async setItem(){
         const url = '../apis/getItem.jsp';
-        const data = {userId:this.userId};
+        const data = {id:this.userId};
         this.item = await ajax(url,data);
     }
 

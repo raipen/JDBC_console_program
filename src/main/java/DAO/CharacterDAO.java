@@ -96,7 +96,7 @@ public class CharacterDAO extends DAO{
 		{
 			conn = getConnection();
 			String sql = "SELECT USERID, CHARACTERID, CHARACTERNAME, LV, EXP, SKILLID FROM CHARACTERS, SKILLS WHERE CHARACTERNAME LIKE ? AND CHARACTERS.SKILLID = SKILLS.SKILLID"; // LIKE// //
-																																														// 사용
+																																														// �궗�슜
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, (id == null ? "%" : id));
 			rs = pstmt.executeQuery();
@@ -135,7 +135,7 @@ public class CharacterDAO extends DAO{
 
 			while (rs.next())
 			{
-				characterList.add("캐릭터명: " + rs.getString("charactername") + "\t스킬명: "
+				characterList.add("罹먮┃�꽣紐�: " + rs.getString("charactername") + "\t�뒪�궗紐�: "
 						+ rs.getString("skillname"));
 			}
 		}
@@ -366,5 +366,25 @@ public class CharacterDAO extends DAO{
         }
         return itemList;
     }
+    public CharacterDTO getCharacterInfo(String characterId) {
+        CharacterDTO character = null;
+
+        try{
+            conn = getConnection();
+            String sql = "SELECT * FROM characters WHERE characterId = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, characterId);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                character = new CharacterDTO(rs.getString("characterID"), rs.getString("characterName"), rs.getInt("lv"), rs.getInt("exp"),rs.getString("skillID"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            closeConnection(conn, pstmt, rs);
+        }
+        return character;
+    }
+    
 
 }
