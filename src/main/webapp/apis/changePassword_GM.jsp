@@ -15,18 +15,20 @@
     UserDAO userDAO = UserDAO.getInstance();
     JSONObject jsonObj = Utils.getJsonFromRequest(request);
     String id = (String)jsonObj.get("id");
-    String pw = (String)jsonObj.get("pw");
-    
-    if(id==null || pw==null){
+    String pwNew = (String)jsonObj.get("pwNew");
+
+    if(id==null || pwNew==null){
         response.setStatus(401);
         obj.put("message", "fail");
     }else{
         response.setStatus(200);
-        if(userDAO.signUp(id, pw)){
-            obj.put("id", id);
-            obj.put("pw", pw);
+        if(userDAO.changePassword(id, pwNew) != null){
+            obj.put("message", "success");
         }
-        else obj.put("message", "fail");
+        else{
+            response.setStatus(401);
+            obj.put("message", "fail");
+        }
     }
-    response.getWriter().write(new JSONObject(obj).toString());
+    //response.getWriter().write(new JSONObject(obj).toString());
 %>

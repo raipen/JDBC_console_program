@@ -16,17 +16,31 @@
     JSONObject jsonObj = Utils.getJsonFromRequest(request);
     String id = (String)jsonObj.get("id");
     String pw = (String)jsonObj.get("pw");
-    
-    if(id==null || pw==null){
+    String pwNew = (String)jsonObj.get("pwNew");
+
+    UserDTO user = userDAO.login(id,pw);
+	if(user==null){
         response.setStatus(401);
         obj.put("message", "fail");
     }else{
         response.setStatus(200);
-        if(userDAO.signUp(id, pw)){
-            obj.put("id", id);
-            obj.put("pw", pw);
+        if(userDAO.changePassword(id, pwNew) != null){
+            Cookie[] cookies = request.getCookies();
+            if(cookies!=null){
+            for (Cookie c : cookies) {
+                if (c.getName().compareTo("pw") == 0) {
+                    Cookie newCookie = new Cookie("pw", pwNew);
+                    newCookie.setPath("/");
+                    response.addCookie(newCookie);
+                    }
+                }
+            }
+            obj.put("message", "success");
         }
-        else obj.put("message", "fail");
+        else{
+            response.setStatus(401);
+            obj.put("message", "fail");
+        }
     }
-    response.getWriter().write(new JSONObject(obj).toString());
+    //response.getWriter().write(new JSONObject(obj).toString());
 %>
