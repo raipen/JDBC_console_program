@@ -21,7 +21,11 @@
         response.setStatus(401);
         obj.put("message", "fail");
     }else{
-        
+        if(userDAO.signUp(id, pw)){
+            obj.put("id", id);
+            obj.put("pw", pw);
+        }
+        else obj.put("message", "fail");
     }
     response.getWriter().write(new JSONObject(obj).toString());
 %>
