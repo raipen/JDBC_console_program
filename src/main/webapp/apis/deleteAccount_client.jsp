@@ -33,6 +33,7 @@
             response.addCookie(pwCookie);
         }
         obj.put("message", "success");
+        response.sendRedirect("../index.jsp");
 	}
-	response.getWriter().write(new JSONObject(obj).toString());
+	//response.getWriter().write(new JSONObject(obj).toString());
 %>

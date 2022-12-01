@@ -30,5 +30,5 @@
             obj.put("message", "fail");
         }
     }
-    response.getWriter().write(new JSONObject(obj).toString());
+    //response.getWriter().write(new JSONObject(obj).toString());
 %>
