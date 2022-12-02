@@ -17,9 +17,13 @@
     String characterName = (String)requestData.get("characterName");
     String mapNo = (String)requestData.get("mapNo");
 
+    if(id.equals("")) id = null;
+    if(characterName.equals("")) characterName = null;
+    if(mapNo.equals("")) mapNo = null;
+
 	JSONArray objArray = new JSONArray();
 	
-	List<JSONObject> recordList = recordDAO.getRecords(id, characterName, mapNo, true);
+	JSONArray recordList = recordDAO.getRecords(id, characterName, mapNo, true);
 	
 	if(recordList.size()==0){
 		response.setStatus(401);
@@ -27,19 +31,7 @@
 		obj.put("message", "fail");
 	}else{
 		response.setStatus(200);
-		for(JSONObject R : recordList)
-		{
-			HashMap<String, Object> obj = new HashMap<String, Object>();
-			obj.put("userId",R.get("userID"));
-			obj.put("characterName",R.get("characterName"));
-            obj.put("mapNo",R.get("mapNo"));
-			obj.put("mapName",R.get("mapName"));
-			obj.put("clearTime",R.get("clearTime"));
-            obj.put("recordNo",R.get("recordNo"));
-
-			objArray.add(obj);
-		}
-
+		objArray = recordList;
 	}
 	//System.out.println(objArray.toString());
 	

@@ -29,6 +29,38 @@ public class RecordDAO extends DAO
         return instance;
     }
 
+    public boolean createRecord(String characterId, String mapNo, String clearTime)
+    {
+        boolean bool = false;
+        try
+        {   
+            conn = getConnection();
+            String sql = "INSERT INTO records VALUES (" +
+                    "?," +
+                    "?," +
+                    "RECORD_SEQ.NEXTVAL," +
+                    "?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, characterId);
+            pstmt.setString(2, mapNo);
+            pstmt.setInt(3, Integer.parseInt(clearTime));
+            int rs = pstmt.executeUpdate();
+
+            if(rs == 1){
+                bool = true;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            closeConnection(conn, pstmt, rs);
+        }
+        return bool;
+    }
+
     public JSONArray getRecords(String userID, String characterName, String mapNO, Boolean showRecordNo)
     {
         JSONArray jsonArray = new JSONArray();
