@@ -4,6 +4,7 @@ package DAO;
 import java.util.*;
 
 import DTO.*;
+import javafx.util.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -46,7 +47,8 @@ public class RecordDAO extends DAO
             pstmt.setString(3, clearTime);
             int rs = pstmt.executeUpdate();
 
-            if(rs == 1){
+            if (rs == 1)
+            {
                 bool = true;
             }
         }
@@ -61,9 +63,10 @@ public class RecordDAO extends DAO
         return bool;
     }
 
-    public JSONArray getRecords(String userID, String characterName, String mapNO, Boolean showRecordNo)
+    public JSONArray getRecords(String userID, String characterId, String mapNO, Boolean showRecordNo)
     {
         JSONArray jsonArray = new JSONArray();
+        LinkedList<RecordDTO> rec = new LinkedList<RecordDTO>();
 
         try
         {
@@ -85,8 +88,8 @@ public class RecordDAO extends DAO
             if (userID != null)
                 sql = sql + "AND U.USERID = '" + userID + "'\n";
 
-            if (characterName != null)
-                sql = sql + "AND C.CHARACTERNAME = '" + characterName + "'\n";
+            if (characterId != null)
+                sql = sql + "AND C.CHARACTERID = '" + characterId + "'\n";
 
             if (mapNO != null)
                 sql = sql + "AND M.MAPNO = " + mapNO + "\n";
@@ -120,6 +123,62 @@ public class RecordDAO extends DAO
         }
 
         return jsonArray;
+    }
+
+    public List<RecordDTO> getRecords(String userID, String characterName, String mapNO)
+    {
+        LinkedList<RecordDTO> rec = new LinkedList<RecordDTO>();
+
+        try
+        {
+            conn = getConnection();
+            String sql = "SELECT C.CHARACTERID,\n" +
+                    "       C.CHARACTERNAME,\n" +
+                    "       M.MAPNO,\n" +
+                    "       M.MAPNAME,\n" +
+                    "       R.RECORDNO,\n" +
+                    "       R.CLEARTIME\n" +
+                    "FROM USERS      U,\n" +
+                    "     CHARACTERS C,\n" +
+                    "     MAPS       M,\n" +
+                    "     RECORDS    R\n" +
+                    "WHERE U.USERID = C.USERID\n" +
+                    "      AND C.CHARACTERID = R.CHARACTERID\n" +
+                    "      AND M.MAPNO = R.MAPNO\n";
+
+            if (userID != null)
+                sql = sql + "AND U.USERID = '" + userID + "'\n";
+
+            if (characterName != null)
+                sql = sql + "AND C.CHARACTERNAME = '" + characterName + "'\n";
+
+            if (mapNO != null)
+                sql = sql + "AND M.MAPNO = " + mapNO + "\n";
+
+            sql = sql + "ORDER BY CLEARTIME ASC, RECORDNO ASC"; // 사용
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next())
+            {
+                rec.add(new RecordDTO(rs.getString("CHARACTERID"),
+                        String.valueOf(rs.getInt("MAPNO")),
+                        rs.getInt("RECORDNO"),
+                        rs.getInt("CLEARTIME"),
+                        rs.getString("CHARACTERNAME"), rs.getString("MAPNAME")
+                ));
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            closeConnection(conn, pstmt, rs);
+        }
+
+        return rec;
     }
 
     public List<String> getClearRecords()
@@ -188,9 +247,9 @@ public class RecordDAO extends DAO
         return clearCountList;
     }
 
-    public List<String> getSkillClearCounts()
+    public ArrayList<Pair<String, String>> getSkillClearCounts()
     {
-        List<String> clearCountList = new LinkedList<String>();
+        ArrayList<Pair<String, String>> clearCountList = new ArrayList<Pair<String, String>>();
         try
         {
             conn = getConnection();
@@ -200,13 +259,11 @@ public class RecordDAO extends DAO
                     + "    AND C.skillID = S.skillID\r\n" + "group by\r\n"
                     + "    S.skillName";
             pstmt = conn.prepareStatement(sql);
-            // pstmt.setString(1, (id == null ? "%" : id));
             rs = pstmt.executeQuery();
 
             while (rs.next())
             {
-                clearCountList.add("스킬명: " + rs.getString("skillname") + "\t클리어횟수: "
-                        + rs.getString("clearCount"));
+                clearCountList.add(new Pair<>(rs.getString("skillname"),rs.getString("clearCount")));
             }
         }
         catch (Exception e)
@@ -220,29 +277,38 @@ public class RecordDAO extends DAO
         return clearCountList;
     }
 
-    public List<String> getThreeLifeClearCharacterList(int time)
+    public ArrayList<Pair<String, String>> getThreeLifeClearCharacterList(int life,int time)
     {
-        List<String> clearCountList = new LinkedList<String>();
+        ArrayList<Pair<String, String>> clearCountList = new ArrayList<Pair<String, String>>();
         try
         {
             conn = getConnection();
-            String sql = "select c.charactername, a.life, r.cleartime\r\n"
-                    + "from abilities a, records r,characters c \r\n"
-                    + "where a.characterid=c.characterid and r.characterid=c.characterid\r\n"
-                    + "    and a.life<4\r\n" + "\r\n" + "minus\r\n" + "\r\n"
-                    + "select c.charactername, a.life, r.cleartime\r\n"
-                    + "from abilities a, records r,characters c \r\n"
-                    + "where a.characterid=c.characterid and r.characterid=c.characterid\r\n"
-                    + "    and r.cleartime>?";
+            String sql = "SELECT C.CHARACTERNAME,\n" +
+                    "       R.CLEARTIME\n" +
+                    "FROM ABILITIES  A,\n" +
+                    "     RECORDS    R,\n" +
+                    "     CHARACTERS C\n" +
+                    "WHERE A.CHARACTERID = C.CHARACTERID\n" +
+                    "      AND R.CHARACTERID = C.CHARACTERID\n" +
+                    "      AND A.LIFE = ?\n" +
+                    "MINUS\n" +
+                    "SELECT C.CHARACTERNAME,\n" +
+                    "       R.CLEARTIME\n" +
+                    "FROM ABILITIES  A,\n" +
+                    "     RECORDS    R,\n" +
+                    "     CHARACTERS C\n" +
+                    "WHERE A.CHARACTERID = C.CHARACTERID\n" +
+                    "      AND R.CHARACTERID = C.CHARACTERID\n" +
+                    "      AND R.CLEARTIME > ?" +
+                    "ORDER BY CLEARTIME ASC";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, time * 1000);
+            pstmt.setInt(1, life);
+            pstmt.setInt(2, time * 1000);
             rs = pstmt.executeQuery();
 
             while (rs.next())
             {
-                clearCountList.add("캐릭터명: " + rs.getString("charactername")
-                        + "\tLIFE 갯수: " + rs.getString("life") + "\t클리어 시간: "
-                        + rs.getString("cleartime"));
+                clearCountList.add(new Pair<>(rs.getString("charactername"), rs.getString("cleartime")));
             }
         }
         catch (Exception e)
@@ -295,8 +361,8 @@ public class RecordDAO extends DAO
             conn = getConnection();
             String sql = "select * "
                     + "from records r,users u,characters c,maps m "
-                    + "where m.mapno=r.mapno and r.characterid=c.characterid and u.userid=c.userid and u.userid = ?"
-                    + "order by c.charactername asc";
+                    + "where m.mapno=r.mapno and r.characterid=c.characterid and u.userid=c.userid and u.userid LIKE ?"
+                    + "order by r.cleartime asc, r.recordno asc";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             rs = pstmt.executeQuery();

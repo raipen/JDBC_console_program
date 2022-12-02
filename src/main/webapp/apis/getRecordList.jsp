@@ -14,16 +14,16 @@
     RecordDAO recordDAO = RecordDAO.getInstance();
 	JSONObject requestData = Utils.getJsonFromRequest(request);
 	String id = (String)requestData.get("id");
-    String characterName = (String)requestData.get("characterName");
+    String characterId = (String)requestData.get("characterId");
     String mapNo = (String)requestData.get("mapNo");
 
     if(id.equals("")) id = null;
-    if(characterName.equals("")) characterName = null;
+    if(characterId.equals("")) characterId = null;
     if(mapNo.equals("")) mapNo = null;
 
 	JSONArray objArray = new JSONArray();
 	
-	JSONArray recordList = recordDAO.getRecords(id, characterName, mapNo, true);
+	JSONArray recordList = recordDAO.getRecords(id, characterId, mapNo, true);
 	
 	if(recordList.size()==0){
 		response.setStatus(401);
