@@ -1,0 +1,39 @@
+<%@ page import="DAO.RecordDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="DTO.RecordDTO" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>클리어 기록 보기</title>
+</head>
+<body>
+<%
+    String userid = request.getParameter("stt2_userid");
+    out.print("<h2>" + userid + "의 클리어 기록 보기</h2>");
+%>
+<table style="margin: 10%;" border="1">
+    <th>No.</th>
+    <th>캐릭터ID</th>
+    <th>캐릭터 이름</th>
+    <th>맵 번호</th>
+    <th>맵 이름</th>
+    <th>클리어 시간</th>
+    <%
+        RecordDAO recordDAO = RecordDAO.getInstance();
+        List<RecordDTO> recordList = recordDAO.getRecords(userid, null, null);
+        for (RecordDTO r : recordList)
+        {
+            out.println("<tr>");
+            out.println("<td>" + r.getRecordno() + "</td>");
+            out.println("<td>" + r.getCharacterid() + "</td>");
+            out.println("<td>" + r.getCharactername() + "</td>");
+            out.println("<td>" + r.getMapno() + "</td>");
+            out.println("<td>" + r.getMapname() + "</td>");
+            out.println("<td>" + r.getCleartime() + "</td>");
+            out.println("</tr>");
+        }
+    %>
+</table>
+
+</body>
+</html>
