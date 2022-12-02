@@ -7,16 +7,18 @@ public class BaseDTO {
 	private int positionY;
 	private int objSizeX;
 	private int objSizeY;
+	private String objImg;
 	
 	public BaseDTO() {}
     
-    public BaseDTO(String mapNo,String baseId,int positionX,int positionY,int objSizeX,int objSizeY) {
+    public BaseDTO(String mapNo,String baseId,int positionX,int positionY,int objSizeX,int objSizeY,String objImg) {
         this.mapNo=mapNo;
         this.baseId=baseId;
         this.positionX=positionX;
         this.positionY=positionY;
         this.objSizeX=objSizeX;
         this.objSizeY=objSizeY;
+		this.objImg=objImg;
     }
 
 	
@@ -56,6 +58,12 @@ public class BaseDTO {
 	}
 	public void setObjSizeY(int objSizeY) {
 		this.objSizeY = objSizeY;
+	}
+	public String getObjImg() {
+		return objImg;
+	}
+	public void setObjImg(String objImg) {
+		this.objImg = objImg;
 	}
 	    
 }

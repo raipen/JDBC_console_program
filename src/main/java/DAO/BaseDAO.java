@@ -35,7 +35,7 @@ public class BaseDAO extends DAO
 			pstmt.setString(1, mapNo);
 			rs = pstmt.executeQuery();
 			while (rs.next())
-				baseList.add(new BaseDTO(rs.getString("mapNo"),rs.getString("baseId"),rs.getInt("positionX"),rs.getInt("positionY"),rs.getInt("objSizeX"),rs.getInt("objSizeY")));
+				baseList.add(new BaseDTO(rs.getString("mapNo"),rs.getString("baseId"),rs.getInt("positionX"),rs.getInt("positionY"),rs.getInt("objSizeX"),rs.getInt("objSizeY"),rs.getString("objImg")));
 		}
 		catch (Exception e)
 		{

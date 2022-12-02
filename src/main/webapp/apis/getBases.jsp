@@ -28,11 +28,11 @@
 		for(BaseDTO i : baseList)
 		{
 			HashMap<String, Object> obj = new HashMap<String, Object>();
-			//x:0,y:34,width:150,height:1
 			obj.put("x",i.getPositionX());
 			obj.put("y",i.getPositionY());
 			obj.put("width",i.getObjSizeX());
 			obj.put("height",i.getObjSizeY());
+			obj.put("img",i.getObjImg());
 			
 			objArray.add(obj);
 		}

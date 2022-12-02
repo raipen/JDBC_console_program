@@ -8,11 +8,11 @@ public class HurdleDTO {
 	private int objSizeX;
 	private int objSizeY;
 	private int damage;
-	
+	private String objImg;
 
 	public HurdleDTO() {}
     
-    public HurdleDTO(String mapNo,String hurdleId,int positionX,int positionY,int objSizeX,int objSizeY,int damage) {
+    public HurdleDTO(String mapNo,String hurdleId,int positionX,int positionY,int objSizeX,int objSizeY,int damage,String objImg) {
         this.mapNo=mapNo;
         this.hurdleId=hurdleId;
         this.positionX=positionX;
@@ -20,7 +20,7 @@ public class HurdleDTO {
         this.objSizeX=objSizeX;
         this.objSizeY=objSizeY;
         this.damage=damage;
-        
+		this.objImg=objImg;
     }
     
     public int getDamage() {
@@ -67,5 +67,10 @@ public class HurdleDTO {
 	public void setObjSizeY(int objSizeY) {
 		this.objSizeY = objSizeY;
 	}
-	
+	public String getObjImg() {
+		return objImg;
+	}
+	public void setObjImg(String objImg) {
+		this.objImg = objImg;
+	}
 }

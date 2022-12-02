@@ -19,8 +19,8 @@ export const main = async (mapNo,characterId)=>{
     character.setMap(map);
 
     stdPixel = canvas.height/map.mapInfo.height;
-    const bases = map.bases.map(b=>drawPixel('black')(b));
-    const hurdles = map.hurdles.map(h=>drawPixel('red')(h));
+    const bases = map.bases.map(b=>drawPixel(b.img)(b));
+    const hurdles = map.hurdles.map(h=>drawPixel(h.img)(h));
     const goal = {x:map.mapInfo.goalx,y:map.mapInfo.goaly,width:1,height:2};
     const drawGame = draw({bases,hurdles,character,goal,map});
     await countDown(drawGame,3);
@@ -59,7 +59,7 @@ export const main = async (mapNo,characterId)=>{
                             console.log(character.cooltime);
                             if(character.cooltime>0)
                                 return;
-                            character.cooltime = player.skill.cooltime*60;
+                            character.cooltime = player.skill.cooltime*60*(100-character.cooltimeDown)/100;
                             if(player.skill.duration===0)
                                 Skills[player.character.skillId](character);
                             else

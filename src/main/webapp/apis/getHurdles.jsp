@@ -34,6 +34,7 @@
 			obj.put("width",i.getObjSizeX());
 			obj.put("height",i.getObjSizeY());
 			obj.put("damage",i.getDamage());
+			obj.put("img",i.getObjImg());
 			objArray.add(obj);
 		}
 		
