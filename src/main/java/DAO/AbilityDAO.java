@@ -119,4 +119,29 @@ public class AbilityDAO extends DAO
 		}
 		return result;
 	}
+
+	public boolean updateAbility(String characterID, int speed, int life, int coolDown)
+	{
+		boolean result = false;
+		try
+		{
+			conn = getConnection();
+			String sql = "UPDATE ABILITIES SET SPEED = ?, LIFE = ?, COOLDOWN = ? WHERE CHARACTERID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, speed);
+			pstmt.setInt(2, life);
+			pstmt.setInt(3, coolDown);
+			pstmt.setString(4, characterID);
+			if (pstmt.executeUpdate() > 0) result = true;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			closeConnection(conn, pstmt, rs);
+		}
+		return result;
+	}
 }

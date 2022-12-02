@@ -17,15 +17,16 @@
 
 	JSONObject requestData = Utils.getJsonFromRequest(request);
 	String id = (String)requestData.get("id");
-	
+
 	JSONArray objArray = new JSONArray();
-	
+
 	List<CharacterDTO> characterList = userDAO.getCharacterList(id);
-	
+
 	if(characterList.size()==0){
 		response.setStatus(401);
 		HashMap<String, Object> obj = new HashMap<String, Object>();
 		obj.put("message", "fail");
+
         objArray.add(obj);
 	}else{
 		response.setStatus(200);
@@ -43,7 +44,7 @@
             abilityObj.put("life",abilityDTO.getLife());
             abilityObj.put("speed",abilityDTO.getSpeed());
             abilityObj.put("coolDown",abilityDTO.getCoolDown());
-            obj.put("ablilty", abilityObj);
+            obj.put("ability", abilityObj);
 
             List<SkillDTO> skillList = skillDAO.getSkillList();
             for(SkillDTO S:skillList)
@@ -61,6 +62,6 @@
 		}
 	}
 	//System.out.println(objArray.toString());
-	
+
 	response.getWriter().write(objArray.toString());
 %>

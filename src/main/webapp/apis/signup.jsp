@@ -20,7 +20,12 @@
     if(id==null || pw==null){
         response.setStatus(401);
         obj.put("message", "fail");
-    }else{
+    }
+    else if(id.startsWith("gamemanager")){
+        response.setStatus(401);
+        obj.put("message", "fail");
+    }
+    else{
         response.setStatus(200);
         if(userDAO.signUp(id, pw)){
             obj.put("id", id);
