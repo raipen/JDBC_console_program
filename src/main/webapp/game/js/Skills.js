@@ -27,8 +27,14 @@ export default {smaller(character,duration){
     let result = character.safeMove(character.getRect())(0,character.ySpeed);
     character.y = result.y;
 },
- teleport(character){
-
+ lowgravity(character,duration){
+    console.log("lowgravity");
+    character.gravity /= 6;
+    character.jumpPower /= 2.3;
+    setTimeout(()=>{
+        character.gravity *= 6;
+        character.jumpPower *= 2.3;
+    },duration*1000);
 },
  darksight(character,duration){
     console.log("darksight");
@@ -40,9 +46,14 @@ export default {smaller(character,duration){
     },duration*1000);
 },
  heal(character){
-
+    character.life ++;
 },
- shield(character){
+ shield(character,duration){
+    console.log("shield");
+    character.shild++;
+    setTimeout(()=>{
+        character.shild--;
+    },duration*1000);
 
 },
  zombie(character){

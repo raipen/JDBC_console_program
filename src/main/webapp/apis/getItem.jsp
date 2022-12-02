@@ -19,7 +19,7 @@
 	
 	List<ItemDTO> itemList = userDAO_gm.getItemList(id);
 	
-	if(itemList.size()==0){
+	if(itemList==null){
 		response.setStatus(401);
 		HashMap<String, Object> obj = new HashMap<String, Object>();
 		obj.put("message", "fail");

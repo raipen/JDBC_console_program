@@ -3,6 +3,7 @@ import {getMap} from './Map.js';
 import {getPlayer} from './Player.js';
 import {sleep,isCollision} from './utils.js';
 import Skills from './Skills.js';
+import useItem from './useItem.js';
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
@@ -43,9 +44,21 @@ export const main = async (mapNo,characterId)=>{
 
     const keydownSetting = [{key:'ArrowLeft',action:()=>character.moveLeft()},
                         {key:'ArrowRight',action:()=>character.moveRight()},
+                        {key:'ArrowUp',action:()=>character.ActiveUp()},
+                        {key:'ArrowDown',action:()=>character.jump()},
                         {key:' ',action:()=>character.jump()},
                         {key:'p',action:()=>character.print()},
                         {key:'b',action:()=>character.bounce(0)},
+                        {key:'1',action:()=>useItem(0,character)},
+                        {key:'2',action:()=>useItem(1,character)},
+                        {key:'3',action:()=>useItem(2,character)},
+                        {key:'q',action:()=>useItem(3,character)},
+                        {key:'w',action:()=>useItem(4,character)},
+                        {key:'e',action:()=>useItem(5,character)},
+                        {key:'a',action:()=>useItem(6,character)},
+                        {key:'s',action:()=>useItem(7,character)},
+                        {key:'d',action:()=>useItem(8,character)},
+                        {key:'f',action:()=>useItem(9,character)},
                         {key:'Shift',action:()=>{
                             console.log(character.cooltime);
                             if(character.cooltime>0)
@@ -103,9 +116,10 @@ const draw = ({bases,hurdles,character,goal,map})=>(playtime)=>{
         startPositon = character.x*stdPixel-canvas.width*0.3;
     if(character.x*stdPixel>map.mapInfo.width*stdPixel-canvas.width*0.7)
         startPositon = map.mapInfo.width*stdPixel-canvas.width;
+    drawPixel('yellow')(character.getShildRect())(startPositon);
     bases.forEach(b=>b(startPositon));
     hurdles.forEach(h=>h(startPositon));
-    drawPixel(character.color)(character)(startPositon);
+    drawPixel(character.color)(character.getRect())(startPositon);
     for(let i=0;i<character.life;i++)
         drawPixel('red')({x:1+i*4,y:1,width:3,height:3})(0);
     drawPixel('blue')(goal)(startPositon);

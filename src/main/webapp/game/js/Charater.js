@@ -15,7 +15,7 @@ export default class Character{
         this.life = life;
         this.cooldown = cooldown;
         this.friction = 0.6;
-        this.maxSpeed = 2+speed;
+        this.maxSpeed = 5+speed;
         this.bases = [];
         this.hurdles = [];
         this.safeMove;
@@ -23,6 +23,7 @@ export default class Character{
         this.invincible = false;
         this.cooltime=0;
         this.color = "green";
+        this.shild = 0;
 
         this.left = false;
         this.right = false;
@@ -30,6 +31,8 @@ export default class Character{
 
     getRect = () => { return { x: this.x, y: this.y, width: this.width, height: this.height }; }
 
+    getShildRect = () => { return { x: this.x-this.shild/10, y: this.y-this.shild/10, width: this.width+this.shild/5, height: this.height+this.shild/5}; }
+    
     moveLeft(){
         this.left = true;
     }
@@ -68,15 +71,20 @@ export default class Character{
         if(this.isBouncing)
             return;
         this.isBouncing = true;
-        this.life -= damage;
+        if(this.shild>0)
+            this.shild--;
+        else
+            this.life -= damage;
         if(this.life<=0)
             return;
         if(this.left)
             this.xSpeed += this.maxSpeed*2;
         else
             this.xSpeed -= this.maxSpeed*2;
-        let result = this.safeMove(this.getRect())(this.xSpeed,0);
+        this.ySpeed = -10;
+        let result = this.safeMove(this.getRect())(this.xSpeed,this.ySpeed);
         this.x = result.x;
+        this.y = result.y;
         this.isBouncing = false;
     }
 
