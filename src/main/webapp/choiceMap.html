@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>호반우 런</title>
-    <link rel="stylesheet" href="choiceMap.css">
+    <link rel="stylesheet" href="css/choiceMap.css">
 </head>
 <body>
     <div id="contents">
@@ -15,9 +15,9 @@
    
    
    <script type='module'>
-        import { get_cookie, ajax } from '../game/js/utils.js';
+        import { get_cookie, ajax } from './game/js/utils.js';
         const getCharacterList = async () => {
-            const result = await ajax('../apis/getMapList.jsp', {});
+            const result = await ajax('apis/getMapList.jsp', {});
             console.log(result);
             const contents = document.querySelector('#contents');
             let html = '';
@@ -28,7 +28,7 @@
                     <div class="button">맵이름:${result[i].name}</div>
                     <div class="button">난이도:${result[i].difficulty}</div>
                     <button>랭킹</button>
-                    <button><a href="http://localhost:8080/Team6-Phase4/game/?=${result[i].no}">플레이</a></button>
+                    <button><a href="game/?=${result[i].no}">플레이</a></button>
                 </div>`;
             }
           // <div class="button"> 캐릭터 생성</div>
