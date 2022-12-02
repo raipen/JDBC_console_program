@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>호반우 런</title>
+    <link rel="stylesheet" href="css/choiceMap.css">
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<body>
+    <div id="contents">
+    </div>
+   <div class="modal" id="rank">
+   </div>
+
+   
+   <script type='module'>
+        import { get_cookie, ajax } from './game/js/utils.js';
+        const getMapList = async () => {
+            const result = await ajax('apis/getMapList.jsp', {});
+            console.log(result);
+            const contents = document.querySelector('#contents');
+            let html = '';
+            for (let i = 0; i < result.length; i++)
+            {
+                html += `
+                <div class="map" value="${result[i].no}">
+                    <div class="button">맵이름:${result[i].name}</div>
+                    <div class="button">난이도:${result[i].difficulty}</div>
+                    <button class="rank" value="${result[i].no}">랭킹</button>
+                    <button><a href="game/?=${result[i].no}">플레이</a></button>
+                </div>`;
+            }
+            contents.innerHTML = html;
+            console.log("asdf");
+            const buttons = document.querySelectorAll(".rank");
+            console.log(buttons);
+            buttons.forEach(b => b.addEventListener('click', getRecordList));
+         }
+        const getRecordList = async (e) => {
+            console.log("isClick");
+            const recordResult = await ajax('apis/getRecordList.jsp', { "id": "", "characterId": "", "mapNo": e.target.getAttribute("value") });
+            const rankModal = document.querySelector('#rank');
+            rankModal.style.display = 'flex';
+            let rankHtml = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        ${e.target.getAttribute("value")}
+                    </div>
+                        <div class="modal-body">
+                            로딩중
+                            <div id="modal-button">
+                            <button id="exit">나가기</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            `;
+            console.log('!!!');
+            rankModal.innerHTML = rankHtml;
+            console.log('!!!');
+
+            console.log(recordResult);
+            rankHtml = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        ${e.target.getAttribute("value")}
+                    </div>
+                    <div class="modal-body">
+            `;
+
+            for (let i = 0; i < recordResult.length; i++) {
+                rankHtml += `<div>clearTime:${recordResult[i].clearTime}</div>
+                            `
+            }
+            rankHtml += `<div id="modal-button">
+                            <button id="exit">나가기</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>`
+
+            rankModal.innerHTML = rankHtml;
+        }
+        getMapList();
+    </script>
+</body>
+</html>
