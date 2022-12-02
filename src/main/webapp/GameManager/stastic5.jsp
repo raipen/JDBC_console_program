@@ -1,7 +1,7 @@
 <%@ page import="DAO.RecordDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="DTO.RecordDTO" %>
-<%@ page import="javafx.util.Pair" %>
+<%@ page import="utils.Pair" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="DAO.MapDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

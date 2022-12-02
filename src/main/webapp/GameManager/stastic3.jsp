@@ -3,7 +3,7 @@
 <%@ page import="DTO.RecordDTO" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Hashtable" %>
-<%@ page import="javafx.util.Pair" %>
+<%@ page import="utils.Pair" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
