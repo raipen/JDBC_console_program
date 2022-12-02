@@ -12,25 +12,23 @@
 
 <%
     RecordDAO recordDAO = RecordDAO.getInstance();
-	JSONObject requestData = Utils.getJsonFromRequest(request);
+   JSONObject requestData = Utils.getJsonFromRequest(request);
     String characterId = (String)requestData.get("characterId");
     String mapNo = (String)requestData.get("mapNo");
     String clearTime = (String)requestData.get("clearTime");
 
-	JSONArray objArray = new JSONArray();
+    HashMap<String, Object> obj = new HashMap<String, Object>();
 
-	if(characterId==null||mapNo==null||clearTime==null){
-		response.setStatus(401);
-		HashMap<String, Object> obj = new HashMap<String, Object>();
-		obj.put("message", "fail");
-	}else{
-		response.setStatus(200);
-        HashMap<String, Object> obj = new HashMap<String, Object>();
+   if(characterId==null||mapNo==null||clearTime==null){
+      response.setStatus(401);
+      obj.put("message", "fail");
+   }else{
+      response.setStatus(200);
 
-		if(recordDAO.createRecord(characterId, mapNo, clearTime))
+      if(recordDAO.createRecord(characterId, mapNo, clearTime))
             obj.put("message", "success");
         else obj.put("message", "fail");
-	}
-	//System.out.println(objArray.toString());
-	response.getWriter().write(objArray.toString());
+   }
+   
+   response.getWriter().write(new JSONObject(obj).toString());
 %>

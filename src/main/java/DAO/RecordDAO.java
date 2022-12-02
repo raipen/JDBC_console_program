@@ -34,7 +34,7 @@ public class RecordDAO extends DAO
     {
         boolean bool = false;
         try
-        {
+        {   
             conn = getConnection();
             String sql = "INSERT INTO records VALUES (" +
                     "?," +
@@ -44,7 +44,7 @@ public class RecordDAO extends DAO
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, characterId);
             pstmt.setString(2, mapNo);
-            pstmt.setString(3, clearTime);
+            pstmt.setInt(3, Integer.parseInt(clearTime));
             int rs = pstmt.executeUpdate();
 
             if (rs == 1)
