@@ -34,7 +34,7 @@ public class RecordDAO extends DAO
     {
         boolean bool = false;
         try
-        {   
+        {
             conn = getConnection();
             String sql = "INSERT INTO records VALUES (" +
                     "?," +
