@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>호반우 런</title>
+    <link rel="stylesheet" href="userControl.css">
+</head>
+<body>
+<div id="left">
+
+</div>
+<div id="right">
+
+</div>
+<div id="rightBottom">
+
+</div>
+
+<script type='module'>
+    import {get_cookie, ajax} from '../game/js/utils.js';
+
+    const characterFunc = async () => {
+        console.log(`?????`);
+        const characterID = e.target.innerHTML;
+        const result = await ajax('../apis/getAbility.jsp', {characterId: characterID});
+        console.log(result);
+
+        let html = `<div class = "button" style="width: 50%;">Speed: ${result.speed}</div>`;
+        html += `<div class = "button" style="width: 50%;">Life: ${result.life}</div>`;
+        html += `<div class = "button" style="width: 50%;">CoolDown: ${result.cooldown}</div>`;
+
+        const rightBottom = document.querySelector("#rightBottom");
+        rightBottom.innerHTML = html;
+    };
+
+    const getCharacterList = async (e) => {
+        const result = await ajax('../apis/getUserList.jsp', {});
+        console.log(result);
+        const left = document.querySelector('#left');
+        let html = '';
+        for (let i = 0; i < result.length; i++)
+            html += `<div class="button">${result[i].id}</div>`;
+        left.innerHTML = html;
+
+        const buttons = document.querySelectorAll('.button');
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', async (e) => {
+                const userId = e.target.innerHTML;
+                const right = document.querySelector('#right');
+                const characterList = await ajax('../apis/getCharacterList.jsp', {id: userId});
+                const itemList = await ajax('../apis/getItem.jsp', {id: userId});
+
+                let html = '<div>';
+                html += `<div class="button">${userId}`;
+                html += `<button class = button>PW 변경</button>`;
+                html += `<button class="button">탈퇴</button>`;
+                html += '</div><br><div>';
+                for (let i = 0; i < itemList.length; i++) {
+                    html += `<div class="button" style="width: 50%;">${itemList[i].itemName} : ${itemList[i].itemCount}개</div>`;
+                }
+                html += '</div><br><div>'
+                for (let i = 0; i < characterList.length; i++) {
+                    html += `<div class="button" id = "character">${characterList[i].characterName}</div>`;
+                }
+                html += '</div>';
+
+                console.log(itemList)
+                console.log(characterList);
+                console.log(right);
+                right.innerHTML = html;
+            });
+        }
+    };
+
+    getCharacterList();
+</script>
+</body>
+</html>
