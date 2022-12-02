@@ -1,16 +1,13 @@
 
-const items = [
-    character=>character.maxSpeed++,
-    character=>character.maxSpeed+=2,
-    character=>character.maxSpeed+=3,
-    character=>character.cooltime=character.cooltime-3*60>0?character.cooltime-3*60:0,
-    character=>character.cooltime=character.cooltime-5*60>0?character.cooltime-5*60:0,
-    character=>character.cooltime=character.cooltime-7*60>0?character.cooltime-7*60:0,
-    character=>character.jumpPower*=1.2,
-    character=>character.jumpPower*=1.5,
-    character=>character.life++,
-    character=>character.shild++,
-]
-export default (itemIndex,character) => {
-    return items[itemIndex](character);
+const items = {
+    lifeUp(character){character.life++},
+    speedUp(character){character.maxSpeed+=3},
+    jumpUp20(character){character.jumpPower*=1.2},
+    jumpUp50(character){character.jumpPower*=1.5},
+    coolDown(character){character.cooltime=0},
+    guard(character){character.shild++}
+}
+export default (character,itemId) => {
+    console.log(itemId);
+    return items[itemId](character);
 }

@@ -42,38 +42,35 @@ export const main = async (mapNo,characterId)=>{
         }
     }, 1000/60);
 
+
+    const itemKeySetting = [{key: 'q',itemId:"speedUp"},
+                            {key: 'w',itemId:"jumpUp20"},
+                            {key: 'e',itemId:"jumpUp50"},
+                            {key: 'a',itemId:"coolDown"},
+                            {key: 's',itemId:"guard"},
+                            {key: 'd',itemId:"lifeUp"}];
     const keydownSetting = [{key:'ArrowLeft',action:()=>character.moveLeft()},
                         {key:'ArrowRight',action:()=>character.moveRight()},
-                        {key:'ArrowUp',action:()=>character.ActiveUp()},
-                        {key:'ArrowDown',action:()=>character.jump()},
+                        {key:'ArrowUp',action:()=>character.jump()},
                         {key:' ',action:()=>character.jump()},
                         {key:'p',action:()=>character.print()},
                         {key:'b',action:()=>character.bounce(0)},
-                        {key:'1',action:()=>useItem(0,character)},
-                        {key:'2',action:()=>useItem(1,character)},
-                        {key:'3',action:()=>useItem(2,character)},
-                        {key:'q',action:()=>useItem(3,character)},
-                        {key:'w',action:()=>useItem(4,character)},
-                        {key:'e',action:()=>useItem(5,character)},
-                        {key:'a',action:()=>useItem(6,character)},
-                        {key:'s',action:()=>useItem(7,character)},
-                        {key:'d',action:()=>useItem(8,character)},
-                        {key:'f',action:()=>useItem(9,character)},
                         {key:'Shift',action:()=>{
                             console.log(character.cooltime);
                             if(character.cooltime>0)
                                 return;
                             character.cooltime = player.skill.cooltime*60;
                             if(player.skill.duration===0)
-                                Skills[player.skill.skillName](character);
+                                Skills[player.character.skillId](character);
                             else
-                                Skills[player.skill.skillName](character,player.skill.duration);
+                                Skills[player.character.skillId](character,player.skill.duration);
                         }}];
     const keyupSetting = [{key:'ArrowLeft',action:()=>character.stopLeft()},
                         {key:'ArrowRight',action:()=>character.stopRight()}];
 
     window.addEventListener('keydown',e=>{
         keydownSetting.forEach(k=>k.key===e.key?k.action():null);
+        itemKeySetting.forEach(k=>k.key===e.key?useItem(character,k.itemId):null);
     });
     window.addEventListener('keyup',e=>{
         keyupSetting.forEach(k=>k.key===e.key?k.action():null);
