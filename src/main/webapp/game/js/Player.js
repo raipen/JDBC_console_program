@@ -10,7 +10,7 @@ export default class Player{
         this.character = {};
         this.skill = {};
         this.ability = {};
-        this.item = [];
+        this.items = [];
     }
 
     async init(){
@@ -27,7 +27,7 @@ export default class Player{
         await this.setAbility();
         console.log(this.ability);
         await this.setItem();
-        console.log(this.item);
+        console.log(this.items);
     }
 
     getCharacter(){
@@ -56,7 +56,7 @@ export default class Player{
     async setItem(){
         const url = '../apis/getItem.jsp';
         const data = {id:this.userId};
-        this.item = await ajax(url,data);
+        this.items = await ajax(url,data);
     }
 
     

@@ -11,13 +11,13 @@
 <%@ page import="org.json.simple.parser.JSONParser" %>
 
 <%
-    UserDAO_GM userDAO_gm = UserDAO_GM.getInstance();
+    UserDAO userDAO = UserDAO.getInstance();
 	JSONObject requestData = Utils.getJsonFromRequest(request);
 	String id = (String)requestData.get("id");
 	
 	JSONArray objArray = new JSONArray();
 	
-	List<ItemDTO> itemList = userDAO_gm.getItemList(id);
+	List<ItemDTO> itemList = userDAO.getItemList(id);
 	
 	if(itemList==null){
 		response.setStatus(401);
@@ -28,10 +28,10 @@
 		for(ItemDTO I : itemList)
 		{
 			HashMap<String, Object> obj = new HashMap<String, Object>();
-			obj.put("itemID",I.getItemID());
+			obj.put("itemId",I.getItemID());
 			obj.put("itemName",I.getItemName());
 			obj.put("itemCount",I.getItemCount());
-
+			obj.put("itemImg",I.getItemImg());
 			objArray.add(obj);
 		}
 		

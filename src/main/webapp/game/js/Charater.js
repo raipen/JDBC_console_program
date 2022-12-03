@@ -13,15 +13,15 @@ export default class Character{
         this.xSpeed = 0;
         this.ySpeed = 0;
         this.life = life;
+        this.maxSpeed = 9+speed;
         this.cooldown = cooldown;
+        this.cooltime=0;
         this.friction = 0.6;
-        this.maxSpeed = 5+speed;
         this.bases = [];
         this.hurdles = [];
         this.safeMove;
         this.isBouncing = false;
         this.invincible = false;
-        this.cooltime=0;
         this.color = "green";
         this.shild = 0;
 

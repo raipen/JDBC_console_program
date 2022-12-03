@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+import { ajax } from "./utils.js";
 
 const items = {
     lifeUp(character){character.life++},
@@ -9,7 +11,16 @@ const items = {
         character.cooltime*=0.9},
     guard(character){character.shild++}
 }
-export default (character,itemId) => {
+export default (player,character,itemId) => {
+    //player.items에 itemId가 일치하는 아이템이 있으면 itemCount를 1 감소시키고 setItem.jsp로 전송
+    //player.items에 itemId가 일치하는 아이템이 없거나 itemCount가 0이면 return
+    //items[itemId](character) 실행
     console.log(itemId);
-    return items[itemId](character);
+    const item = player.items.find(item => item.itemId == itemId);
+    if(!item || item.itemCount == 0) return c=>{};
+    item.itemCount--;
+    const url = '../apis/setItem.jsp';
+    const data = {id:player.userId,itemId:itemId,itemCount:""+item.itemCount};
+    ajax(url,data);
+    items[itemId](character);
 }

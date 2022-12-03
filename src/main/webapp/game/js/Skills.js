@@ -55,7 +55,4 @@ export default {smaller(character,duration){
         character.shild--;
     },duration*1000);
 
-},
- zombie(character){
-
 }}

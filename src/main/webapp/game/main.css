@@ -74,6 +74,10 @@ footer>*{
     grid-template-columns: 1fr 1fr 1fr;
 }
 
+.active{
+    background-color: #888;
+}
+
 /* modal */
 .modal{
     position: fixed;
@@ -145,3 +149,5 @@ footer>*{
     font-weight: 700;
     cursor: pointer;
 }
+
+
