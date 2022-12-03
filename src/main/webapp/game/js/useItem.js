@@ -19,8 +19,8 @@ export default (player,character,itemId) => {
     const item = player.items.find(item => item.itemId == itemId);
     if(!item || item.itemCount == 0) return c=>{};
     item.itemCount--;
-    const url = '../apis/setItem.jsp';
-    const data = {id:player.userId,itemId:itemId,itemCount:""+item.itemCount};
+    const url = '../apis/useItem.jsp';
+    const data = {id:player.userId,itemId:itemId};
     ajax(url,data);
     items[itemId](character);
 }

@@ -11,13 +11,13 @@
 <%@ page import="org.json.simple.parser.JSONParser" %>
 
 <%
-	UserDAO_GM userDAO_gm = UserDAO_GM.getInstance();
+	UserDAO userDAO = UserDAO.getInstance();
 //	JSONObject requestData = Utils.getJsonFromRequest(request);
 //	String mapNo = (String)requestData.get("mapNo");
 	
 	JSONArray objArray = new JSONArray();
 	
-	List<UserDTO> userList = userDAO_gm.getUserList("%");
+	List<UserDTO> userList = userDAO.getUserList("%");
 	
 	if(userList.size()==0){
 		response.setStatus(401);

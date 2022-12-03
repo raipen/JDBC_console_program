@@ -125,7 +125,7 @@ footer>*{
     align-items: center;
 }
 
-.modal .modal-content .modal-body p{
+.modal .modal-content .modal-body div{
     font-size: 30px;
     font-weight: 700;
     color: #000;

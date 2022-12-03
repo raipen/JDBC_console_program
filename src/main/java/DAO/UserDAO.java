@@ -119,6 +119,34 @@ public class UserDAO extends DAO{
         }
         return result;
     }
+    
+    public List<UserDTO> getUserList(String id)
+	{
+		List<UserDTO> userList = new LinkedList<UserDTO>();
+		try
+		{
+			conn = getConnection();
+			String sql = "SELECT * FROM USERS WHERE userID LIKE ?"; // LIKE 사용
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (id == null ? "%" : id));
+			rs = pstmt.executeQuery();
+
+			while (rs.next())
+				userList.add(
+						new UserDTO(rs.getString("userID"), rs.getString("password")));
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			closeConnection(conn, pstmt, rs);
+		}
+		return userList;
+	}
 
     public List<CharacterDTO> getCharacterList(String id) {
         List<CharacterDTO> characterList = new LinkedList<CharacterDTO>();

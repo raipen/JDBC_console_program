@@ -12,16 +12,12 @@
 <div id="right">
 
 </div>
-<div id="rightBottom">
-
-</div>
 
 <script type='module'>
     import {get_cookie, ajax} from '../game/js/utils.js';
 
-    const characterFunc = async () => {
-        console.log(`?????`);
-        const characterID = e.target.innerHTML;
+    const getCharacterInfo = async (e) => {
+        const characterID = e.target.getAttribute('data-character-id');
         const result = await ajax('../apis/getAbility.jsp', {characterId: characterID});
         console.log(result);
 
@@ -33,7 +29,35 @@
         rightBottom.innerHTML = html;
     };
 
-    const getCharacterList = async (e) => {
+    const getUserInfo = async (e) => {
+        const userId = e.target.innerHTML;
+        const right = document.querySelector('#right');
+        const characterList = await ajax('../apis/getCharacterList.jsp', {id: userId});
+        const itemList = await ajax('../apis/getItem.jsp', {id: userId});
+
+        let html = '<div>';
+        html += `<div class="button">${userId}`;
+        html += `<button class = button>PW 변경</button>`;
+        html += `<button class="button">탈퇴</button>`;
+        html += '</div><br><div>';
+        itemList.forEach(item => {
+                html += `<div class="button" style="width: 50%;"">${item.itemName} : ${item.itemCount}개</div>`;
+        });
+        html += '</div><br><div>'
+        characterList.forEach((character) => {
+            html += `<div class="button character" data-character-id="${character.characterID}">${character.characterName}</div>`;
+        });
+        html += '</div><div id="rightBottom"></div>';
+
+        right.innerHTML = html;
+
+        const characterButtons = document.querySelectorAll('.character');
+        for (let i = 0; i < characterButtons.length; i++) {
+            characterButtons[i].addEventListener('click', getCharacterInfo);
+        }
+    };
+
+    const getUserList = async (e) => {
         const result = await ajax('../apis/getUserList.jsp', {});
         console.log(result);
         const left = document.querySelector('#left');
@@ -44,35 +68,11 @@
 
         const buttons = document.querySelectorAll('.button');
         for (let i = 0; i < buttons.length; i++) {
-            buttons[i].addEventListener('click', async (e) => {
-                const userId = e.target.innerHTML;
-                const right = document.querySelector('#right');
-                const characterList = await ajax('../apis/getCharacterList.jsp', {id: userId});
-                const itemList = await ajax('../apis/getItem.jsp', {id: userId});
-
-                let html = '<div>';
-                html += `<div class="button">${userId}`;
-                html += `<button class = button>PW 변경</button>`;
-                html += `<button class="button">탈퇴</button>`;
-                html += '</div><br><div>';
-                for (let i = 0; i < itemList.length; i++) {
-                    html += `<div class="button" style="width: 50%;">${itemList[i].itemName} : ${itemList[i].itemCount}개</div>`;
-                }
-                html += '</div><br><div>'
-                for (let i = 0; i < characterList.length; i++) {
-                    html += `<div class="button" id = "character">${characterList[i].characterName}</div>`;
-                }
-                html += '</div>';
-
-                console.log(itemList)
-                console.log(characterList);
-                console.log(right);
-                right.innerHTML = html;
-            });
+            buttons[i].addEventListener('click', getUserInfo);
         }
     };
 
-    getCharacterList();
+    getUserList();
 </script>
 </body>
 </html>

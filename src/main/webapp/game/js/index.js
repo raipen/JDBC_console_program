@@ -17,12 +17,12 @@ const spacebar = document.getElementById('jump');
 const left = document.getElementById('left');
 const right = document.getElementById('right');
 const up = document.getElementById('up');
-const itemKeySetting = [{key: 'q',itemId:"speedUp"},
-                        {key: 'w',itemId:"jumpUp20"},
-                        {key: 'e',itemId:"jumpUp50"},
-                        {key: 'a',itemId:"coolDown"},
-                        {key: 's',itemId:"guard"},
-                        {key: 'd',itemId:"lifeUp"}];
+const itemsInfo = [ {key: 'q',itemId:"speedUp", acqProbability: 0.2,using:false},
+                    {key: 'w',itemId:"jumpUp20", acqProbability: 0.4,using:false},
+                    {key: 'e',itemId:"jumpUp50", acqProbability: 0.1,using:false},
+                    {key: 'a',itemId:"coolDown", acqProbability: 0.3,using:false},
+                    {key: 's',itemId:"guard", acqProbability: 0.5,using:false},
+                    {key: 'd',itemId:"lifeUp", acqProbability: 0.1,using:false}];
 let stdPixel = 1;
 
 export const main = async (mapNo,characterId)=>{
@@ -81,7 +81,13 @@ export const main = async (mapNo,characterId)=>{
 
     window.addEventListener('keydown',e=>{
         keydownSetting.forEach(k=>k.key===e.key?k.action():null);
-        itemKeySetting.forEach(k=>k.key===e.key?useItem(player,character,k.itemId):null);
+        itemsInfo.forEach(k=>{
+            if(k.key!==e.key)
+                return;
+            useItem(player,character,k.itemId);
+            k.using = true;
+            setTimeout(()=>k.using=false,300);
+        });
     });
     window.addEventListener('keyup',e=>{
         keyupSetting.forEach(k=>k.key===e.key?k.action():null);
@@ -122,7 +128,7 @@ const draw = (obj)=>(playtime)=>{
     drawGame(obj,playtime);
     drawSkill(obj);
     drawItem(obj);
-    //drawStatus(obj);
+    drawStatus(obj);
 }
 
 const drawGame = ({bases,hurdles,character,goal,map},playtime)=>{
@@ -161,11 +167,16 @@ const drawSkill = ({character,player})=>{
 
 const drawItem = ({player})=>{
     ctx.item.clearRect(0,0,canvas.item.width,canvas.item.height);
-    itemKeySetting.forEach((k,i)=>{
+    itemsInfo.forEach((k,i)=>{
         let item = player.items.find(item=>item.itemId===k.itemId);
         if(item){
-
             drawImg(ctx.item,item.itemImg,50*(i%3),50*Math.floor(i/3),50,50);
+            if(k.using){
+                ctx.item.fillStyle = 'black';
+                ctx.item.globalAlpha = 0.5;
+                ctx.item.fillRect(50*(i%3),50*Math.floor(i/3),50,50);
+                ctx.item.globalAlpha = 1;
+            }
             drawTextWithStroke(ctx.item,k.key,20,50*(i%3),50*Math.floor(i/3));
             drawTextWithStroke(ctx.item,item.itemCount,20,50*(i%3)+50,50*Math.floor(i/3)+50,'right','bottom');
         }
@@ -174,36 +185,46 @@ const drawItem = ({player})=>{
 
 const drawStatus = ({character,player})=>{
     ctx.status.clearRect(0,0,canvas.status.width,canvas.status.height);
-    ctx.status.font = '20px Noto Sans KR';
-    ctx.status.textAlign = 'left';
-    ctx.status.textBaseline = 'top';
-    ctx.status.fillText(`Name : ${player.name}`,10,10);
-    ctx.status.fillText(`Character : ${character.characterName}`,10,30);
-    ctx.status.fillText(`Level : ${player.level}`,10,50);
-    ctx.status.fillText(`Exp : ${player.exp}`,10,70);
-
-    ctx.status.fillText(`Speed : ${character.speed}`,10,110);
-    ctx.status.fillText(`Jump : ${character.jump}`,10,130);
-    ctx.status.fillText(`Life : ${character.life}`,10,150);
-
-    ctx.status.fillText(`Skill : ${character.skillName}`,10,190);
-    ctx.status.fillText(`Cooltime : ${Math.floor(character.cooltime/60)}`,10,210);
-    ctx.status.fillText(`Cooldown : ${character.cooldown}%`,10,230);
-    ctx.status.fillText(`Duration : ${character.duration}`,10,250);
-
-    ctx.status.fillText(`Item : ${character.itemName}`,10,290);
+    drawTextWithStroke(ctx.status,player.character.characterName,30,100,0,'center','top');
+    drawTextWithStroke(ctx.status,`Lv.${player.character.level}(${player.character.exp}/100)`,20,0,40,'left','top');
+    drawTextWithStroke(ctx.status,` 속도 : +${character.maxSpeed-9} 점프력: ${Math.round(character.jumpPower*100/45)}% 쉴드 : ${character.shild}`,10,0,65,'left','top');
+    drawTextWithStroke(ctx.status,` 스킬 쿨타임: ${Math.floor(player.skill.cooltime*(100-character.cooldown))/100}초 스킬 지속시간 : ${player.skill.duration}초`,10,0,80,'left','top');
 }
 
-const drawResult = (result,playtime)=>{
-    const resultString = {fail:'3/4이상 출석 실패',success:'출석 완료'};
+const drawResult = async (result,playtime,userId,difficulty=1)=>{
+    const resultString = {fail:'출석 실패',success:'출석 완료'};
+    let exp = frameToExp({result,frame:playtime})*difficulty;
     modal.style.display = 'flex';
+    modal.innerHtml = `<div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-title">${resultString[result]}</div>
+                            </div>
+                            <div class="modal-body">
+                                <div>플레이 시간 : ${convertTime(playtime)}</p>
+                                <div>exp : ${exp}</div>
+                                <div>획득한 아이템 정리중</div>
+                            </div>
+                            <div id="modal-footer">
+                                <button id="restart">재수강하기</button>
+                                <button id="exit">나가기</button>
+                            </div>
+                        </div>`;
+    let items = [];
+    itemsInfo.forEach(k=>{
+        if(Math.random()*100<k.probability)
+            items.push(k.itemId);
+    });
+    
+
     modal.innerHTML = `<div class="modal-content">
                         <div class="modal-header">
                             <div class="modal-title">${resultString[result]}</div>
                         </div>
                         <div class="modal-body">
-                            <p>플레이 시간 : ${convertTime(playtime)}</p>
-                            <p>exp : ${frameToExp({result,frame:playtime})}</p>
+                            <div>플레이 시간 : ${convertTime(playtime)}</div>
+                            <div>exp : ${exp}</div>
+                            <div></div>
+                            <div>${items}</div>
                         </div>
                         <div id="modal-footer">
                             <button id="restart">재수강하기</button>
