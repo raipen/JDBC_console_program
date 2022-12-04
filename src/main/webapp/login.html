@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>호반우 런</title>
+    <meta charset="utf-8">
+    <title>호반우 런</title>
+    <link rel="stylesheet" href="GameManager/gmMain.css">
 </head>
 <body>
-	호반후 런
-	<form>
-		<label for="id">아이디</label>
-		<input type="text" name="id" id="id"/><br/>
-		<label for="pw">비밀번호</label>
-		<input type="password" name="pw" id="pw"/><br/>
-		<input type="submit" value="로그인" />
-		<!-- 회원가입 -->
-		<input type="button" value="회원가입" onclick="location.href='signup.html'"/>
-	</form>
-	<script>
-		document.querySelector("form").addEventListener("submit",function(e){
-			e.preventDefault();
-			let id = document.querySelector("input[name=id]").value;
-			let pw = document.querySelector("input[name=pw]").value;
-			let xhr = new XMLHttpRequest();
-			xhr.open("POST","apis/login.jsp");
-			xhr.setRequestHeader("Content-Type","application/json");
-			xhr.send(JSON.stringify({id:id,pw:pw}));
-			xhr.addEventListener("load",function(){
-				if(xhr.status == 200){
-						location.href="./index.jsp";
-				}
-				if(xhr.status == 401){
-					let result = JSON.parse(xhr.responseText);
-					alert(result.message);
-				}
-			});
-		});
-	</script>
+<div style="margin-left: 5%; margin-top:5%;">
+    <h1>호반우 런</h1>
+</div>
+<div style="margin-left: 3%;">
+    <form class="btn-two large" style="color:black;">
+        <label for="id">아이디</label>
+        <input type="text" name="id" id="id"/><br/>
+        <label for="pw">비밀번호</label>
+        <input type="password" name="pw" id="pw"/><br/>
+        <input type="submit" class="btn-two blue small" value="로그인"/>
+        <!-- 회원가입 -->
+        <input type="button" class="btn-two green small" value="회원가입" onclick="location.href='signup.html'"/>
+    </form>
+</div>
+<script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let id = document.querySelector("input[name=id]").value;
+        let pw = document.querySelector("input[name=pw]").value;
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "apis/login.jsp");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({id: id, pw: pw}));
+        xhr.addEventListener("load", function () {
+            if (xhr.status == 200) {
+                location.href = "./index.jsp";
+            }
+            if (xhr.status == 401) {
+                let result = JSON.parse(xhr.responseText);
+                alert(result.message);
+            }
+        });
+    });
+</script>
 </body>
 </html>
