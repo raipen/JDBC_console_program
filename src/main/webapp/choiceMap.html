@@ -6,14 +6,13 @@
     <link rel="stylesheet" href="css/choiceMap.css">
     <link rel="stylesheet" href="css/modal.css">
 </head>
-<>
     <div id="contents">
     </div>
    <div class="modal" id="rank">
    </div>
 
    <a href="./apis/returnCharacterChoise.jsp">
-    <button >back</button>
+    <button class="button" style="float:right">뒤로가기</button>
    </a>
 
    <script type='module'>
@@ -27,10 +26,15 @@
             {
                 html += `
                 <div class="map" value="${result[i].no}">
-                    <div class="button">맵이름:${result[i].name}</div>
-                    <div class="button">난이도:${result[i].difficulty}</div>
-                    <button class="rank" value="${result[i].no}">랭킹</button>
-                    <button><a href="game/?=${result[i].no}">플레이</a></button>
+                    <div class="backgroundBox">
+                        <img src="./game/${result[i].backGround}">
+                    </div>
+                    <div class="InfoBox">
+                        <h2>맵이름:${result[i].name}</h2>
+                        <div class="difficulty ">난이도:${result[i].difficulty}</div>
+                        <button class="rank button" value="${result[i].no}">랭킹</button>
+                        <a href="game/?=${result[i].no}"><button class="button">플레이</button></a>
+                    </div>
                 </div>`;
             }
             contents.innerHTML = html;
@@ -69,7 +73,7 @@
             rankHtml = `
                 <div class="modal-content">
                     <div class="modal-header">
-                        ${e.target.getAttribute("value")}
+                        <h1>랭킹</h1>
                     </div>
                     <div class="modal-body" style="overflow-x:hidden;overflow-y:auto; width:400px; height:250px;">
             `;
@@ -85,11 +89,12 @@
                             `
             }
             rankHtml += `<div id="modal-button">
-                            <button id="exit">나가기!</button>
+                           
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
+                            <div class="modal-footer">
+                                <button id="exit" style="float:right;"><h1>닫기</h1></button>
+                            </div>
                         </div>
                     </div>`
             rankModal.innerHTML = rankHtml;
