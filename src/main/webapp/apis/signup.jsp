@@ -31,7 +31,7 @@
             obj.put("id", id);
             obj.put("pw", pw);
         }
-        else obj.put("message", "fail");
+        else obj.put("message", "이미 존재하는 아이디입니다");
     }
     response.getWriter().write(new JSONObject(obj).toString());
 %>

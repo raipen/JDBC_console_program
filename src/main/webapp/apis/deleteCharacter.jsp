@@ -17,24 +17,18 @@
     JSONObject jsonObj = Utils.getJsonFromRequest(request);
     HashMap<String, Object> obj = new HashMap<String, Object>();
 
-    String characterID = (String)jsonObj.get("characterID");
+    String characterId = (String)jsonObj.get("characterId");
 
-    if(characterID==null){
+    if(characterId==null){
         response.setStatus(401);
         obj.put("message", "fail");
     }else{
         response.setStatus(200);
 
-        for(CharacterDTO C:characterDTOList){
-            if (C.getCharacterID().equals(characterID)){
-                if(characterDAO.deleteCharacter(characterID)){
-                    obj.put("message", "success");
-                    break;
-                }
-                else obj.put("message", "fail");
-            }
+        if(characterDAO.deleteCharacter(characterId)){
+            obj.put("message", "success");
         }
-        if(obj.size()==0) obj.put("message", "fail");
+        else obj.put("message", "fail");
     }
     response.getWriter().write(new JSONObject(obj).toString());
 %>

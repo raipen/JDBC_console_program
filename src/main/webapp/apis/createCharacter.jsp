@@ -13,17 +13,18 @@
 <%
 //ID는 랜덤생성, name은 받고, lv = 1, exp= 0, skillid 입력, 어빌 030로 찍어주기
     CharacterDAO characterDAO = CharacterDAO.getInstance();
+    request.setCharacterEncoding("utf-8");
     List<CharacterDTO> characterDTOList = characterDAO.getCharacterList();
     JSONObject jsonObj = Utils.getJsonFromRequest(request);
     HashMap<String, Object> obj = new HashMap<String, Object>();
 
     String id = (String)jsonObj.get("id");
     String characterName = (String)jsonObj.get("characterName");
-    String skillID = (String)jsonObj.get("skillID");
+    String skillId = (String)jsonObj.get("skillId");
 
 
 
-    if(characterName==null || skillID==null){
+    if(characterName==null || skillId==null){
         response.setStatus(401);
         obj.put("message", "fail");
     }else{
@@ -51,13 +52,13 @@
                 break;
             }
         }
-        if(characterDAO.MakeCharacter(id, characterID, characterName,skillID)){
+        if(characterDAO.MakeCharacter(id, characterID, characterName,skillId)){
             obj.put("characterID", characterID);
             obj.put("characterName", characterName);
         }
         else{
-            response.setStatus(402);
-            obj.put("message", "fail");
+            response.setStatus(200);
+            obj.put("message", "존재하는 캐릭터 이름입니다.");
         }
     }
     response.getWriter().write(new JSONObject(obj).toString());

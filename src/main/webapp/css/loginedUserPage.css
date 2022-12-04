@@ -5,18 +5,18 @@ html,body{
     width: 100%;
 }
 
-#selectCharacter::-webkit-scrollbar,#items::-webkit-scrollbar {
+#selectCharacter::-webkit-scrollbar,#items::-webkit-scrollbar,.modal .modal-content .modal-body::-webkit-scrollbar {
     height: 10px;
     width: 100%;
 }
 
-#selectCharacter::-webkit-scrollbar-thumb,#items::-webkit-scrollbar-thumb {
+#selectCharacter::-webkit-scrollbar-thumb,#items::-webkit-scrollbar-thumb,.modal .modal-content .modal-body::-webkit-scrollbar-thumb {
     background: rgba(0,0,0,.5);
     border-radius: 10px;
     max-width: 50%;
 }
 
-#selectCharacter::-webkit-scrollbar-track,#items::-webkit-scrollbar-track {
+#selectCharacter::-webkit-scrollbar-track,#items::-webkit-scrollbar-track,.modal .modal-content .modal-body::-webkit-scrollbar-track {
     background: transparent
 }
 
@@ -106,6 +106,7 @@ html,body{
     color: #000;
     text-decoration: none;
     cursor: pointer;
+    margin: 0 5px;
 }
 
 #selectCharacter{
@@ -167,5 +168,110 @@ html,body{
 }
 
 button{
+    cursor: pointer;
+}
+
+input[type=radio]{
+    display: none;
+}
+
+input[type=radio]:checked + label{
+    background-color: #888;
+}
+
+.modal input[type=text]{
+    font-size: 20px;
+    height: 30px;
+    width:150px;
+    font-weight: bold;
+}
+
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal .modal-content{
+    width: 400px;
+    height: 700px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal .modal-content .modal-header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal .modal-content .modal-header .modal-title{
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.modal .modal-content .modal-body{
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border:none;
+    overflow-y: auto;
+}
+
+.modal-body div{
+    font-size: 30px;
+    font-weight: 700;
+    color: #000;
+}
+
+#skillList{
+    font-size:20px;    
+    text-align: left;
+}
+#skillList>.selectSkill{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+#skillList>.selectSkill:hover{
+    background-color: #ccc;
+}
+#skillList>.selectSkill>label{
+    margin-left:10px;
+}
+
+.modal .modal-content .modal-footer{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal .modal-content .modal-footer button{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
     cursor: pointer;
 }
