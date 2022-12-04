@@ -18,15 +18,62 @@
 
     const getCharacterInfo = async (e) => {
         const characterID = e.target.getAttribute('data-character-id');
+        const characterName = e.target.innerHTML;
         const result = await ajax('../apis/getAbility.jsp', {characterId: characterID});
         console.log(result);
 
         let html = `<div class = "button" style="width: 50%;">Speed: ${result.speed}</div>`;
         html += `<div class = "button" style="width: 50%;">Life: ${result.life}</div>`;
         html += `<div class = "button" style="width: 50%;">CoolDown: ${result.cooldown}</div>`;
+        html += `<div class = "button showRank" style = "width:50%;">기록 보기</div>`;
+        html += `<div class = "button changeExp" style = "width:50%;">수정하기</div>`;
+        html += `<div class = "button deleteCharacter" style = "width:50%;">삭제하기</div>`;
 
         const rightBottom = document.querySelector("#rightBottom");
         rightBottom.innerHTML = html;
+
+        document.querySelector(".changeExp").addEventListener('click', async (e) => {
+            const characterResult = await ajax('../apis/getCharacter.jsp', {characterId: characterID});
+            var lv = prompt(`현재 레벨은 ${characterResult.level}입니다.\n변경할 레벨을 입력해주세요`, `${characterResult.level}`);
+            if (lv === null) {
+                alert("취소되었습니다.");
+                return;
+            }
+            var exp = prompt(`현재 경험치는 ${characterResult.exp}입니다.\n변경할 경험치를 입력해주세요`, `${characterResult.exp}`);
+            if (exp === null) {
+                alert("취소되었습니다.");
+                return;
+            }
+            console.log(characterID);
+            console.log(lv);
+            console.log(exp);
+            var result = await ajax('../apis/changeExp.jsp', {characterID: characterID, lv: lv, exp: exp});
+            if (result.lv == lv && result.exp == exp) {
+                console.log(result.lv);
+                console.log(result.exp);
+                alert(`LV: ${result.lv}, EXP: ${result.exp}로 변경되었습니다.`);
+            } else {
+                alert(`변경 실패, ${result.message}`);
+            }
+        });
+
+        document.querySelector(".deleteCharacter").addEventListener('click', async (e) => {
+            var input = confirm(`'${characterName}' 캐릭터를 삭제 하시겠습니까?`);
+            if (input === true) {
+                const result = await ajax('../apis/deleteCharacter.jsp', {characterID: characterID});
+                console.log(result);
+                alert(`${characterName}가 삭제되었습니다.`);
+                location.reload();
+            } else alert(`취소되었습니다.`);
+        });
+
+        // document.querySelector(".showRank").addEventListener('click', async (e) => {
+        //     ajax('showRank.jsp', {characterID: characterID}, function () {
+        //             location.replace('showRank.jsp');
+        //         });
+        //     location.replace('showRank.jsp', {characterID: characterID});
+        //     console.log(result);
+        // });
     };
 
     const getUserInfo = async (e) => {
@@ -59,6 +106,7 @@
                 const result = await ajax('../apis/changePassword_GM.jsp', {id: userId, pwNew: newPW});
                 alert(`${userId}의 비밀번호가 ${newPW}로 변경되었습니다.`);
                 console.log(result);
+                location.reload();
             } else alert(`취소되었습니다.`);
         });
 
@@ -69,6 +117,7 @@
                 const result = await ajax('../apis/deleteAccount_GM.jsp', {id: userId});
                 console.log(result);
                 alert(`${userId}가 삭제되었습니다.`);
+                location.reload();
             } else alert(`취소되었습니다.`);
         });
 
