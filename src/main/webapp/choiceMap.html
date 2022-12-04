@@ -29,12 +29,10 @@
                     <div class="backgroundBox">
                         <img src="./game/img/maps/ground0${i}.jpg">
                     </div>
-                    <div class="InfoBox">
-                        <div class="button">맵이름:${result[i].name}</div>
-                        <div class="button">난이도:${result[i].difficulty}</div>
+                        <h2>맵이름:${result[i].name}</h2>
+                        <div class="difficulty"><h3>난이도:${result[i].difficulty}</h3></div>
                         <button class="rank" value="${result[i].no}">랭킹</button>
                         <button><a href="game/?=${result[i].no}">플레이</a></button>
-                    </div>
                 </div>`;
             }
             contents.innerHTML = html;
