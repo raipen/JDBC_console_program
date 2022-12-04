@@ -5,18 +5,18 @@ html,body{
     width: 100%;
 }
 
-#selectCharacter::-webkit-scrollbar {
+#selectCharacter::-webkit-scrollbar,#items::-webkit-scrollbar {
     height: 10px;
     width: 100%;
 }
 
-#selectCharacter::-webkit-scrollbar-thumb {
+#selectCharacter::-webkit-scrollbar-thumb,#items::-webkit-scrollbar-thumb {
     background: rgba(0,0,0,.5);
     border-radius: 10px;
     max-width: 50%;
 }
 
-#selectCharacter::-webkit-scrollbar-track {
+#selectCharacter::-webkit-scrollbar-track,#items::-webkit-scrollbar-track {
     background: transparent
 }
 
@@ -24,6 +24,7 @@ html,body{
     float: left;
     width: 70%;
     height: 100%;
+    text-align: center;
 }
 
 #right{
@@ -31,6 +32,34 @@ html,body{
     width: calc(30% - 1px);
     height: 100%;
     border-left: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#right>.characterLevel{
+    font-size: 20px;
+    color: #000;
+}
+
+.skill{
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+.play,.delete{
+    width: 80%;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 50px;
+    text-decoration: none;
+    padding: 10px 0;
+    border: 3px solid #000;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 10px 0;
 }
 
 #topMenu,#bottomMenu{
@@ -42,9 +71,27 @@ html,body{
     overflow-x: auto;
 }
 
-#selectCharacter{
-    width: 100%;
-    height: calc(100% - 140px);
+#items{
+    max-width: 100%;
+    height: 100px;
+    display:inline-flex;
+    align-items: center;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.item{
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: 25px;
+    margin: 0 10px;
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    width: 250px;
+    flex: 0 0 250px;
 }
 
 .button{
@@ -62,7 +109,9 @@ html,body{
 }
 
 #selectCharacter{
-    display:flex;
+    max-width: 100%;
+    height: calc(100% - 240px);
+    display:inline-flex;
     align-items: center;
     flex-flow: row;
     flex-wrap: nowrap;

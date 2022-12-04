@@ -13,9 +13,9 @@
             <a href="./apis/logout.jsp"><div class="button">로그아웃</div></a>
         </div>
         <div id="selectCharacter"></div>
+        <div id="items"></div>
         <div id="bottomMenu">
             <div class="button">캐릭터 생성</div>
-            <div class="button">아이템 조회</div>
             <div class="button">랭킹</div>
         </div>
     </div>
@@ -26,6 +26,7 @@
         import {get_cookie,ajax} from './game/js/utils.js';
         const right = document.getElementById('right');
         const selectCharacter = document.getElementById('selectCharacter');
+        const itemDiv = document.getElementById('items');
 
         const getCharacterList = async () => {
             const result = await ajax('apis/getCharacterList.jsp', {id:get_cookie('id')});
@@ -43,10 +44,23 @@
             });
             selectCharacter.innerHTML = html;
             const characters = document.querySelectorAll('.character');
-            console.log(characters);
             characters.forEach((character,i) => {
                 character.addEventListener('click', loadRight(result[i]));
             });
+
+            const items = await ajax('apis/getItem.jsp', {id:get_cookie('id')});
+            console.log(items);
+            let itemHtml = '';
+            items.forEach((item) => {
+                itemHtml += `
+                    <div class="item">
+                        <img src="./game/${item.itemImg}" style="grid-row:1/3"></img>
+                        <div class="itemName">${item.itemName}</div>
+                        <div class="itemCount">${item.itemCount}개</div>
+                    </div>`;
+            });
+            itemDiv.innerHTML = itemHtml;
+
         }
 
         const loadRight = (character)=>async (e) => {
@@ -61,8 +75,8 @@
                         <div>life</div> <div style="text-align:center">${character.ability.life}</div><button class="abilityUp" value="life">▲</button>
                         <div>coolDown</div> <div style="text-align:center">${character.ability.coolDown}</div><button class="abilityUp" value="coolDown">▲</button>
                     </div>
-                    <div class="skill">${character.skill.skillName}</div>
-                    <div class="paly">플레이</div>
+                    <div class="skill">스킬: ${character.skill.skillName}</div>
+                    <div class="play">플레이</div>
                     <div class="delete">삭제</div>
                     `;
             right.innerHTML = rightHtml;
@@ -70,7 +84,7 @@
             abilityUps.forEach((abilityUp) => {
                 abilityUp.addEventListener('click', abilityUpClick(character));
             });
-            document.querySelector('.paly').addEventListener('click', async ()=>{
+            document.querySelector('.play').addEventListener('click', async ()=>{
                 await ajax('apis/playCharacter.jsp', {characterId:character.characterID});
                 window.location.href = './choiceMap.html';
             });
