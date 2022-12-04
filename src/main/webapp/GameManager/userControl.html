@@ -5,6 +5,7 @@
     <title>호반우 런</title>
     <link rel="stylesheet" href="userControl.css">
     <link rel="stylesheet" href="stastic.css">
+    <link rel="stylesheet" href="gmMain.css">
 </head>
 <body>
 <div id="left">
@@ -23,12 +24,12 @@
         const result = await ajax('../apis/getAbility.jsp', {characterId: characterID});
         console.log(result);
 
-        let html = `<div class = "button" style="width: 50%;">Speed: ${result.speed}</div>`;
-        html += `<div class = "button" style="width: 50%;">Life: ${result.life}</div>`;
-        html += `<div class = "button" style="width: 50%;">CoolDown: ${result.cooldown}</div>`;
-        html += `<div class = "button showRank" style = "width:50%;">기록 보기</div>`;
-        html += `<div class = "button changeExp" style = "width:50%;">수정하기</div>`;
-        html += `<div class = "button deleteCharacter" style = "width:50%;">삭제하기</div>`;
+        let html = `<div class = "btn-two purple" style="width: 50%;">Speed: ${result.speed}</div>`;
+        html += `<div class = "btn-two purple" style="width: 50%;">Life: ${result.life}</div>`;
+        html += `<div class = "btn-two purple" style="width: 50%;">CoolDown: ${result.cooldown}</div>`;
+        html += `<div class = "btn-3d cyan showRank" style = "width:50%;">기록 보기</div>`;
+        html += `<div class = "btn-3d cyan changeExp" style = "width:50%;">수정하기</div>`;
+        html += `<div class = "btn-3d red deleteCharacter" style = "width:50%;">삭제하기</div>`;
         html += `<div id="rightBottom2"></div>`;
 
         const rightBottom = document.querySelector("#rightBottom");
@@ -92,17 +93,17 @@
         const itemList = await ajax('../apis/getItem.jsp', {id: userId});
 
         let html = '<div>';
-        html += `<div class="button">${userId}`;
-        html += `<button class = "button changePW" data-user-id="${userId}">PW 변경</button>`;
-        html += `<button class="button deleteAccount" data-user-id="${userId}">계정 삭제</button>`;
+        html += `<div class="btn-two large" style="text-align: center; color:black;">${userId}<br>`;
+        html += `<button class = "btn-3d blue small changePW" data-user-id="${userId}">PW 변경</button>`;
+        html += `<button class="btn-3d red deleteAccount" data-user-id="${userId}">계정 삭제</button>`;
         html += '</div><br><div>';
         itemList.forEach(item => {
-            html += `<div class="button" style="width: 50%;">${item.itemName} : ${item.itemCount}개</div>`;
+            html += `<div class="btn-two green small" style="width: 50%;">${item.itemName} : ${item.itemCount}개</div>`;
         });
 
         html += '</div><br><div>'
         characterList.forEach((character) => {
-            html += `<div class="button character" data-character-id="${character.characterID}">${character.characterName}</div>`;
+            html += `<div class="btn-3d purple character" data-character-id="${character.characterID}">${character.characterName}</div>`;
         });
         html += '</div><div id="rightBottom"></div>';
 
@@ -142,10 +143,10 @@
         const left = document.querySelector('#left');
         let html = '';
         for (let i = 0; i < result.length; i++)
-            html += `<div class="button">${result[i].id}</div>`;
+            html += `<button class="btn-two blue small">${result[i].id}</button>`;
         left.innerHTML = html;
 
-        const buttons = document.querySelectorAll('.button');
+        const buttons = document.querySelectorAll('.blue');
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].addEventListener('click', getUserInfo);
         }
