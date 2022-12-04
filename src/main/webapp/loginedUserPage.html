@@ -10,7 +10,7 @@
         <div id="topMenu">
             <div class="button">PW 변경</div>
             <div class="button">회원탈퇴</div>
-            <div class="button">로그아웃</div>
+            <a href="./apis/logout.jsp"><div class="button">로그아웃</div></a>
         </div>
         <div id="selectCharacter"></div>
         <div id="bottomMenu">
@@ -24,10 +24,78 @@
     </div>
     <script type='module'>
         import {get_cookie,ajax} from './game/js/utils.js';
+        const right = document.getElementById('right');
+        const selectCharacter = document.getElementById('selectCharacter');
+
         const getCharacterList = async () => {
             const result = await ajax('apis/getCharacterList.jsp', {id:get_cookie('id')});
-            console.log(result);
+            let html = '';
+            result.forEach((character) => {
+                html += `
+                    <div class="character">
+                        <img src="./img/hobanu1.png"></img>
+                        <div class="characterName">${character.characterName}</div>
+                        <div class="characterLevel">LV.${character.lv}(${character.exp}/100)</div>
+                        <div class="ability">speed/life/coolDown</div>
+                        <div class="characterAbility">${character.ability.speed}/${character.ability.life}/${character.ability.coolDown}</div>
+                    </div>
+                `;
+            });
+            selectCharacter.innerHTML = html;
+            const characters = document.querySelectorAll('.character');
+            console.log(characters);
+            characters.forEach((character,i) => {
+                character.addEventListener('click', loadRight(result[i]));
+            });
         }
+
+        const loadRight = (character)=>async (e) => {
+            console.log(character);
+            let skillPoint = character.lv - character.ability.life - character.ability.speed - character.ability.coolDown + 3;
+            let rightHtml = `
+                    <div class="characterName">${character.characterName}</div>
+                    <div class="characterLevel">LV.${character.lv}(${character.exp}/100)</div>
+                    <div class="abilityBox">
+                        <div style="grid-column: 1/4;"> 남은 스탯 포인트: ${skillPoint}</div>
+                        <div>speed</div> <div style="text-align:center">${character.ability.speed}</div><button class="abilityUp" value="speed">▲</button>
+                        <div>life</div> <div style="text-align:center">${character.ability.life}</div><button class="abilityUp" value="life">▲</button>
+                        <div>coolDown</div> <div style="text-align:center">${character.ability.coolDown}</div><button class="abilityUp" value="coolDown">▲</button>
+                    </div>
+                    <div class="skill">${character.skill.skillName}</div>
+                    <div class="paly">플레이</div>
+                    <div class="delete">삭제</div>
+                    `;
+            right.innerHTML = rightHtml;
+            const abilityUps = document.querySelectorAll('.abilityUp');
+            abilityUps.forEach((abilityUp) => {
+                abilityUp.addEventListener('click', abilityUpClick(character));
+            });
+            document.querySelector('.paly').addEventListener('click', async ()=>{
+                await ajax('apis/playCharacter.jsp', {characterId:character.characterID});
+                window.location.href = './choiceMap.html';
+            });
+
+        }
+
+        const abilityUpClick = (character)=>async (e) => {
+            const ability = e.target.getAttribute("value");
+            e.disabled = true;
+            let skillPoint = character.lv - character.ability.life - character.ability.speed - character.ability.coolDown + 3;
+            
+            if(skillPoint <= 0){
+                alert('스킬 포인트가 부족합니다.');
+                return;
+            }
+
+            let result = await ajax('apis/upgradeAbility.jsp', {characterId:character.characterID, ability});
+            
+            if(result.message === 'success'){
+                character.ability[ability]++;
+                loadRight(character)(e);
+            }
+            e.disabled = false;
+        }
+
         getCharacterList();
     </script>
 </body>

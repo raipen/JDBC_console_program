@@ -408,4 +408,23 @@ public class CharacterDAO extends DAO{
         }
         return getCharacterInfo(characterId);
     }
+    
+    public boolean upgradeAbility(String characterId, String ability){
+        boolean result = false;
+        try{
+            conn = getConnection();
+            String sql = "UPDATE abilities SET " + ability + " = " + ability + " + 1 WHERE characterId = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, characterId);
+            int updateResult = pstmt.executeUpdate();
+            if(updateResult == 1){
+                result = true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            closeConnection(conn, pstmt, rs);
+        }
+        return result;
+    }
 }
