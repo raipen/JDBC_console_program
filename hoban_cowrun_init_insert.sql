@@ -132,7 +132,7 @@ INSERT INTO items VALUES ('coolDown', '쿨타임 20% 감소', './img/item/coolDo
 INSERT INTO skills VALUES ('smaller', '3초간 캐릭터 크기 50% 감소', './img/skill/smaller.png', 3, 8);
 INSERT INTO skills VALUES ('dash', '짧게 앞으로 이동', './img/skill/dash.png', 0, 5);
 INSERT INTO skills VALUES ('doublejump', '이단 점프', './img/skill/doublejump.png', 0, 5);
-INSERT INTO skills VALUES ('lowgravity', '순간이동', './img/skill/teleport.png', 0, 12);
+INSERT INTO skills VALUES ('lowgravity', '저중력', './img/skill/lowgravity.png', 0, 12);
 INSERT INTO skills VALUES ('darksight', '2초간 무적', './img/skill/darksight.png', 2, 30);
 INSERT INTO skills VALUES ('heal', '결석 가능 횟수 회복', './img/skill/heal.png', 0, 30);
 INSERT INTO skills VALUES ('shield', '1회 방어', './img/skill/shield.png', 0, 20);
