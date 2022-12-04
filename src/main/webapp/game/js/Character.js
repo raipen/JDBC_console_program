@@ -23,7 +23,8 @@ export default class Character{
         this.isBouncing = false;
         this.invincible = false;
         this.color = "green";
-        this.shild = 0;
+        this.shield = 0;
+        this.shieldTimeout = null;
 
         this.left = false;
         this.right = false;
@@ -31,7 +32,7 @@ export default class Character{
 
     getRect = () => { return { x: this.x, y: this.y, width: this.width, height: this.height }; }
 
-    getShildRect = () => { return { x: this.x-this.shild/10, y: this.y-this.shild/10, width: this.width+this.shild/5, height: this.height+this.shild/5}; }
+    getShieldRect = () => { return { x: this.x-this.shield/10, y: this.y-this.shield/10, width: this.width+this.shield/5, height: this.height+this.shield/5}; }
     
     moveLeft(){
         this.left = true;
@@ -71,8 +72,14 @@ export default class Character{
         if(this.isBouncing)
             return;
         this.isBouncing = true;
-        if(this.shild>0)
-            this.shild--;
+        if(this.shield>0){
+            this.shield--;
+            console.log(this.shieldTimeout);
+            if(this.shieldTimeout){
+                console.log("asdf");
+                clearTimeout(this.shieldTimeout);
+            }
+        }   
         else
             this.life -= damage;
         if(this.life<=0)

@@ -143,7 +143,7 @@ const drawGame = ({bases,hurdles,character,goal,map},playtime)=>{
         startPositon = character.x*stdPixel-canvas.game.width*0.3;
     if(character.x*stdPixel>map.mapInfo.width*stdPixel-canvas.game.width*0.7)
         startPositon = map.mapInfo.width*stdPixel-canvas.game.width;
-    drawPixel('yellow')(character.getShildRect())(startPositon);
+    drawPixel('yellow')(character.getShieldRect())(startPositon);
     bases.forEach(b=>b(startPositon));
     hurdles.forEach(h=>h(startPositon));
     drawPixel(character.color)(character.getRect())(startPositon);
@@ -192,7 +192,7 @@ const drawStatus = ({character,player})=>{
     ctx.status.clearRect(0,0,canvas.status.width,canvas.status.height);
     drawTextWithStroke(ctx.status,player.character.characterName,30,100,0,'center','top');
     drawTextWithStroke(ctx.status,`Lv.${player.character.level}(${player.character.exp}/100)`,20,0,40,'left','top');
-    drawTextWithStroke(ctx.status,` 속도 : +${character.maxSpeed-9} 점프력: ${Math.round(character.jumpPower*100/45)}% 쉴드 : ${character.shild}`,10,0,65,'left','top');
+    drawTextWithStroke(ctx.status,` 속도 : +${character.maxSpeed-9} 점프력: ${Math.round(character.jumpPower*100/45)}% 쉴드 : ${character.shield}`,10,0,65,'left','top');
     drawTextWithStroke(ctx.status,` 스킬 쿨타임: ${Math.floor(player.skill.cooltime*(100-character.cooldown))/100}초 스킬 지속시간 : ${player.skill.duration}초`,10,0,80,'left','top');
 }
 

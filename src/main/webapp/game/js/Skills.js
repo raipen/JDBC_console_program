@@ -50,9 +50,9 @@ export default {smaller(character,duration){
 },
  shield(character,duration){
     console.log("shield");
-    character.shild++;
-    setTimeout(()=>{
-        character.shild--;
+    character.shield++;
+    character.shieldTimeout = setTimeout(()=>{
+        character.shield--;
     },duration*1000);
 
 }}

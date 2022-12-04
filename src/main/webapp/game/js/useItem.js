@@ -9,7 +9,7 @@ const items = {
     coolDown(character){
         character.cooldown+=10;
         character.cooltime*=0.9},
-    guard(character){character.shild++}
+    guard(character){character.shield++}
 }
 export default (player,character,itemId) => {
     //player.items에 itemId가 일치하는 아이템이 있으면 itemCount를 1 감소시키고 setItem.jsp로 전송
