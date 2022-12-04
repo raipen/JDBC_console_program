@@ -68,9 +68,8 @@ img {
     height:90%;
 }
 
-.InfoBox h2 {
+.InfoBox>*{
     font-size: 25px;
-    position: absolute;
-    top: 20px;
+    /* position: absolute; */
 }
 

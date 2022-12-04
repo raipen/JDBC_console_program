@@ -29,10 +29,12 @@
                     <div class="backgroundBox">
                         <img src="./game/img/maps/ground0${i}.jpg">
                     </div>
+                    <div class="InfoBox">
                         <h2>맵이름:${result[i].name}</h2>
-                        <div class="difficulty"><h3>난이도:${result[i].difficulty}</h3></div>
+                        <div class="difficulty">난이도:${result[i].difficulty}</div>
                         <button class="rank" value="${result[i].no}">랭킹</button>
-                        <button><a href="game/?=${result[i].no}">플레이</a></button>
+                        <a href="game/?=${result[i].no}">플레이</a>
+                    </div>
                 </div>`;
             }
             contents.innerHTML = html;
@@ -72,6 +74,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         ${e.target.getAttribute("value")}
+                        <button id="exit";float="right">닫기</button>
                     </div>
                     <div class="modal-body" style="overflow-x:hidden;overflow-y:auto; width:400px; height:250px;">
             `;
@@ -87,11 +90,12 @@
                             `
             }
             rankHtml += `<div id="modal-button">
-                            <button id="exit">나가기!</button>
+                           
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
+                           
                         </div>
                     </div>`
             rankModal.innerHTML = rankHtml;
