@@ -6,13 +6,16 @@
     <link rel="stylesheet" href="css/choiceMap.css">
     <link rel="stylesheet" href="css/modal.css">
 </head>
-<body>
+<>
     <div id="contents">
     </div>
    <div class="modal" id="rank">
    </div>
 
-   
+   <a href="./apis/returnCharacterChoise.jsp">
+    <button >back</button>
+   </a>
+
    <script type='module'>
         import { get_cookie, ajax } from './game/js/utils.js';
         const getMapList = async () => {
@@ -39,6 +42,7 @@
         const getRecordList = async (e) => {
             console.log("isClick");
             const recordResult = await ajax('apis/getRecordList.jsp', { "id": "", "characterId": "", "mapNo": e.target.getAttribute("value") });
+            console.log(e.target.getAttribute("value"));
             const rankModal = document.querySelector('#rank');
             rankModal.style.display = 'flex';
             let rankHtml = `
@@ -67,23 +71,32 @@
                     <div class="modal-header">
                         ${e.target.getAttribute("value")}
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="overflow-x:hidden;overflow-y:auto; width:400px; height:250px;">
             `;
 
+            const convertTime = (frame)=>{
+                let min = Math.floor(frame / 3600);
+                let sec = Math.floor((frame % 3600) / 60);
+                let msec = Math.floor((frame % 3600) % 60);
+                return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}:${msec < 10 ? '0' + msec : msec}`;
+            }   
             for (let i = 0; i < recordResult.length; i++) {
-                rankHtml += `<div>clearTime:${recordResult[i].clearTime}</div>
+                rankHtml += `<div align="left" style="border: 1px solid #48BAE4; height: 100px;">순위:${i+1} 닉네임:${recordResult[i].characterName} <br> 걸린시간:${convertTime(recordResult[i].clearTime)}</div>
                             `
             }
             rankHtml += `<div id="modal-button">
-                            <button id="exit">나가기</button>
+                            <button id="exit">나가기!</button>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                         </div>
                     </div>`
-
             rankModal.innerHTML = rankHtml;
+            const exit = document.getElementById('exit');
+            exit.addEventListener('click',()=>{
+            rankModal.style.display = 'none';
+            }); 
         }
         getMapList();
     </script>

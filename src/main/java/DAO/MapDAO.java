@@ -32,7 +32,7 @@ public class MapDAO extends DAO
         try
         {
             conn = getConnection();
-            pstmt = conn.prepareStatement("SELECT * FROM maps");
+            pstmt = conn.prepareStatement("SELECT * FROM maps order by difficulty");
             rs = pstmt.executeQuery();
             while (rs.next())
             {
