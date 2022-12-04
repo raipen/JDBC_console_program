@@ -39,6 +39,7 @@
         const getRecordList = async (e) => {
             console.log("isClick");
             const recordResult = await ajax('apis/getRecordList.jsp', { "id": "", "characterId": "", "mapNo": e.target.getAttribute("value") });
+            console.log(e.target.getAttribute("value"));
             const rankModal = document.querySelector('#rank');
             rankModal.style.display = 'flex';
             let rankHtml = `
@@ -75,15 +76,18 @@
                             `
             }
             rankHtml += `<div id="modal-button">
-                            <button id="exit">나가기</button>
+                            <button id="exit">나가기!</button>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                         </div>
                     </div>`
-
             rankModal.innerHTML = rankHtml;
+            const exit = document.getElementById('exit');
+            exit.addEventListener('click',()=>{
+                rankModal.style.display = 'none';
+            }); 
         }
         getMapList();
     </script>
