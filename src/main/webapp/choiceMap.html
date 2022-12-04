@@ -6,14 +6,13 @@
     <link rel="stylesheet" href="css/choiceMap.css">
     <link rel="stylesheet" href="css/modal.css">
 </head>
+<body>
+    <header>
+    </header>
     <div id="contents">
     </div>
    <div class="modal" id="rank">
    </div>
-
-   <a href="./apis/returnCharacterChoise.jsp">
-    <button class="button" style="float:right">뒤로가기</button>
-   </a>
 
    <script type='module'>
         import { get_cookie, ajax } from './game/js/utils.js';
@@ -103,7 +102,51 @@
             rankModal.style.display = 'none';
             }); 
         }
+
+        const loadHeader = async (characterId) => {
+            console.log(characterId);
+            let character = await ajax('apis/getCharacter.jsp', {characterId});
+            character.ability = await ajax('apis/getAbility.jsp', {characterId});
+            let skillPoint = character.level - character.ability.life - character.ability.speed - character.ability.cooldown + 3;
+            let html = `
+                    <div class="characterName">${character.characterName}</div>
+                    <div class="characterLevel">LV.${character.level}(${character.exp}/100)</div>
+                    <div class="abilityBox">
+                        <div style="grid-column: 1/4;"> 남은 스탯 포인트: ${skillPoint}</div>
+                        <div>speed</div> <div style="text-align:center">${character.ability.speed}</div><button class="abilityUp" value="speed">▲</button>
+                        <div>life</div> <div style="text-align:center">${character.ability.life}</div><button class="abilityUp" value="life">▲</button>
+                        <div>coolDown</div> <div style="text-align:center">${character.ability.cooldown}</div><button class="abilityUp" value="coolDown">▲</button>
+                    </div>
+                    <a href="./apis/returnCharacterChoise.jsp">캐릭터 선택창으로 돌아가기</a>
+                    `;
+            document.querySelector('header').innerHTML = html;
+            const abilityUps = document.querySelectorAll('.abilityUp');
+            abilityUps.forEach((abilityUp) => {
+                abilityUp.addEventListener('click', abilityUpClick(character,characterId));
+            });
+        }
+
+        const abilityUpClick = (character,characterId)=>async (e) => {
+            const ability = e.target.getAttribute("value");
+            e.disabled = true;
+            let skillPoint = character.level - character.ability.life - character.ability.speed - character.ability.cooldown + 3;
+            
+            if(skillPoint <= 0){
+                alert('스킬 포인트가 부족합니다.');
+                return;
+            }
+
+            let result = await ajax('apis/upgradeAbility.jsp', {characterId, ability});
+            
+            if(result.message === 'success'){
+                character.ability[ability]++;
+                loadHeader(get_cookie('characterId'));
+            }
+            e.disabled = false;
+        }
+
         getMapList();
+        loadHeader(get_cookie('characterId'));
     </script>
 </body>
 </html>

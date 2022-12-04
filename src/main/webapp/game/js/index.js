@@ -138,7 +138,7 @@ const draw = (obj)=>(playtime)=>{
 
 const drawGame = ({bases,hurdles,character,goal,map},playtime)=>{
     ctx.game.clearRect(0,0,canvas.game.width,canvas.game.height);
-    drawImg(ctx.game,map.backgroundIMG,0,0,canvas.game.width,canvas.game.height);
+    drawImg(ctx.game,map.mapInfo.backgroundIMG,0,0,canvas.game.width,canvas.game.height);
     let startPositon = 0;
     if(character.x*stdPixel>canvas.game.width*0.3)
         startPositon = character.x*stdPixel-canvas.game.width*0.3;
