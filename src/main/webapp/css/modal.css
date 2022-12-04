@@ -40,8 +40,8 @@
     height: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 }
 
 .modal .modal-content .modal-body p{
