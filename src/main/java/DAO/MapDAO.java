@@ -124,7 +124,7 @@ public class MapDAO extends DAO
         try
         {
             conn = getConnection();
-            String sql = "select mapname \r\n" + "from maps M\r\n"
+            String sql = "select mapname, mapNo \r\n" + "from maps M\r\n"
                     + "where Exists (select * from records R where R.clearTime < ? and R.mapno = M.mapno)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, cleartime * 1000);
@@ -132,7 +132,7 @@ public class MapDAO extends DAO
 
             while (rs.next())
             {
-                clearCountList.add("맵이름: " + rs.getString("mapname"));
+                clearCountList.add(rs.getString("mapNo") + "-" + rs.getString("mapname"));
             }
         }
         catch (Exception e)
@@ -146,25 +146,31 @@ public class MapDAO extends DAO
         return clearCountList;
     }
 
-    public List<String> getHardHurdle()
+    public List<String> getHardHurdle(int damage, int x, int y)
     {
         List<String> clearCountList = new LinkedList<String>();
 
         try
         {
             conn = getConnection();
-            String sql = "select H.positionx, H.positiony\r\n" + "from hurdles H\r\n"
-                    + "where damage>=3\r\n" + "\r\n" + "union\r\n" + "\r\n"
-                    + "select H.positionx, H.positiony\r\n" + "from hurdles H\r\n"
-                    + "where objsizex>50 and objsizey>50";
+            String sql = "select H.mapno, H.hurdleid, H.positionx, H.positiony\r\n"
+                    + "from hurdles H\r\n"
+                    + "where damage>=?\r\n" + "\r\n" + "union\r\n" + "\r\n"
+                    + "select H.mapno, H.hurdleid, H.positionx, H.positiony\r\n"
+                    + "from hurdles H\r\n"
+                    + "where objsizex>? and objsizey>?";
             pstmt = conn.prepareStatement(sql);
-            // pstmt.setInt(1, cleartime*1000);
+            pstmt.setInt(1, damage);
+            pstmt.setInt(2, x);
+            pstmt.setInt(3, y);
             rs = pstmt.executeQuery();
 
             while (rs.next())
             {
-                clearCountList.add("x: " + rs.getString("positionx") + "\ty: "
-                        + rs.getString("positiony"));
+                clearCountList.add(rs.getString("mapno") + "-" +
+                        rs.getString("hurdleid") + "-" +
+                        rs.getString("positionx") + "-" +
+                        rs.getString("positiony"));
             }
         }
         catch (Exception e)
