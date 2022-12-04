@@ -1,13 +1,15 @@
 <%@ page import="DAO.RecordDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="DTO.RecordDTO" %>
-<%@ page import="javafx.util.Pair" %>
+<%@ page import="utils.Pair" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="DAO.MapDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>맵의 모든 발판 조회</title>
+    <link rel = "stylesheet" href="stastic.css">
+
 </head>
 <body>
 <%
@@ -19,11 +21,14 @@
 
     out.print("<h2>" + mapname + "맵의 모든 발판 조회</h2>");
 %>
-<table style="margin: 10%;" border="1">
+<table>
+    <thead>
     <th>발판 ID</th>
     <th>positionX</th>
     <th>positionY</th>
-    <%
+    </thead>
+    <tbody>
+        <%
         MapDAO mapDAO = MapDAO.getInstance();
         List<String> baseList = mapDAO.getBaseOfMap(Integer.parseInt(mapno));
 
@@ -37,6 +42,7 @@
             out.println("</tr>");
         }
     %>
+    </tbody>
 </table>
 
 </body>
