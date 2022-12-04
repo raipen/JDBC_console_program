@@ -12,7 +12,6 @@
 
 <%
     SkillDAO skillDAO = SkillDAO.getInstance();
-	
    
     response.setStatus(200);
     List<SkillDTO> skillDTOList = skillDAO.getSkillList();
