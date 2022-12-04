@@ -68,8 +68,14 @@ img {
     height:90%;
 }
 
-.InfoBox>*{
+.InfoBox *{
     font-size: 25px;
     /* position: absolute; */
 }
 
+
+.button{
+    width: 100px;
+    padding: 10px 0;
+    border-width:3px;
+}

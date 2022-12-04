@@ -32,7 +32,7 @@
 			obj.put("no",M.getMapno());
 			obj.put("name",M.getMapname());
 			obj.put("difficulty",M.getDifficulty());
-
+			obj.put("backGround",M.getBackgroundimg());
 			objArray.add(obj);
 		}
 	}
