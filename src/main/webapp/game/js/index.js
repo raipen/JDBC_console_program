@@ -218,10 +218,10 @@ const drawResultWithType = (result)=> async (playtime,difficulty=1,userId,charac
     modalCanvas.width = 400;
     modalCanvas.height = 400;
 
-    drawTextWithStroke(modalCtx,`플레이 시간 : ${clearTiem}`,20,0,0);
-    drawTextWithStroke(modalCtx,`획득 경험치 : ${exp}`,15,0,25);
-    drawTextWithStroke(modalCtx,`경험치 적용 중`,20,0,50);
-    drawTextWithStroke(modalCtx,`획득한 아이템 정리중`,20,0,75);
+    drawTextWithStroke(modalCtx,`플레이 시간 : ${clearTiem}`,20,200,0,'center');
+    drawTextWithStroke(modalCtx,`획득 경험치 : ${exp}`,15,200,25,'center');
+    drawTextWithStroke(modalCtx,`경험치 적용 중`,20,200,50,'center');
+    drawTextWithStroke(modalCtx,`획득한 아이템 정리중`,20,200,75,'center');
 
     let items = [];
     let prob = 0.5;
@@ -241,15 +241,15 @@ const drawResultWithType = (result)=> async (playtime,difficulty=1,userId,charac
         await ajax('../apis/addRecord.jsp',{characterId,mapNo,playtime});
 
     modalCtx.clearRect(0,0,modalCanvas.width,modalCanvas.height);
-    drawTextWithStroke(modalCtx,`플레이 시간 : ${clearTiem}`,20,0,0);
-    drawTextWithStroke(modalCtx,`획득 경험치 : ${exp}`,15,0,25);
-    drawTextWithStroke(modalCtx,`Lv. ${resultLevel.lv}`,15,0,45);
-    drawTextWithStroke(modalCtx,`경험치 : ${resultLevel.exp}/100`,15,50,45);
-    drawTextWithStroke(modalCtx,`획득한 아이템`,15,0,65);
-    resultItems.forEach((k,i)=>{
-        drawImg(modalCtx,k.itemImg,20,85+50*i,50,50);
-        drawTextWithStroke(modalCtx,k.itemName,20,135,100+50*i);
-    });
+    drawTextWithStroke(modalCtx,`플레이 시간 : ${clearTiem}`,20,200,0,'center');
+    drawTextWithStroke(modalCtx,`획득 경험치 : ${exp}`,15,200,25,'center');
+    drawTextWithStroke(modalCtx,`Lv. ${resultLevel.lv} (${resultLevel.exp}/100)`,15,200,45,'center');
+    drawTextWithStroke(modalCtx,`획득한 아이템`,15,10,65);
+    setInterval(()=>{
+    resultItems.forEach(async (k,i)=>{
+        await drawImg(modalCtx,k.itemImg,30,85+50*i,50,50);
+        drawTextWithStroke(modalCtx,k.itemName,30,135,100+50*i);
+    })},1000/60);
 
     modal.querySelector('#modal-footer').innerHTML = `<button id="restart">재수강하기</button>
                                                         <button id="exit">나가기</button>`;
@@ -296,8 +296,8 @@ const drawTextWithStroke = (ctx,text,fontSize,x,y,align = 'left',baseline = 'top
     ctx.fillText(text,x,y);
 }
 
-const drawImg = (ctx,imgSrc,x,y,width,height)=>{
+const drawImg = async(ctx,imgSrc,x,y,width,height)=>{
     let img = new Image();
     img.src = imgSrc;
-    ctx.drawImage(img,x,y,width,height);
+    await ctx.drawImage(img,x,y,width,height);
 }
