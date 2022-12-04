@@ -19,5 +19,5 @@
     response.addCookie(characterIdCookie);
 	
     
-    response.sendRedirect("../loginedUserPage.html");
+    response.sendRedirect("../index.jsp");
 %>
