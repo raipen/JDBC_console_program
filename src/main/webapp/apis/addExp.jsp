@@ -11,13 +11,23 @@
 <%@ page import="org.json.simple.parser.JSONParser" %>
 
 <%
-    ItemDAO itemDAO = ItemDAO.getInstance();
+    CharacterDAO characterDAO = CharacterDAO.getInstance();
 	JSONObject requestData = Utils.getJsonFromRequest(request);
-	String id = (String)requestData.get("id");
-    String itemId = (String)requestData.get("itemId");
+	String characterId = (String)requestData.get("characterId");
+    long expLong = (long)requestData.get("exp");
+    int exp = (int)expLong;
 	
     HashMap<String, Object> obj = new HashMap<String, Object>();
-    obj.put("result", itemDAO.addItem(id, itemId));
+    if(characterId==null){
+        response.setStatus(401);
+        obj.put("message", "fail");
+    }else{
+        response.setStatus(200);
+        CharacterDTO characterDTO = characterDAO.addExp(characterId, exp);
+        obj.put("lv",characterDTO.getLv());
+        obj.put("exp",characterDTO.getExp());
+    }
+    
+    response.getWriter().write(new JSONObject(obj).toString());
 	
-	response.getWriter().write(new JSONObject(obj).toString());
 %>

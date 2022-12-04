@@ -374,5 +374,38 @@ public class CharacterDAO extends DAO{
         return character;
     }
     
-
+    public CharacterDTO addExp(String characterId, int exp) {
+        CharacterDTO character = null;
+        try{
+            conn = getConnection();
+            String sql = "SELECT * FROM characters WHERE characterId = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, characterId);
+            rs = pstmt.executeQuery();
+            int newLv = 0;
+            int newExp = 0;
+            if(rs.next()){
+                newLv = rs.getInt("lv");
+                newExp = rs.getInt("exp") + exp;
+                while(newExp >= 100){
+                    newLv++;
+                    newExp -= 100;
+                }    
+            }
+            sql = "UPDATE characters SET lv = ?, exp = ? WHERE characterId = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, newLv);
+            pstmt.setInt(2, newExp);
+            pstmt.setString(3, characterId);
+            int updateResult = pstmt.executeUpdate();
+            if(updateResult == 1){
+                character = getCharacterInfo(characterId);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            closeConnection(conn, pstmt, rs);
+        }
+        return getCharacterInfo(characterId);
+    }
 }

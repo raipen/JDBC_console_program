@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-import Character from './Charater.js';
+import Character from './Character.js';
 import {ajax} from './utils.js';
 
 export default class Player{

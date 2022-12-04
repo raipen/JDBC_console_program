@@ -12,6 +12,12 @@ public class RecordDTO {
    
 	public RecordDTO() {}
     
+    public RecordDTO(String characterid, String mapno, int cleartime){
+        this.characterid = characterid;
+        this.mapno = mapno;
+        this.cleartime = cleartime;
+    }
+
     public RecordDTO(String Characterid, String mapno,int recordno,int cleartime,String charactername,String mapname) {
         this.characterid=Characterid;
         this.mapno=mapno;

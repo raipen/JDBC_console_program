@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 import {getMap} from './Map.js';
 import {getPlayer} from './Player.js';
-import {sleep,isCollision} from './utils.js';
+import {sleep,isCollision,ajax} from './utils.js';
 import Skills from './Skills.js';
 import useItem from './useItem.js';
 
@@ -46,16 +46,17 @@ export const main = async (mapNo,characterId)=>{
     let drawLoop = setInterval(()=>{
         playtime++;
         draws(playtime);
-        if(character.life<=0){
-            clearInterval(drawLoop);
-            clearInterval(moveLoop);
-            drawResult("fail",playtime);
-        }
-        if(isCollision(character)(goal)){
-            clearInterval(drawLoop);
-            clearInterval(moveLoop);
-            drawResult("success",playtime);
-        }
+        let drawResult = null;
+        if(character.life<=0)
+            drawResult = drawResultWithType('fail');
+        if(isCollision(character)(goal))
+            drawResult = drawResultWithType('success');
+        if(drawResult===null)
+            return;
+        clearInterval(drawLoop);
+        clearInterval(moveLoop);
+        drawResult(playtime,map.mapInfo.difficulty,player.character.userId,player.characterId,map.mapNo);
+
     }, 1000/60);
 
     const keydownSetting = [{key:'ArrowLeft',action:()=>{character.moveLeft(); left.classList.add('active');}},
@@ -191,46 +192,59 @@ const drawStatus = ({character,player})=>{
     drawTextWithStroke(ctx.status,` 스킬 쿨타임: ${Math.floor(player.skill.cooltime*(100-character.cooldown))/100}초 스킬 지속시간 : ${player.skill.duration}초`,10,0,80,'left','top');
 }
 
-const drawResult = async (result,playtime,userId,difficulty=1)=>{
+const drawResultWithType = (result)=> async (playtime,difficulty=1,userId,characterId,mapNo)=>{
     const resultString = {fail:'출석 실패',success:'출석 완료'};
-    let exp = frameToExp({result,frame:playtime})*difficulty;
-    modal.style.display = 'flex';
-    modal.innerHtml = `<div class="modal-content">
+    let exp = frameToExp({result,frame:playtime});
+    if(result==='success')
+        exp *= difficulty;
+    let clearTiem = convertTime(playtime);
+    modal.innerHTML = `<div class="modal-content">
                             <div class="modal-header">
                                 <div class="modal-title">${resultString[result]}</div>
                             </div>
-                            <div class="modal-body">
-                                <div>플레이 시간 : ${convertTime(playtime)}</p>
-                                <div>exp : ${exp}</div>
-                                <div>획득한 아이템 정리중</div>
-                            </div>
+                            <canvas class="modal-body"> </canvas>
                             <div id="modal-footer">
                                 <button id="restart">재수강하기</button>
                                 <button id="exit">나가기</button>
                             </div>
                         </div>`;
+    modal.style.display = 'flex';
+    let modalCanvas = modal.querySelector('.modal-body');
+    let modalCtx = modalCanvas.getContext('2d');
+    modalCanvas.width = 400;
+    modalCanvas.height = 400;
+
+    drawTextWithStroke(modalCtx,`플레이 시간 : ${clearTiem}`,20,0,0);
+    drawTextWithStroke(modalCtx,`획득 경험치 : ${exp}`,15,0,25);
+    drawTextWithStroke(modalCtx,`경험치 적용 중`,20,0,50);
+    drawTextWithStroke(modalCtx,`획득한 아이템 정리중`,20,0,75);
+
     let items = [];
     itemsInfo.forEach(k=>{
-        if(Math.random()*100<k.probability)
+        if(Math.random()<k.acqProbability)
             items.push(k.itemId);
     });
-    
+    //userId에 경험치 반영=>결과 레벨과 경험치 modal에 표시하기
+    let resultLevel = await ajax('../apis/addExp.jsp',{characterId,exp});
+    //items에 있는 아이템들 addItems 하기=>결과 modal에 표시하기
+    let resultItems = await ajax('../apis/addItems.jsp',{userId,items});
+    //userId와 mapId와 클리어타임을 record에 추가하기
+    if(result==='success')
+        await ajax('../apis/addRecord.jsp',{characterId,mapNo,playtime});
 
-    modal.innerHTML = `<div class="modal-content">
-                        <div class="modal-header">
-                            <div class="modal-title">${resultString[result]}</div>
-                        </div>
-                        <div class="modal-body">
-                            <div>플레이 시간 : ${convertTime(playtime)}</div>
-                            <div>exp : ${exp}</div>
-                            <div></div>
-                            <div>${items}</div>
-                        </div>
-                        <div id="modal-footer">
-                            <button id="restart">재수강하기</button>
-                            <button id="exit">나가기</button>
-                        </div>
-                    </div>`;
+    modalCtx.clearRect(0,0,modalCanvas.width,modalCanvas.height);
+    drawTextWithStroke(modalCtx,`플레이 시간 : ${clearTiem}`,20,0,0);
+    drawTextWithStroke(modalCtx,`획득 경험치 : ${exp}`,15,0,25);
+    drawTextWithStroke(modalCtx,`Lv. ${resultLevel.lv}`,15,0,45);
+    drawTextWithStroke(modalCtx,`경험치 : ${resultLevel.exp}/100`,15,50,45);
+    drawTextWithStroke(modalCtx,`획득한 아이템`,15,0,65);
+    resultItems.forEach((k,i)=>{
+        drawImg(modalCtx,k.itemImg,20,85+50*i,50,50);
+        drawTextWithStroke(modalCtx,k.itemName,20,135,100+50*i);
+    });
+
+    modal.querySelector('#modal-footer').innerHTML = `<button id="restart">재수강하기</button>
+                                                        <button id="exit">나가기</button>`;
     const restart = document.getElementById('restart');
     const exit = document.getElementById('exit');
     restart.addEventListener('click',()=>{

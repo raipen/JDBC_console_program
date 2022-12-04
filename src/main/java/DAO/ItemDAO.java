@@ -75,7 +75,7 @@ public class ItemDAO extends DAO
         return true;
     }
 
-    public boolean addItem(String userId,String itemId){
+    public ItemDTO addItem(String userId,String itemId){
         try
         {
             conn = getConnection();
@@ -97,12 +97,23 @@ public class ItemDAO extends DAO
                 pstmt.setString(2, itemId);
                 int result = pstmt.executeUpdate();
             }
-            return true;
+            sql = "SELECT * FROM ITEMS WHERE ITEMID = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, itemId);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                ItemDTO item = new ItemDTO();
+                item.setItemID(itemId);
+                item.setItemName(rs.getString("ITEMNAME"));
+                item.setItemImg(rs.getString("ITEMIMG"));
+                return item;
+            }
+            return null;
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            return false;
+            return null;
         }
         finally
         {
