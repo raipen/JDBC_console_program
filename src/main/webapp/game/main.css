@@ -54,8 +54,10 @@ footer>*{
 
 #back{
     position: absolute;
-    height:50px;
-    line-height: 50px;
+    top:2px;
+    width: 250px;
+    height:44px;
+    line-height: 44px;
     right:0;
 }
 
@@ -169,4 +171,17 @@ footer>*{
     cursor: pointer;
 }
 
-
+button{
+    display: inline-block;
+    width: 150px;
+    height: 45px;
+    border: 1px solid #000;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0 5px;
+}

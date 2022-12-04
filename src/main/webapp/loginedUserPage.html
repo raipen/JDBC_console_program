@@ -23,6 +23,14 @@
     <div id="modal" class="modal"></div>
     <script type='module'>
         import {get_cookie,ajax} from './game/js/utils.js';
+        const checkLogin = async ()=>{
+            let result= await ajax('apis/checkLogin.jsp');
+            if(result.result == false){
+                alert('로그인이 필요합니다.');
+                location.href = './apis/logout.jsp';
+            }
+        }
+        checkLogin();
         const right = document.getElementById('right');
         const selectCharacter = document.getElementById('selectCharacter');
         const itemDiv = document.getElementById('items');
@@ -109,13 +117,14 @@
                 modal.style.display = 'none';
             });
             document.getElementById('delete').addEventListener('click', async () => {
-                const password = document.getElementById('password').value;
+                const pw = document.getElementById('password').value;
                 const id=get_cookie('id');
-                const result = await ajax('apis/deleteAccount.jsp', {id,password});
-                if(result){
-                    alert('탈퇴되었습니다.');
-                    location.href='./index.html';
+                if((await ajax('apis/checkPassword.jsp',{id,pw})).result == false){
+                    alert('비밀번호가 일치하지 않습니다.');
+                    return;
                 }
+                const result = await ajax('apis/deleteAccount_client.jsp', {id,pw});
+                location.href='./index.jsp';
             });
         });
 

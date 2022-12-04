@@ -22,7 +22,7 @@ export default class Character{
         this.safeMove;
         this.isBouncing = false;
         this.invincible = false;
-        this.color = "green";
+        this.img = "./img/hobanu.png";
         this.shield = 0;
         this.shieldTimeout = null;
 
@@ -36,10 +36,18 @@ export default class Character{
     
     moveLeft(){
         this.left = true;
+        if(this.invincible)
+            this.img = "./img/hobanuro.png";
+        else
+            this.img = "./img/hobanur.png";
     }
 
     moveRight(){
         this.right = true;
+        if(this.invincible)
+            this.img = "./img/hobanuo.png";
+        else
+            this.img = "./img/hobanu.png";
     }
 
     stopLeft(){

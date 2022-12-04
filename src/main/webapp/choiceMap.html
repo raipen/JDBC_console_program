@@ -16,6 +16,13 @@
 
    <script type='module'>
         import { get_cookie, ajax } from './game/js/utils.js';
+        const checkLoginedCharacter = async ()=>{
+            if((await ajax('apis/checkLoginedCharacter.jsp')).result == false){
+                alert('잘못된 접근입니다.');
+                location.href = './index.jsp';
+            }
+        }
+        checkLoginedCharacter();
         const getMapList = async () => {
             const result = await ajax('apis/getMapList.jsp', {});
             console.log(result);
@@ -31,8 +38,8 @@
                     <div class="InfoBox">
                         <h2>맵이름:${result[i].name}</h2>
                         <div class="difficulty ">난이도:${result[i].difficulty}</div>
-                        <button class="rank button" value="${result[i].no}">랭킹</button>
-                        <a href="game/?=${result[i].no}"><button class="button">플레이</button></a>
+                        <button class="rank button" value="${result[i].no}" style="cursor:pointer;">랭킹</button>
+                        <a href="game/?=${result[i].no}"><button style="cursor:pointer;" class="button">플레이</button></a>
                     </div>
                 </div>`;
             }

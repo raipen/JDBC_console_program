@@ -29,13 +29,14 @@ let stdPixel = 1;
 export const main = async (mapNo,characterId)=>{
     setCanvasSize();
     window.addEventListener('resize',setCanvasSize);
-
+    let readyHobanu = ["","r","o","ro"];
+    readyHobanu.forEach(i=>drawImgPixel(`./img/hobanu${i}.png`)({x:0,y:0,width:1,height:1})(0));
     const player = await getPlayer(characterId);
     const character = player.getCharacter();
     const map = await getMap(mapNo);
     character.setMap(map);
 
-    header.innerHTML=`<div id="mapTitle">${map.mapInfo.mapName}</div><div id="back"> 맵 선택으로 돌아가기 </div>`;
+    header.innerHTML=`<div id="mapTitle">${map.mapInfo.mapName}</div><button id="back"> 맵 선택으로 돌아가기 </button>`;
     document.getElementById('back').addEventListener('click',()=>location.href='../choiceMap.html');
 
     stdPixel = canvas.game.height/map.mapInfo.height;
@@ -138,16 +139,17 @@ const draw = (obj)=>(playtime)=>{
 
 const drawGame = ({bases,hurdles,character,goal,map},playtime)=>{
     ctx.game.clearRect(0,0,canvas.game.width,canvas.game.height);
-    drawImg(ctx.game,map.mapInfo.backgroundIMG,0,0,canvas.game.width,canvas.game.height);
     let startPositon = 0;
     if(character.x*stdPixel>canvas.game.width*0.3)
         startPositon = character.x*stdPixel-canvas.game.width*0.3;
     if(character.x*stdPixel>map.mapInfo.width*stdPixel-canvas.game.width*0.7)
         startPositon = map.mapInfo.width*stdPixel-canvas.game.width;
-    drawPixel('yellow')(character.getShieldRect())(startPositon);
+    if(character.shield>0)
+        drawPixel('yellow')(character.getShieldRect())(startPositon);
     bases.forEach(b=>b(startPositon));
     hurdles.forEach(h=>h(startPositon));
-    drawPixel(character.color)(character.getRect())(startPositon);
+    drawImgPixel(character.img)(character.getRect())(startPositon);
+    //drawPixel(character.color)(character.getRect())(startPositon);
     for(let i=0;i<character.life;i++)
         drawPixel('red')({x:1+i*4,y:1,width:3,height:3})(0);
     drawPixel('blue')(goal)(startPositon);
@@ -279,6 +281,12 @@ const setCanvasSize = ()=>{
         canvas[name].height = canvasSize[name].height;
     });
 
+}
+
+const drawImgPixel = src=>item=>startPositon=>{
+    let img = new Image();
+    img.src = src;
+    ctx.game.drawImage(img,item.x*stdPixel-startPositon,item.y*stdPixel,item.width*stdPixel,item.height*stdPixel);
 }
 
 const drawPixel = color=>item=>startPositon=>{

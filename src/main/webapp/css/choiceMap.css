@@ -79,3 +79,37 @@ img {
     padding: 10px 0;
     border-width:3px;
 }
+
+header{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: fit-content;
+    height: 10%;
+    margin: auto;
+}
+
+header *{
+    font-size: 20px;
+    margin: 5px;
+}
+
+.abilityBox{
+    grid-column: 1/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row;
+    padding: 0 10px;
+    border: 1px solid #000;
+}
+header>a{
+    grid-row: 1/3;
+    grid-column: 3/4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    text-decoration: none;
+    color: #000;
+}

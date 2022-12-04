@@ -29,9 +29,14 @@
     </div>
     <script type='module'>
         import {main} from './js/index.js';
-        import {get_cookie} from './js/utils.js';
-        //check login
-        //check character
+        import {ajax,get_cookie} from './js/utils.js';
+        const checkLoginedCharacter = async ()=>{
+            if((await ajax('../apis/checkLoginedCharacter.jsp')).result == false){
+                alert('잘못된 접근입니다.');
+                location.href = '../index.jsp';
+            }
+        }
+        checkLoginedCharacter();
         const mapNo = location.search.split("=")[1];
         main(mapNo, get_cookie("characterId"));
     </script>
