@@ -25,6 +25,10 @@ export default class Map{
         const url = '../apis/getMapInfo.jsp';
         const data = {mapNo:this.mapNo};
         this.mapInfo = await ajax(url,data);
+        //만약 mapInfo에 mapName이 정의되지 않았다면 ../choiceMap.html로 이동
+        if(!this.mapInfo.mapName){
+            location.href = '../choiceMap.html';
+        }
     }
 
     async setBases(){

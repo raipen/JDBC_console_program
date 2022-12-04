@@ -51,6 +51,24 @@ footer>*{
     line-height: 40px;
     margin-top: 62px;
 }
+
+#back{
+    position: absolute;
+    height:50px;
+    line-height: 50px;
+    right:0;
+}
+
+#mapTitle{
+    font-size: 30px;
+    font-weight: 700;
+    position: absolute;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 100%;
+}
+
 #arrow{
     float: right;
     width: 150px;

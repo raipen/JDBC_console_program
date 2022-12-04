@@ -12,6 +12,7 @@ canvasName.forEach(name=>{
     canvas[name] = document.getElementById(name);
     ctx[name] = canvas[name].getContext('2d');
 });
+const header = document.querySelector('header');
 const modal = document.getElementById('modal');
 const spacebar = document.getElementById('jump');
 const left = document.getElementById('left');
@@ -33,6 +34,9 @@ export const main = async (mapNo,characterId)=>{
     const character = player.getCharacter();
     const map = await getMap(mapNo);
     character.setMap(map);
+
+    header.innerHTML=`<div id="mapTitle">${map.mapInfo.mapName}</div><div id="back"> 맵 선택으로 돌아가기 </div>`;
+    document.getElementById('back').addEventListener('click',()=>location.href='../choiceMap.html');
 
     stdPixel = canvas.game.height/map.mapInfo.height;
     const bases = map.bases.map(b=>drawPixel(b.img)(b));
@@ -220,8 +224,12 @@ const drawResultWithType = (result)=> async (playtime,difficulty=1,userId,charac
     drawTextWithStroke(modalCtx,`획득한 아이템 정리중`,20,0,75);
 
     let items = [];
+    let prob = 0.5;
+    if(result==='success')
+        prob = 1;
     itemsInfo.forEach(k=>{
-        if(Math.random()<k.acqProbability)
+        
+        if(Math.random()<k.acqProbability*prob)
             items.push(k.itemId);
     });
     //userId에 경험치 반영=>결과 레벨과 경험치 modal에 표시하기
@@ -252,7 +260,7 @@ const drawResultWithType = (result)=> async (playtime,difficulty=1,userId,charac
     });
     exit.addEventListener('click',()=>{
         modal.style.display = 'none';
-        window.location.href = '../';
+        window.location.href = '../choiceMap.html';
     });
 }
 
