@@ -8,6 +8,8 @@
 <html>
 <head>
     <title>너무 어려운 장애물 조회</title>
+    <link rel = "stylesheet" href="stastic.css">
+
 </head>
 <body>
 <%
@@ -17,11 +19,14 @@
 
     out.print("<h2>데미지가" + damage + " 이상이거나 크기가 " + sizex + "*" + sizey + " 이상인 장애물 조회</h2>");
 %>
-<table style="margin: 10%;" border="1">
+<table>
+    <thead>
     <th>mapNo.</th>
     <th>hurdleNo.</th>
     <th>x축 위치</th>
     <th>y축 위치</th>
+    </thead>
+    <tbody>
     <%
         MapDAO mapDAO = MapDAO.getInstance();
         List<String> hurdleList = mapDAO.getHardHurdle(Integer.parseInt(damage),
@@ -38,6 +43,7 @@
             out.println("</tr>");
         }
     %>
+    </tbody>
 </table>
 
 </body>

@@ -8,6 +8,8 @@
 <html>
 <head>
     <title>맵의 모든 발판 조회</title>
+    <link rel = "stylesheet" href="stastic.css">
+
 </head>
 <body>
 <%
@@ -19,11 +21,14 @@
 
     out.print("<h2>" + mapname + "맵의 모든 발판 조회</h2>");
 %>
-<table style="margin: 10%;" border="1">
+<table>
+    <thead>
     <th>발판 ID</th>
     <th>positionX</th>
     <th>positionY</th>
-    <%
+    </thead>
+    <tbody>
+        <%
         MapDAO mapDAO = MapDAO.getInstance();
         List<String> baseList = mapDAO.getBaseOfMap(Integer.parseInt(mapno));
 
@@ -37,6 +42,7 @@
             out.println("</tr>");
         }
     %>
+    </tbody>
 </table>
 
 </body>

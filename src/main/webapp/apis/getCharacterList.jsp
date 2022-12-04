@@ -22,7 +22,7 @@
 
 	List<CharacterDTO> characterList = userDAO.getCharacterList(id);
 
-	if(characterList.size()==0){
+	if(characterList==null){
 		response.setStatus(401);
 		HashMap<String, Object> obj = new HashMap<String, Object>();
 		obj.put("message", "fail");

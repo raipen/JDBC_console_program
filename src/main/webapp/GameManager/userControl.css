@@ -1,33 +1,36 @@
-html,body{
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
 }
 
-#left{
+#left {
     float: left;
-    width: 30%;
+    width: 25%;
     height: 100%;
 }
 
-#right{
+#right {
     float: right;
-    width: calc(70% - 1px);
+    width: calc(75% - 1px);
     height: 100%;
     border-left: 1px solid #000;
 }
 
-.button{
-    display: inline-block;
-    width: 150px;
-    height: 48px;
-    border: 1px solid #000;
-    text-align: center;
-    line-height: 50px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.button {
+    /*display: inline-block;*/
+    /*width: 150px;*/
+    /*height: 48px;*/
+    /*border: 1px solid #000;*/
+    /*text-align: center;*/
+    /*line-height: 50px;*/
+    /*font-size: 20px;*/
+    /*font-weight: bold;*/
+    /*color: #000;*/
+    /*text-decoration: none;*/
+    /*cursor: pointer;*/
 }
+
+
+

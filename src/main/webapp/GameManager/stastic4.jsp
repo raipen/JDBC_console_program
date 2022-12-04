@@ -7,6 +7,8 @@
 <html>
 <head>
     <title>전체 클리어 기록 보기</title>
+    <link rel="stylesheet" href="stastic.css">
+
 </head>
 <body>
 <%
@@ -15,9 +17,12 @@
 
     out.print("<h2>목숨" + life + "개로" + clearTime + "초 이내에 클리어한 기록</h2>");
 %>
-<table style="margin: 10%;" border="1">
+<table>
+    <thead>
     <th>캐릭터 이름</th>
     <th>클리어 시간</th>
+    </thead>
+    <tbody>
     <%
         RecordDAO recordDAO = RecordDAO.getInstance();
         ArrayList<Pair<String, String>> recordList = recordDAO.getThreeLifeClearCharacterList(Integer.parseInt(life)
@@ -30,6 +35,7 @@
             out.println("</tr>");
         }
     %>
+    </tbody>
 </table>
 
 </body>

@@ -5,19 +5,23 @@
 <html>
 <head>
     <title>클리어 기록 보기</title>
+    <link rel = "stylesheet" href="stastic.css">
 </head>
 <body>
 <%
     String userid = request.getParameter("stt2_userid");
     out.print("<h2>" + userid + "의 클리어 기록 보기</h2>");
 %>
-<table style="margin: 10%;" border="1">
+<table>
+    <thead>
     <th>No.</th>
     <th>캐릭터ID</th>
     <th>캐릭터 이름</th>
     <th>맵 번호</th>
     <th>맵 이름</th>
     <th>클리어 시간</th>
+    </thead>
+    <tbody>
     <%
         RecordDAO recordDAO = RecordDAO.getInstance();
         List<RecordDTO> recordList = recordDAO.getRecords(userid, null, null);
@@ -33,6 +37,7 @@
             out.println("</tr>");
         }
     %>
+    </tbody>
 </table>
 
 </body>

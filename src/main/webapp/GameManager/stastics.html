@@ -3,55 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Stastics</title>
+    <link rel="stylesheet" href="gmMain.css">
 </head>
 <body>
 <form action="stastic1.jsp" method="post">
-    <div style="margin-left: 10%; margin-top: 10%;">
+    <div class="btn large" style="text-align:left; color: black; width:90%; padding-top: 5%;">
         전체 클리어 기록 보기
-        <input type="submit" value="보기">
+        <input type="submit" class="btn-two red small" value="보기">
     </div>
 </form>
 <form action="stastic2.jsp" method="post">
-    <div style="margin-left: 10%; margin-top: 10%;">
+    <div class="btn large" style="text-align:left; color: black; width:90%;">
         <input type="text" name="stt2_userid"> 계정의 클리어 기록 보기
-        <input type="submit" value="보기">
+        <input type="submit" class="btn-two red small" value="보기">
     </div>
 </form>
 <form action="stastic3.jsp" method="post">
-    <div style="margin-left: 10%; margin-top: 10%;">
+    <div class="btn large" style="text-align:left; color: black; width:90%;">
         스킬별 클리어 기록 보기
-        <input type="submit" value="보기">
+        <input type="submit" class="btn-two red small" value="보기">
     </div>
 </form>
 <form action="stastic4.jsp" method="post">
-    <div style="margin-left: 10%; margin-top: 10%;">
-        목숨 <input type="number" name="stt4_life"> 개로
-        <input type="number" name="stt4_clearTime">초 이내에 클리어한 기록
-        <input type="submit" value="보기">
+    <div class="btn large" style="text-align:left; color: black; width:90%;">
+        목숨 <input type="text" name="stt4_life" size="2"> 개로
+        <input type="text" name="stt4_clearTime" size="5">초 이내에 클리어한 기록
+        <input type="submit" class="btn-two red small" value="보기">
     </div>
 </form>
 <form action="stastic5.jsp" method="post">
-    <div style="margin-left: 10%; margin-top: 10%;">
+    <div class="btn large" style="text-align:left; color: black; width:90%;">
         <select name="stt5_mapName">
             <option value="19980001">북문</option>
             <option value="19980002">일청담</option>
             <option value="19980003">백양로</option>
         </select>
         맵의 모든 발판 조회
-        <input type="submit" value="보기">
+        <input type="submit" class="btn-two red small" value="보기">
     </div>
 </form>
 <form action="stastic6.jsp" method="post">
-    <div style="margin-left: 10%; margin-top: 10%;">
-        <input type="number" name="stt6_clearTime">초 이내 클리어한 기록이 있는 맵
-        <input type="submit" value="보기">
+    <div class="btn large" style="text-align:left; color: black; width:90%;">
+        <input type="text" name="stt6_clearTime" size="5">초 이내 클리어한 기록이 있는 맵
+        <input type="submit" class="btn-two red small" value="보기">
     </div>
 </form>
 <form action="stastic7.jsp" method="post">
-    <div style="margin-left: 10%; margin-top: 10%;">
-        데미지가 <input type="number" name="stt7_damage"> 이상이거나
-        크기가 <input type="number" name="stt7_size"> 이상인 장애물 조회
-        <input type="submit" value="보기">
+    <div class="btn large" style="text-align:left; color: black; width:90%;">
+        데미지가 <input type="text" name="stt7_damage" size=3> 이상이거나
+        크기가 <input type="text" name="stt7_sizex" size=3>*<input type="text" name="stt7_sizey" size=3> 이상인 장애물 조회
+        <input type="submit" class="btn-two red small" value="보기">
     </div>
 </form>
 </body>

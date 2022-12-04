@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>일정 시간 이내 클리어한 기록이 있는 맵</title>
+    <link rel="stylesheet" href="stastic.css">
 </head>
 <body>
 <%
@@ -15,14 +16,17 @@
     int clearTime = Integer.parseInt(clearTimeStr);
     out.print("<h2>" + clearTime + "초 이내 클리어한 기록이 있는 맵</h2>");
 %>
-<table style="margin: 10%;" border="1">
+<table>
+    <thead>
     <th>No.</th>
     <th>맵 이름</th>
+    </thead>
+    <tbody>
     <%
         MapDAO mapDAO = MapDAO.getInstance();
         List<String> mapList = mapDAO.getMapClearedUnder(clearTime);
 
-        for (String s:mapList)
+        for (String s : mapList)
         {
             String[] map = s.split("-");
             out.println("<tr>");
@@ -30,7 +34,7 @@
             out.println("<td>" + map[1] + "</td>");
             out.println("</tr>");
         }
-    %>
+    %></tbody>
 </table>
 
 </body>
