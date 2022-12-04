@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="css/choiceMap.css">
     <link rel="stylesheet" href="css/modal.css">
 </head>
-<>
     <div id="contents">
     </div>
    <div class="modal" id="rank">
@@ -27,10 +26,15 @@
             {
                 html += `
                 <div class="map" value="${result[i].no}">
-                    <div class="button">맵이름:${result[i].name}</div>
-                    <div class="button">난이도:${result[i].difficulty}</div>
-                    <button class="rank" value="${result[i].no}">랭킹</button>
-                    <button><a href="game/?=${result[i].no}">플레이</a></button>
+                    <div class="backgroundBox">
+                        <img src="./game/img/maps/ground0${i}.jpg">
+                    </div>
+                    <div class="InfoBox">
+                        <div class="button">맵이름:${result[i].name}</div>
+                        <div class="button">난이도:${result[i].difficulty}</div>
+                        <button class="rank" value="${result[i].no}">랭킹</button>
+                        <button><a href="game/?=${result[i].no}">플레이</a></button>
+                    </div>
                 </div>`;
             }
             contents.innerHTML = html;
