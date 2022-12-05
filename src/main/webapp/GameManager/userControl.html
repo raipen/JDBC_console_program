@@ -51,20 +51,16 @@
             console.log(lv);
             console.log(exp);
             var result = await ajax('../apis/changeExp.jsp', {characterID: characterID, lv: lv, exp: exp});
-            if (result.lv === lv && result.exp === exp) {
-                console.log(result.lv);
-                console.log(result.exp);
-                alert(`LV: ${result.lv}, EXP: ${result.exp}로 변경되었습니다.`);
-            } else {
-                alert(`변경 실패, ${result.message}`);
-            }
+            console.log(result.lv);
+            console.log(result.exp);
+            alert(`LV: ${result.lv}, EXP: ${result.exp}로 변경되었습니다.`);
         });
 
         document.querySelector(".deleteCharacter").addEventListener('click', async (e) => {
             var input = confirm(`'${characterName}' 캐릭터를 삭제 하시겠습니까?`);
             if (input === true) {
-                const result = await ajax('../apis/deleteCharacter.jsp', {characterID: characterID});
-                console.log(result);
+                const result = await ajax('../apis/deleteCharacter.jsp', {characterId: characterID});
+                console.log(characterID);
                 alert(`${characterName}가 삭제되었습니다.`);
                 location.reload();
             } else alert(`취소되었습니다.`);
