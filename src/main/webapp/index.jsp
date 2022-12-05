@@ -33,7 +33,7 @@
         }else if(user.getUserID().startsWith("gamemanager")){
             response.sendRedirect("./GameManager/gmMain.html");
         }else{
-            response.sendRedirect("LoginedUserPage.html");
+            response.sendRedirect("loginedUserPage.html");
         }
     }else{
         response.sendRedirect("login.html");
