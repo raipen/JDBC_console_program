@@ -15,8 +15,8 @@ export const getMapList = async () => {
             <div class="InfoBox">
                 <h2>맵이름:${result[i].name}</h2>
                 <div class="difficulty ">난이도:${result[i].difficulty}</div>
-                <button class="rank button" value="${result[i].no}" style="cursor:pointer;">랭킹</button>
                 <a href="game/?=${result[i].no}"><button style="cursor:pointer;" class="button">플레이</button></a>
+                <button class="rank button" value="${result[i].no}" style="cursor:pointer;">랭킹</button>
             </div>
         </div>`;
     }

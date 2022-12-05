@@ -127,7 +127,7 @@ public class MapDAO extends DAO
             String sql = "select mapname, mapNo \r\n" + "from maps M\r\n"
                     + "where Exists (select * from records R where R.clearTime < ? and R.mapno = M.mapno)";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, cleartime * 1000);
+            pstmt.setInt(1, cleartime * 60);
             rs = pstmt.executeQuery();
 
             while (rs.next())
