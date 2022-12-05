@@ -196,6 +196,28 @@ jdk와 tomcat이 설치되어 있고, oracle DBMS가 준비된 상태라는 전�
 
 
 
+## 기능 구현
+
+**DAO(Data Access Object)**와 **DTO(Data Transfer Object)**를 이용하여 Java에서 좀 더 편하게 데이터베이스를 관리할 수 있게 구성하였고, apis 폴더 안에 있는 jsp들에서 각 DAO의 메서드들을 호출하여 DB에서 원하는 결과만 쉽게 받아올 수 있게 구현했습니다.
+
+DB에 쿼리문을 요청하는 기능들 중 일부는 DB의 무결성과 일관성을 위하여 SERIALIZABLE TRANSACTION을 사용하였습니다.
+
+사용한 이유와 기능은 다음과 같습니다
+
+```sql
+# 아이템 사용 및 획득이 동시에 일어나는 경우: 아이템의 개수가 정확하게 기록되지 않는 오류 발생 가능
+-> ITEMCOUNT를 UPDATE하는 내용을 SERIALIZABLE TRANSACTION으로 만들어 해결
+code res
+- hobanu_run_web_game/src/main/java/DAO/ItemDAO.java: addItem 메서드
+- hobanu_run_web_game/src/main/java/DAO/ItemDAO.java: useItem 메서드
+
+# 빠른속도로 ABILITY를 올릴 경우: ABILITY 증가 중 일부가 누락될 수 있음
+-> ABILITY를 UPDATE하는 내용을 SERIALIZABLE TRANSACTION으로 만들어서 해결함
+code res - hobanu_run_web_game/src/main/java/DAO/CharacterDAO.java: upgradeAbility 메서드
+```
+
+
+
 ## 실행 시 유의사항
 
 * 회원가입 시 **아이디**는 영어와 숫자만 가능합니다. 한글이나 특수문자가 들어갈 경우 정상적인 작동이 안 됩니다.
