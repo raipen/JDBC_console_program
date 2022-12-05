@@ -51,17 +51,15 @@ public class ItemDAO extends DAO
         try
         {
             conn = getConnection();
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            System.out.println("qwer");
             String sql = "UPDATE OWNS SET ITEMCOUNT = ITEMCOUNT - 1 WHERE USERID = ? AND ITEMID = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userId);
             pstmt.setString(2, itemId);
             int result = pstmt.executeUpdate();
-            if(result == 0) return false;
-            sql = "DELETE FROM OWNS WHERE USERID = ? AND ITEMID = ? AND ITEMCOUNT = 0";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, userId);
-            pstmt.setString(2, itemId);
-            result = pstmt.executeUpdate();
+            if(result == 0)
+                return false;
         }
         catch (Exception e)
         {
@@ -69,7 +67,7 @@ public class ItemDAO extends DAO
             return false;
         }
         finally
-        {
+        {   
             closeConnection(conn, pstmt, rs);
         }
         return true;
@@ -79,6 +77,7 @@ public class ItemDAO extends DAO
         try
         {
             conn = getConnection();
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             String sql = "SELECT ITEMCOUNT FROM OWNS WHERE USERID = ? AND ITEMID = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userId);

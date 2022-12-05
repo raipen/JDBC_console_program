@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>호반우 런</title>
-    <link rel="stylesheet" href="userControl.css">
-    <link rel="stylesheet" href="stastic.css">
-    <link rel="stylesheet" href="gmMain.css">
-</head>
-<body>
-<div id="left">
-
-</div>
-<div id="right">
-
-</div>
-
-<script type='module'>
-    import {get_cookie, ajax} from '../game/js/utils.js';
+import {get_cookie, ajax} from '../game/js/utils.js';
 
     const getCharacterInfo = async (e) => {
         const characterID = e.target.getAttribute('data-character-id');
@@ -133,7 +115,7 @@
         }
     };
 
-    const getUserList = async (e) => {
+    export const getUserList = async (e) => {
         const result = await ajax('../apis/getUserList.jsp', {});
         console.log(result);
         const left = document.querySelector('#left');
@@ -147,8 +129,3 @@
             buttons[i].addEventListener('click', getUserInfo);
         }
     };
-
-    getUserList();
-</script>
-</body>
-</html>

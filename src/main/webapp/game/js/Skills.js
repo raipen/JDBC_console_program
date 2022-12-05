@@ -40,8 +40,16 @@ export default {smaller(character,duration){
     console.log("darksight");
     character.color = "RGBA(0,255,0,0.5)";
     character.invincible = true;
+    if(character.left)
+        character.img = "./img/hobanuro.png";
+    else
+        character.img = "./img/hobanuo.png";
     setTimeout(()=>{
         character.color = "green";
+        if(character.left)
+            character.img = "./img/hobanur.png";
+        else
+            character.img = "./img/hobanu.png";
         character.invincible = false;
     },duration*1000);
 },

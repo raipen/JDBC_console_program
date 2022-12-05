@@ -37,7 +37,7 @@ export const main = async (mapNo,characterId)=>{
     character.setMap(map);
 
     header.innerHTML=`<div id="mapTitle">${map.mapInfo.mapName}</div><button id="back"> 맵 선택으로 돌아가기 </button>`;
-    document.getElementById('back').addEventListener('click',()=>location.href='../choiceMap.html');
+    document.getElementById('back').addEventListener('click',()=>location.href='../choiceMap.jsp');
 
     stdPixel = canvas.game.height/map.mapInfo.height;
     const bases = map.bases.map(b=>drawPixel(b.img)(b));
@@ -263,7 +263,7 @@ const drawResultWithType = (result)=> async (playtime,difficulty=1,userId,charac
     });
     exit.addEventListener('click',()=>{
         modal.style.display = 'none';
-        window.location.href = '../choiceMap.html';
+        window.location.href = '../choiceMap.jsp';
     });
 }
 

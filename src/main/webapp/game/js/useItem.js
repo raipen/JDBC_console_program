@@ -11,6 +11,16 @@ const items = {
         character.cooltime*=0.9},
     guard(character){character.shield++}
 }
+
+export const useItem = async (url, data) => {
+    let result = await ajax(url, data);
+    console.log(result.result);
+    while(!result.result){
+        result = await ajax(url, data);
+        console.log(result.result);
+    }
+}
+
 export default (player,character,itemId) => {
     //player.items에 itemId가 일치하는 아이템이 있으면 itemCount를 1 감소시키고 setItem.jsp로 전송
     //player.items에 itemId가 일치하는 아이템이 없거나 itemCount가 0이면 return
@@ -21,6 +31,6 @@ export default (player,character,itemId) => {
     item.itemCount--;
     const url = '../apis/useItem.jsp';
     const data = {id:player.userId,itemId:itemId};
-    ajax(url,data);
+    useItem(url,data);
     items[itemId](character);
 }

@@ -134,8 +134,16 @@ export default class Character{
             let damage = damageOfHurdle(this.hurdles)(this.getRect());
             if(damage>0){
                 this.invincible = true;
+                if(this.left)
+                    this.img = "./img/hobanuro.png";
+                else
+                    this.img = "./img/hobanuo.png";
                 setTimeout(() => {
                     this.invincible = false;
+                    if(this.left)
+                        this.img = "./img/hobanur.png";
+                    else
+                        this.img = "./img/hobanu.png";
                 }, 500);
                 this.bounce(damage);
             }

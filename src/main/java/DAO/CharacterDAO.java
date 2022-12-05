@@ -411,6 +411,7 @@ public class CharacterDAO extends DAO{
         boolean result = false;
         try{
             conn = getConnection();
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             String sql = "UPDATE abilities SET " + ability + " = " + ability + " + 1 WHERE characterId = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, characterId);
