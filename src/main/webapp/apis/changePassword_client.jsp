@@ -16,7 +16,9 @@
     JSONObject jsonObj = Utils.getJsonFromRequest(request);
     String id = (String)jsonObj.get("id");
     String pw = (String)jsonObj.get("pw");
+    pw = Utils.getSha512(pw);
     String pwNew = (String)jsonObj.get("pwNew");
+    pwNew = Utils.getSha512(pwNew);
 
     UserDTO user = userDAO.login(id,pw);
 	if(user==null){

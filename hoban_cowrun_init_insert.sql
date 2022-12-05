@@ -16,7 +16,7 @@
 
 CREATE TABLE USERS (
     USERID   VARCHAR(14) PRIMARY KEY,
-    PASSWORD VARCHAR(20) NOT NULL
+    PASSWORD VARCHAR(128) NOT NULL
 );
 CREATE TABLE ITEMS (
     ITEMID   VARCHAR(10) PRIMARY KEY,
@@ -138,56 +138,56 @@ INSERT INTO skills VALUES ('heal', '결석 가능 횟수 회복', './img/skill/h
 INSERT INTO skills VALUES ('shield', '1회 방어', './img/skill/shield.png', 5, 20);
 
 --users
-INSERT INTO users VALUES ('kimjhyun0001', 'asdf1111');
-INSERT INTO users VALUES ('kimjhyun0002', 'asdf2222');
-INSERT INTO users VALUES ('kimjhyun0003', 'asdf3333');
-INSERT INTO users VALUES ('kimjhyun0004', 'asdf4444');
-INSERT INTO users VALUES ('kimjhyun0005', 'asdf5555');
-INSERT INTO users VALUES ('kimjhyun0006', 'asdf6666');
-INSERT INTO users VALUES ('kimjhyun0007', 'asdf7777');
-INSERT INTO users VALUES ('kimjhyun0008', 'asdf8888');
-INSERT INTO users VALUES ('kimjhyun0009', 'asdf9999');
-INSERT INTO users VALUES ('kimjhyun0010', 'asdf0000');
-INSERT INTO users VALUES ('kimjhyun0011', 'asdf1111');
-INSERT INTO users VALUES ('kimjhyun0012', 'asdf2222');
-INSERT INTO users VALUES ('kimjhyun0013', 'asdf3333');
-INSERT INTO users VALUES ('kimjhyun0014', 'asdf4444');
-INSERT INTO users VALUES ('kimjhyun0015', 'asdf5555');
-INSERT INTO users VALUES ('raipen01', 'qwerty11');
-INSERT INTO users VALUES ('raipen02', 'qwerty22');
-INSERT INTO users VALUES ('raipen03', 'qwerty33');
-INSERT INTO users VALUES ('raipen04', 'qwerty44');
-INSERT INTO users VALUES ('raipen05', 'qwerty55');
-INSERT INTO users VALUES ('raipen06', 'qwerty66');
-INSERT INTO users VALUES ('raipen07', 'qwerty77');
-INSERT INTO users VALUES ('raipen08', 'qwerty88');
-INSERT INTO users VALUES ('raipen09', 'qwerty99');
-INSERT INTO users VALUES ('raipen10', 'qwerty00');
-INSERT INTO users VALUES ('raipen11', 'qwerty11');
-INSERT INTO users VALUES ('raipen12', 'qwerty22');
-INSERT INTO users VALUES ('raipen13', 'qwerty33');
-INSERT INTO users VALUES ('raipen14', 'qwerty44');
-INSERT INTO users VALUES ('raipen15', 'qwerty55');
-INSERT INTO users VALUES ('momnpa111', 'wasd111');
-INSERT INTO users VALUES ('momnpa222', 'wasd222');
-INSERT INTO users VALUES ('momnpa333', 'wasd333');
-INSERT INTO users VALUES ('momnpa444', 'wasd444');
-INSERT INTO users VALUES ('momnpa555', 'wasd555');
-INSERT INTO users VALUES ('momnpa666', 'wasd666');
-INSERT INTO users VALUES ('momnpa777', 'wasd777');
-INSERT INTO users VALUES ('momnpa888', 'wasd888');
-INSERT INTO users VALUES ('momnpa999', 'wasd999');
-INSERT INTO users VALUES ('momnpa10', 'wasd000');
-INSERT INTO users VALUES ('momnpa11', 'wasd111');
-INSERT INTO users VALUES ('momnpa12', 'wasd222');
-INSERT INTO users VALUES ('momnpa13', 'wasd333');
-INSERT INTO users VALUES ('momnpa14', 'wasd444');
-INSERT INTO users VALUES ('momnpa15', 'wasd555');
-INSERT INTO users VALUES ('gamemanager1', 'cowrun');
-INSERT INTO users VALUES ('gamemanager2', 'cowrun');
-INSERT INTO users VALUES ('gamemanager3', 'cowrun');
-INSERT INTO users VALUES ('annonymous1', 'whoishe');
-INSERT INTO users VALUES ('annonymous2', 'whoisshe');
+INSERT INTO users VALUES ('kimjhyun0001', 'HoHKL7zxbqQ9zeuJLkCg+SBn2I2Hef0l4xYD71fyTtwBqLUQnrfWUYfq80PkGjQ2dXP/F0y8Bt95MMxb4K3GhA=='); --asdf1111
+INSERT INTO users VALUES ('kimjhyun0002', '+SwrjzEmEZcaaJwWEnmavRevluOMxZv/udwMMTTPCOL0YYfdNbLvbZ2MijA0rjflgLK6DS8O27L9rNDJ7KsWIg=='); --asdf2222
+INSERT INTO users VALUES ('kimjhyun0003', '8sfNalIQ22002cq8oSvEwqiKKJcJ5vPA8a2fSgJ4tH7As4q8KbN4I+0UpMHhEivneg3vkdrNfq+W/4y/LuOSHA=='); --asdf3333
+INSERT INTO users VALUES ('kimjhyun0004', '0Jnj47aSSaO5k0OBKup+FTLERmWJbtOEEMk8t7SU9gDU3Mq4wVscdiAcY4GFyphb/YKCbKXUwMrb7a3eAiiwbQ=='); --asdf4444
+INSERT INTO users VALUES ('kimjhyun0005', 'c7r/lb/GkP5QjbepjwodbMczVEewHrr7FuXJcLT3UydaYBl3qyghRU23QvgIZ4Xfu7FRARkursm+ILF+Ptpedw=='); --asdf5555
+INSERT INTO users VALUES ('kimjhyun0006', 'gcL1+G8DtHpaLIw6oq8odEnW6uDtlIWdG3RjKiuiPP/OFzvp7oSUJGZ6ko8kzVGfpP9VafMrhsIgGdqjRCqkkQ=='); --asdf6666
+INSERT INTO users VALUES ('kimjhyun0007', 'DRKMcFof77Tsd0Ds852cVuEQsLkfFhkkF7vuZRMLkkoNRvwyRmL5qwViCTBcIg3CgodfIz/BTOnDmQSnsSgcEg=='); --asdf7777
+INSERT INTO users VALUES ('kimjhyun0008', 'AyV8mHG1tMCAWj7aPXO1xLR3S1rARneewnUB9gYthOBYfDpS0stdgCSXzCYOjr1RxT9xhERAsOhPBXFnbHpHMA=='); --asdf8888
+INSERT INTO users VALUES ('kimjhyun0009', 'q6EXPnnATEtlUr2pmIbEMgOjD7O9/doHR5ox9guzkUUD3yrHaRLvIYUnEZmbDa9ZO7Leg6jFI33Xy1++DAKQmQ=='); --asdf9999
+INSERT INTO users VALUES ('kimjhyun0010', 'yLaSdYm+nEMhj9K7pOcoHa/BuJWbrV6RUSWmr1xaabCtpfMhYGCCrMFvjHP4DeLaYtbg5Qf0JOlglyJ6SeT0OA=='); --asdf0000
+INSERT INTO users VALUES ('kimjhyun0011', 'HoHKL7zxbqQ9zeuJLkCg+SBn2I2Hef0l4xYD71fyTtwBqLUQnrfWUYfq80PkGjQ2dXP/F0y8Bt95MMxb4K3GhA=='); --asdf1111
+INSERT INTO users VALUES ('kimjhyun0012', '+SwrjzEmEZcaaJwWEnmavRevluOMxZv/udwMMTTPCOL0YYfdNbLvbZ2MijA0rjflgLK6DS8O27L9rNDJ7KsWIg=='); --asdf2222
+INSERT INTO users VALUES ('kimjhyun0013', '8sfNalIQ22002cq8oSvEwqiKKJcJ5vPA8a2fSgJ4tH7As4q8KbN4I+0UpMHhEivneg3vkdrNfq+W/4y/LuOSHA=='); --asdf3333
+INSERT INTO users VALUES ('kimjhyun0014', '0Jnj47aSSaO5k0OBKup+FTLERmWJbtOEEMk8t7SU9gDU3Mq4wVscdiAcY4GFyphb/YKCbKXUwMrb7a3eAiiwbQ=='); --asdf4444
+INSERT INTO users VALUES ('kimjhyun0015', 'c7r/lb/GkP5QjbepjwodbMczVEewHrr7FuXJcLT3UydaYBl3qyghRU23QvgIZ4Xfu7FRARkursm+ILF+Ptpedw=='); --asdf5555
+INSERT INTO users VALUES ('raipen01', '/8XyekTlL4C2iN+AFSY//ZwBNoUZIdSfJTWX3EYOh4S/EOIqkomgV6KmFY3+rJJ18E0ih7Geygi6dp7Quhwl/g=='); --qwerty11
+INSERT INTO users VALUES ('raipen02', '3Tp1gf3jG48b8L+fSYNszrKUA/49dgey124IHLIgNXC47QAzN8B7W402jFXdJauA1/UuFBhAUcwc0n9HXw0lxQ=='); --qwerty22
+INSERT INTO users VALUES ('raipen03', 'EzQ7XeTtfSzibHAbK7Tn3V33Te2rhEMM4lC/HWmjNKC1o/OU/GuuHB/5Wl6xwg8LgWo1x3sC0QCCYkxvx547Ng=='); --qwerty33
+INSERT INTO users VALUES ('raipen04', 'zXbhzkRIkn0C+egN2qqH5kElYYS4fTAQsRruMs+xIqXNT90CaIXgLZ7kmkYEMi4rk3v6CcLC2y/8VIvx1zUqwA=='); --qwerty44
+INSERT INTO users VALUES ('raipen05', 'F+tKgPRzycx7FfeU43P9+YSpJ7YgIF7IjW/OYi4uhif32eWob/VNDsyh3Tnop/N/RuHl9wQCgQlokRwAw0DQOQ=='); --qwerty55
+INSERT INTO users VALUES ('raipen06', 'ZfLsgLgeLRnX6pOrHn9soJmFP8EPPBlgE+mM+CGWJvw8hYqK5JVmveLOjyMBod4Ulw84GFMuqD/fAQaCevnKhg=='); --qwerty66
+INSERT INTO users VALUES ('raipen07', 'QNCHWy+MmH7F6BsMD+vkNvAqkhPQSoV8eKD2fnnxUZDOoO8PNm/CPMmxM+VKz0xP3DB1Bf/R3+qYvirZsyd5CQ=='); --qwerty77
+INSERT INTO users VALUES ('raipen08', 'Sn8YhWy9B4kKnmu2eJ3a8fb9//xSsMisHS6OYXrw36DjKO8SkgrMPsFtqg3FGSFZrFzPViNJuokgW2RQ6CD8XA=='); --qwerty88
+INSERT INTO users VALUES ('raipen09', 'nPs9oNQdqrmp6rEHOW5jvH43FgsL2vRAmpm/EVKJudqdXxLQ35ko2H3cT6EPb1ZHMP59ILgPPfZD//09EWzYLA=='); --qwerty99
+INSERT INTO users VALUES ('raipen10', 'zig+eIqNocuSF26vU+Z8LbwORKmOKOkTWjcT/S0/rLO1H+vc1iMColHy8PInlwg3O1FccwGz0ar3RvDU52RPHQ=='); --qwerty00
+INSERT INTO users VALUES ('raipen11', '/8XyekTlL4C2iN+AFSY//ZwBNoUZIdSfJTWX3EYOh4S/EOIqkomgV6KmFY3+rJJ18E0ih7Geygi6dp7Quhwl/g=='); --qwerty11
+INSERT INTO users VALUES ('raipen12', '3Tp1gf3jG48b8L+fSYNszrKUA/49dgey124IHLIgNXC47QAzN8B7W402jFXdJauA1/UuFBhAUcwc0n9HXw0lxQ=='); --qwerty22
+INSERT INTO users VALUES ('raipen13', 'EzQ7XeTtfSzibHAbK7Tn3V33Te2rhEMM4lC/HWmjNKC1o/OU/GuuHB/5Wl6xwg8LgWo1x3sC0QCCYkxvx547Ng=='); --qwerty33
+INSERT INTO users VALUES ('raipen14', 'zXbhzkRIkn0C+egN2qqH5kElYYS4fTAQsRruMs+xIqXNT90CaIXgLZ7kmkYEMi4rk3v6CcLC2y/8VIvx1zUqwA=='); --qwerty44
+INSERT INTO users VALUES ('raipen15', 'F+tKgPRzycx7FfeU43P9+YSpJ7YgIF7IjW/OYi4uhif32eWob/VNDsyh3Tnop/N/RuHl9wQCgQlokRwAw0DQOQ=='); --qwerty55
+INSERT INTO users VALUES ('momnpa111', 'w+5trOC6DEnI056foLSAI3Vz1m/X/2PwafOJTje1GVOdRxQJ88EIX+6BWkxwgsnoF5vA9SCgtD2vrbTzf9hEKQ=='); --wasd111
+INSERT INTO users VALUES ('momnpa222', 'uAsyi7btPhRgYy3PQAHE+l11msDGr07Ew3Xw83SLr2IjFc248lMR9A4aSSYwUiYseHnV6CWFWNV2lXek+oIvtg=='); --wasd222
+INSERT INTO users VALUES ('momnpa333', 'lMeJVmEpOC5QHHa9c30jOP58vzkPfpYb18w533OZs0aX6ZUuxjDRdwhQovPPqpxOmbyQkPNwbSJZO4o6pGwVPQ=='); --wasd333
+INSERT INTO users VALUES ('momnpa444', 'BHWBBgNkeRH7TMkKcPGf5oA1niaGWcMF0gDVy1i4JQfEiFoSqxzKUU5Tn3bAUl6CBY/cn7X/b/8PpTcpZ5k1Fw=='); --wasd444
+INSERT INTO users VALUES ('momnpa555', 'eV52pW1Jm8GGiAdt7ljtp7vaOhxSZTHdlVgQHvmoN6IeQGnv4qu/v2kml6RaVytlZ1hz9YGOwDte2pu5E5KenA=='); --wasd555
+INSERT INTO users VALUES ('momnpa666', 'ZAPzKdAYnHSMu/Y4G9ZcO1NpPYNrrw+SmX1UbVQwWC1b7zqv0fca6neK7lW8ZrcD+xIM5D0cRaumWSSGElR0tQ=='); --wasd666
+INSERT INTO users VALUES ('momnpa777', '42rHlYLSMpjdgws3wRz0wSM00e8TtGBiBcFDfeA3rnwkNjyyhWadRV4lWU299BWux37kwuO/6TMEl5hLVbbKRg=='); --wasd777
+INSERT INTO users VALUES ('momnpa888', '7rmonax7oXfz6dEVQYtC8tTVF540+gd0IWpjBJMzTxflSTf2Ai4YpS341dTnDwJ5gtPQSYIn84735i166/eg3g=='); --wasd888
+INSERT INTO users VALUES ('momnpa999', 'vpHRhydJ6O7yyaTb+LzvUr3t9ftvSr5zZm9FLvfu7PkE6wO+FlYmI4zO8mdtsSkN12qj4e8khKQM3LL9AxOAUg=='); --wasd999
+INSERT INTO users VALUES ('momnpa10', 'Em1bPVGih4G6LdPb7RoCxOoiiYsGYWJKxnu/nWOtkttgdZJkdOBlz2MrHP9+KIoAQP3CMy/jln3kbru/QYGrBw=='); --wasd000
+INSERT INTO users VALUES ('momnpa11', 'w+5trOC6DEnI056foLSAI3Vz1m/X/2PwafOJTje1GVOdRxQJ88EIX+6BWkxwgsnoF5vA9SCgtD2vrbTzf9hEKQ=='); --wasd111
+INSERT INTO users VALUES ('momnpa12', 'uAsyi7btPhRgYy3PQAHE+l11msDGr07Ew3Xw83SLr2IjFc248lMR9A4aSSYwUiYseHnV6CWFWNV2lXek+oIvtg=='); --wasd222
+INSERT INTO users VALUES ('momnpa13', 'lMeJVmEpOC5QHHa9c30jOP58vzkPfpYb18w533OZs0aX6ZUuxjDRdwhQovPPqpxOmbyQkPNwbSJZO4o6pGwVPQ=='); --wasd333
+INSERT INTO users VALUES ('momnpa14', 'BHWBBgNkeRH7TMkKcPGf5oA1niaGWcMF0gDVy1i4JQfEiFoSqxzKUU5Tn3bAUl6CBY/cn7X/b/8PpTcpZ5k1Fw=='); --wasd444
+INSERT INTO users VALUES ('momnpa15', 'eV52pW1Jm8GGiAdt7ljtp7vaOhxSZTHdlVgQHvmoN6IeQGnv4qu/v2kml6RaVytlZ1hz9YGOwDte2pu5E5KenA=='); --wasd555
+INSERT INTO users VALUES ('gamemanager1', '8uO+Sh1Bt5uC8+wxPyINfgHRcNyrfE2NmeQKY0/ze9G1CvdBNSEOtA2L8ccfCCEwIQ2LdQJlYS/NNbby1M5xzg=='); --cowrun
+INSERT INTO users VALUES ('gamemanager2', '8uO+Sh1Bt5uC8+wxPyINfgHRcNyrfE2NmeQKY0/ze9G1CvdBNSEOtA2L8ccfCCEwIQ2LdQJlYS/NNbby1M5xzg=='); --cowrun
+INSERT INTO users VALUES ('gamemanager3', '8uO+Sh1Bt5uC8+wxPyINfgHRcNyrfE2NmeQKY0/ze9G1CvdBNSEOtA2L8ccfCCEwIQ2LdQJlYS/NNbby1M5xzg=='); --cowrun
+INSERT INTO users VALUES ('annonymous1', '4qMBvokwQ29sUbRyt5ra2Qkt006V4AH6dyYDyYe/L9gMyZ5F6UZYNdkwFe/StqgKbGMSriTEZCNJ66kxWmFDvg=='); --whoishe
+INSERT INTO users VALUES ('annonymous2', 'dISPktQ/6o4JY97H1L6ENgMf65vLSsHUcWoux2lKN43Uyj/xcFFfuzThk9xJUZKHSNVNoty1IenXUov44zGOxg=='); --whoisshe
 
 --owns
 INSERT INTO owns VALUES ('kimjhyun0001', 'lifeUp', 3);

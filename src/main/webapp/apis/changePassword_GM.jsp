@@ -16,6 +16,7 @@
     JSONObject jsonObj = Utils.getJsonFromRequest(request);
     String id = (String)jsonObj.get("id");
     String pwNew = (String)jsonObj.get("pwNew");
+    pwNew = Utils.getSha512(pwNew);
 
     if(id==null || pwNew==null){
         response.setStatus(401);
