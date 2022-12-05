@@ -301,10 +301,8 @@ public class CharacterDAO extends DAO{
             String sql = "DELETE FROM Characters WHERE characterid = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, characterID);
-            int deleteResult = pstmt.executeUpdate();
-            if(deleteResult == 1){
-                result = true;
-            }
+            boolean deleteResult = pstmt.execute();
+            return deleteResult;
         }catch(Exception e){
             e.printStackTrace();
         }finally{
