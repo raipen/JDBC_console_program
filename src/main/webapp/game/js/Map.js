@@ -19,6 +19,9 @@ export default class Map{
         await this.setMapInfo();
         await this.setBases();
         await this.setHurdles();
+        this.bases.push({x:-1,y:-10,width:1,height:this.mapInfo.height+10});
+        this.bases.push({x:0,y:-10,width:this.mapInfo.width+1,height:1});
+        this.bases.push({x:this.mapInfo.width,y:-10,width:1,height:this.mapInfo.height+10});
     }
 
     async setMapInfo(){

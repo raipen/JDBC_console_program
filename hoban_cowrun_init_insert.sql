@@ -919,11 +919,6 @@ INSERT INTO hurdles VALUES ('19980009', '8', 106, 25, 1, 1, 'red', 1);
 INSERT INTO hurdles VALUES ('19980009', '9', 122, 28, 1, 1, 'red', 1);
 INSERT INTO hurdles VALUES ('19980009', '10', 110, 31, 1, 2, 'red', 1);
 INSERT INTO hurdles VALUES ('19980009', '11', 68, 21, 1, 2, 'red', 1);
-INSERT INTO hurdles VALUES ('19980009','12', 14, 24, 1, 2, 'red', 1);
-INSERT INTO hurdles VALUES ('19980009','13', 41, 17, 1, 2, 'red', 1);
-INSERT INTO hurdles VALUES ('19980009','14', 55, 11, 1, 2, 'red', 1);
-INSERT INTO hurdles VALUES ('19980009','15', 70, 6, 1, 2, 'red', 1);
-INSERT INTO hurdles VALUES ('19980009','2', 28, 55, 1, 2, 'red', 1);
 
 INSERT INTO records VALUES ('00020001', '19980003', RECORD_SEQ.NEXTVAL, 128287);
 INSERT INTO records VALUES ('01140001', '19980009', RECORD_SEQ.NEXTVAL, 47751);
